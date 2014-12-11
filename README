@@ -1,0 +1,22 @@
+The goal of this project is to aid in learning design pattern concepts using an expression tree processor as the example program.
+
+This project uses a video series presented by Douglas Schmidt available on YouTube as a basis for concept, design, and work flow. Schmidt uses the example to cover several design patterns from the book 'Design Patterns: Elements of Reusable Object-Oriented Software', (Gang of Four).
+
+I shall attempt to follow this series as a guide for writing code that leans heavily on common design patterns. I have not yet seen Schmidt's coded solution to the test case and most of the code samples available through out the videos are written in c++. I shall attempt to write the application using java. Since java uses a garbage collection mechanism for memory management, Schmidt suggests that Bridge pattern may be omitted. To achieve my goals for this exercise, I shall attempt to implement the Bridge pattern along with all the other patterns described in my version of the test case.
+
+The application receives an input expression from the user. It then interprets the expression and forms a binary tree structure. The user can then run several commands upon the structure to print and evaluate the expression. The program has two modes of opperation. The first mode, succinct mode, evaluates a given expression using default parameters. The second, verbose, allows the user to control how the expression is to be evaluated (ie infix, prefix, postfix) and can continue to run until the user quits the application.
+
+My first step is to design the appropriate data structures. Each data element in the tree structure is a node, either a branch node or a leaf node. Leaf nodes appear as numbers, while branch nodes are a process to be performed on its child nodes. A branch node may have one child (ie a unary opperation like negation) or it may have two child nodes. The child nodes of a branch node may be either branch nodes or leaf nodes.
+
+       *
+      / \
+    /     \
+   -       +
+     \    / \
+      5  3   4
+
+Because of the similarities in the different elements of data and since each data element should be accessible in a uniform way, a Composite pattern is to be used to implement the data model for the application.
+The implementation of the various elements are distinct, yet should be executed in a uniform way. The Bridge pattern shall be use to sepparate the abstraction (ie iteration) from the implementation.
+
+
+
