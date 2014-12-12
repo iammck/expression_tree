@@ -6,6 +6,7 @@ I shall attempt to follow this series as a guide for writing code that leans hea
 
 The application receives an input expression from the user. It then interprets the expression and forms a binary tree structure. The user can then run several commands upon the structure to print and evaluate the expression. The program has two modes of opperation. The first mode, succinct mode, evaluates a given expression using default parameters. The second, verbose, allows the user to control how the expression is to be evaluated (ie infix, prefix, postfix) and can continue to run until the user quits the application.
 
+-Tree Structure and Access
 My first step is to design the appropriate data structures. Each data element in the tree structure is a node, either a branch node or a leaf node. Leaf nodes appear as numbers, while branch nodes are a process to be performed on its child nodes. A branch node may have one child (ie a unary opperation like negation) or it may have two child nodes. The child nodes of a branch node may be either branch nodes or leaf nodes.
 
        *
@@ -15,8 +16,9 @@ My first step is to design the appropriate data structures. Each data element in
      \    / \
       5  3   4
 
-Because of the similarities in the different elements of data and since each data element should be accessible in a uniform way, a Composite pattern is to be used to implement the data model for the application.
-The implementation of the various elements are distinct, yet should be executed in a uniform way. The Bridge pattern shall be use to sepparate the abstraction (ie iteration) from the implementation.
+Because of the similarities in the different elements of data and since each data element should be accessible in a uniform way, a Composite pattern is to be used to implement the data model for the application. The Composite pattern consists of the Component, Composite and leaf node elements. The Component is the base class which both composite and leaf nodes extend. A leaf has no children extending component, where as the composite does have child objects extending the component. 
+In this case the component is a node, the nodes representing processes are composite (having one ore two child nodes) and the nodes representing numbers are the leaves.  Each node has an item (ie a number, plus, minus, etc), a left and right child node, as well as an accept() method to be used to interact with the node via the visitor pattern.
+The implementation of the various elements are distinct, yet should be accessed in a uniform way. The Bridge pattern shall be use to sepparate the abstraction from the implementation. In this way interaction with each node can be accessed in a uniform way.
 
 
 
