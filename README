@@ -7,7 +7,7 @@ I shall attempt to follow this series as a guide for writing code that leans hea
 The application receives an input expression from the user. It then interprets the expression and forms a binary tree structure. The user can then run several commands upon the structure to print and evaluate the expression. The program has two modes of opperation. The first mode, succinct mode, evaluates a given expression using default parameters. The second, verbose, allows the user to control how the expression is to be evaluated (ie infix, prefix, postfix) and can continue to run until the user quits the application.
 
 -Tree Structure and Access
-My first step is to design the appropriate data structures. Each data element in the tree structure is a node, either a branch node or a leaf node. Leaf nodes appear as numbers, while branch nodes are a process to be performed on its child nodes. A branch node may have one child (ie a unary opperation like negation) or it may have two child nodes. The child nodes of a branch node may be either branch nodes or leaf nodes.
+My first step is to design the appropriate data structures. Each data element in the tree structure is a node, either a branch node or a leaf node. Leaf nodes appear as numbers, while branch nodes are as processes to be performed on its child nodes. A branch node may have one child (ie a unary opperation like negation) or it may have two child nodes. The child nodes of a branch node may be either branch nodes or leaf nodes.
 
        *
       / \
