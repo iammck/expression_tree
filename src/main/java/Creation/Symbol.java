@@ -7,4 +7,14 @@ public abstract class Symbol {
 	public Symbol(InterpreterContext context){
 		this.context = context;
 	}
+	
+	private String symbol;
+	
+	public void setSymbolString(String symbol){
+		this.symbol = symbol;
+	}
+	
+	public string getSymbolStrung(){
+		return symbol;
+	}
 }

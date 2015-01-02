@@ -1,23 +1,28 @@
 import java.util.*;
 
-public class Interpreter [
+public class Interpreter {
 	public ExpressionTree interpret(InterperterContext context, String input){
 		
-		InterpreterContext context = new InterpreterContext();
-		List<Symbol> accumOperators = new ArrayList<Symbol>();
+		List<Operator> accumOperators = new ArrayList<Operator>();
 		List<Symbol> parsedList = new ArrayList<Symbol>();
-		List<String> symbolList = getSymbolList(input);
-		
+
 		for(String symbol; inputList){
+			Symbol prevItem;
 			//if the symbol is a number
 			if (isNumber(symbol)){
 				Number number = new Number();
-				number.setNumber(number);
+				number.setSymbol(number);
 				number.interpret(parseTree);
-			// else if symbol is an operator
-			} else if (isOperator(symbol)){
+				prevItem = number;
+			// else if item is a unary operator
+			} else if (isUnaryOperator(item, prevItem)){
+				UnaryOperator operator = new Negate();
+				operator.addToAccumOperators(accumOperators);
+				prevItem = operator;
+			// else if symbol is a binary operator
+			} else if (isBinaryOperator(symbol)){
 				// create the right operator
-				Operator operator = null;
+				BinaryOperator operator = null;
 				if (item.equals("+")){
 					operator = new Add();
 				} else if (item.equals("-")){
@@ -28,21 +33,21 @@ public class Interpreter [
 					operator = new Divide();
 				}
 				operator.addToAccumOperators(accumOperators);
-			// else if item is a unary operator
-			} else if ( isUnaryOperator(item)){
-				Symbol operator = new Negate();
-				operator.addToAccumOperators(accumOperators);
+				prevItem = operator;
 			// else if item is a parenthesis
 			} else if ( isParenthesis(item)){
-				Symbol operator = new parenthesis();
-				operator.interpret(parseTree, accumOperators);
+				Parenthesis operator = new parenthesis();
+				operator.interpret(parseList, accumOperators);
+				prevItem = operator;
 			}
 		}
-		// If accumOperators is not null,  attempt interpret.
-		if (accumOperators.size() > 0){
-			Symbol op = accumOperators.get(accumOperators.size()-1);
-			
-		return null;
+		// If accumOperators greater than 1, attempt interpret. Handle time out?
+		while (accumOperators.size() > 1){
+			Operator op = accumOperators.get(accumOperators.size()-1);
+			interprete(parseList);
+		}
+		// TODO build the expression tree from parse tree and return it.
+		return expressionTree;
 	}
 	
 	private List<String> getInputArray(String input){
@@ -59,7 +64,7 @@ public class Interpreter [
 		}
 	}
 	
-	private boolean isOperator(String item){
+	private boolean isBinaryOperator(String item){
 		if(item.equals("+") || item.equals("-") 
 			|| item.equals("*") || item.equals("/")){
 			return true;
@@ -67,15 +72,25 @@ public class Interpreter [
 		return false;
 	}
 	
-	private void insertOperator(Symbol symbol, List<Symbol> parseTree){
+	private boolean isUnaryOperator(String prevItem, String item){
 		
-		
+		if (item.equals("-") && (prevItem != null || !isNumber(prevItem)){
+			return true;
+		} else {
+			return false;
+		}
 	}
-
+	
+	private boolean isParenthesis(String item){
+		if (item.equals("(") || item.equals(")")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public void handleParenthesis(IterpreterContext context, String input, 
 		List<Symbol> accumulatedPrecedence, List<Symbol> parseTree){
-		
-	}
-		
-	
+		// TODO		
+	}	
 }
