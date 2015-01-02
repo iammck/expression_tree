@@ -11,13 +11,13 @@ public class Interpreter [
 		for(String symbol; inputList){
 			//if the symbol is a number
 			if (isNumber(symbol)){
-				Symbol number = new Number();
+				Number number = new Number();
 				number.setNumber(number);
 				number.interpret(parseTree);
 			// else if symbol is an operator
 			} else if (isOperator(symbol)){
 				// create the right operator
-				Symbol operator = null;
+				Operator operator = null;
 				if (item.equals("+")){
 					operator = new Add();
 				} else if (item.equals("-")){
@@ -38,7 +38,10 @@ public class Interpreter [
 				operator.interpret(parseTree, accumOperators);
 			}
 		}
-		// TODO if accumPrecedence not null,  attempt interpret.
+		// If accumOperators is not null,  attempt interpret.
+		if (accumOperators.size() > 0){
+			Symbol op = accumOperators.get(accumOperators.size()-1);
+			
 		return null;
 	}
 	
