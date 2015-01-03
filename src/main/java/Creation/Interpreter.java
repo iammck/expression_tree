@@ -2,49 +2,52 @@ import java.util.*;
 
 public class Interpreter {
 	public ExpressionTree interpret(InterperterContext context, String input){
-		
-		List<Operator> accumOperators = new ArrayList<Operator>();
-		List<Symbol> parsedList = new ArrayList<Symbol>();
-
+		// List of accumulated symbols waiting to be put in parsed list.
+		List<Symbol> accumSymbols = new ArrayList<Symbol>();
+		List<Symbol> parsedSymbols = new ArrayList<Symbol>();
+		// Keep track of last symbol for uniary minus.
+		Symbol prevSymbol = null;
 		for(String symbol; inputList){
-			Symbol prevItem;
 			//if the symbol is a number
 			if (isNumber(symbol)){
 				Number number = new Number();
 				number.setSymbol(number);
-				number.interpret(parseTree);
+				number.addToSymbols(parsedSymbols, accumSymbols);
 				prevItem = number;
 			// else if item is a unary operator
-			} else if (isUnaryOperator(item, prevItem)){
-				UnaryOperator operator = new Negate();
-				operator.addToAccumOperators(accumOperators);
-				prevItem = operator;
+			} else if (isUnaryOperator(symbol, prevSymbol)){
+				UnaryOperator unaryOperator = new Negate();
+				unaryOperator.setSymbol(symbol);
+				unaryOperator.addToSymbols(parsedSymbols, accumSymbols);
+				prevItem = unaryOperator;
 			// else if symbol is a binary operator
 			} else if (isBinaryOperator(symbol)){
 				// create the right operator
-				BinaryOperator operator = null;
-				if (item.equals("+")){
-					operator = new Add();
+				BinaryOperator binaryOperator = null;
+				if (symbol.equals("+")){
+					binaryOperator = new Add();
 				} else if (item.equals("-")){
-					operator = new Subtract();
+					binaryOperator = new Subtract();
 				} else if (item.equals("*")){
-					operator = new Multiply();
+					binaryOperator = new Multiply();
 				} else if (item.equals("/")){
-					operator = new Divide();
+					binaryOperator = new Divide();
 				}
-				operator.addToAccumOperators(accumOperators);
-				prevItem = operator;
+				binaryOperator.setSymbol(symbol);
+				binaryOperator.addToSymbols(parsedSymbols, accumSymbols);
+				prevItem = binaryOperator;
 			// else if item is a parenthesis
-			} else if ( isParenthesis(item)){
-				Parenthesis operator = new parenthesis();
-				operator.interpret(parseList, accumOperators);
-				prevItem = operator;
+			} else if ( isParenthesis(symbol)){
+				Parenthesis parenthesis = new parenthesis();
+				parenthesis.setSymbol(symbol);
+				parenthesis.addToSymbols(parsedSymbols, accumSymbols);
+				prevItem = parenthesis;
 			}
 		}
 		// If accumOperators greater than 1, attempt interpret. Handle time out?
-		while (accumOperators.size() > 1){
-			Operator op = accumOperators.get(accumOperators.size()-1);
-			interprete(parseList);
+		while (accumSymbols.size() > 1){
+			Symbol op = accumSymbols.get(accumSymbols.size()-1);
+			op.interprete(parsedSymbols);
 		}
 		// TODO build the expression tree from parse tree and return it.
 		return expressionTree;
@@ -73,8 +76,7 @@ public class Interpreter {
 	}
 	
 	private boolean isUnaryOperator(String prevItem, String item){
-		
-		if (item.equals("-") && (prevItem != null || !isNumber(prevItem)){
+		if (item.equals("-") && (prevItem == null || prevItem.equals("(") )){
 			return true;
 		} else {
 			return false;
@@ -87,10 +89,5 @@ public class Interpreter {
 		} else {
 			return false;
 		}
-	}
-	
-	public void handleParenthesis(IterpreterContext context, String input, 
-		List<Symbol> accumulatedPrecedence, List<Symbol> parseTree){
-		// TODO		
 	}	
 }

@@ -1,11 +1,11 @@
-public class Multiply extends Operator {
-	public boolean hasLessOrEqualPrecedenceOver(Operator otherOperator){
-		String otherSymbol = otherOperator.getSymbol;
-		if (otherSymbol.equals("*") || otherSymbol.equals("/")
-			|| otherSymbol.equals("+") || otherSymbol.equals("-"){
-				return true;
-		} else {
-			return false;
+public class Multiply extends BinaryOperator {
+	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
+		if ( (otherSymbol instanceof Parenthesis)
+			|| (otherSymbol instanceof Negate)
+			|| (otherSymbol instanceof Multiply)
+			|| (otherSymbol instanceof Divide)){
+			return true;
 		}
+		return false;
 	}
 }

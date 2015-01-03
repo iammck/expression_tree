@@ -1,10 +1,9 @@
-public class Add extends Operator {	
-	public boolean hasLessOrEqualPrecedenceOver(Operator otherOperator){
-		String otherSymbol = otherOperator.getSymbol;
-		if (otherSymbol.equals("+") || otherSymbol.equals("-"){
+public class Add extends BinaryOperator {	
+	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
+		if ( (otherSymbol instanceof Add)
+			|| (otherSymbol instanceof Subtract)){
 				return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 }
