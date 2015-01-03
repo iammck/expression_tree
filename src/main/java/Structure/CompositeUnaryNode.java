@@ -2,11 +2,15 @@ public abstract class CompositeUnaryNode implements ComponentNode {
 	
 	private ComponentNode rightChild;
 	
-	public CompositeUnaryNode(ComponentNode rightChild){
-		this.rightChild = rightChild;
+	public CompositeUnaryNode(ComponentNode rightNode){
+		rightChild = rightNode;
 	}
 	
-	ComponentNode getRightChild(){
+	public ComponentNode getLeftChild(){
+		return null;
+	}
+	
+	public ComponentNode getRightChild(){
 		return rightChild;
 	}
 }

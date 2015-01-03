@@ -1,13 +1,13 @@
-public abstract class CompositeBinaryNode extends CompositeUniaryNode {
+public abstract class CompositeBinaryNode extends CompositeUnaryNode {
 	
 	private ComponentNode leftChild;
 	
 	public CompositeBinaryNode(ComponentNode rightNode, ComponentNode leftNode){
 		super(rightNode);
-		this.leftNode = leftNode;
+		leftChild = leftNode;
 	}
 	
-	ComponentNode getLeftChild(){
+	public ComponentNode getLeftChild(){
 		return leftChild;
 	}	
 }

@@ -1,0 +1,12 @@
+-d bin
+-cp bin
+.\src\main\java\Structure\ComponentNode.java
+.\src\main\java\Structure\LeafNode.java
+.\src\main\java\Structure\CompositeUnaryNode.java
+.\src\main\java\Structure\CompositeBinaryNode.java
+.\src\main\java\Structure\NegateCompositeUnaryNode.java
+.\src\main\java\Structure\DivideCompositeBinaryNode.java
+.\src\main\java\Structure\MultiplyCompositeBinaryNode.java
+.\src\main\java\Structure\PlusCompositeBinaryNode.java
+.\src\main\java\Structure\SubtractCompositeBinaryNode.java
+.\src\main\java\Structure\ExpressionTree.java

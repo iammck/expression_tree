@@ -10,11 +10,11 @@ public class LeafNode implements ComponentNode {
 		return item;	
 	}
 	
-	ComponentNode getLeftChild(){
+	public ComponentNode getLeftChild(){
 		return null;
 	}
 	
-	ComponentNode getRightChild(){
+	public ComponentNode getRightChild(){
 		return null;
 	}
 }

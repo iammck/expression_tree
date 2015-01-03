@@ -7,10 +7,10 @@ public abstract class Operator extends Symbol {
 	 */
 	public void addToSymbols(List<Symbol> parsedSymbols, List<Symbol> accumSymbols){		
 		// while there are accumulated opperators
-		while ( accumOperators.size() > 0){
+		while ( accumSymbols.size() > 0){
 			// get last opperation using an index.
-			int index = accumOperators.size() - 1;
-			Symbol lastOp = accumOperators.get(index);
+			int index = accumSymbols.size() - 1;
+			Symbol lastOp = accumSymbols.get(index);
 			// if this does not have less or equal 
 			// precedence over last op, interprete.
 			if (!hasLessOrEqualPrecedenceOver(lastOp)){
@@ -26,6 +26,6 @@ public abstract class Operator extends Symbol {
 			}			
 		}		
 		// put this on accumOperators.
-		accumOperators.add(this);
+		accumSymbols.add(this);
 	}	
 }

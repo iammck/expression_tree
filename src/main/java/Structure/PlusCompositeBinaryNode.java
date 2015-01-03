@@ -1,6 +1,6 @@
 public class PlusCompositeBinaryNode extends CompositeBinaryNode {
 		
-	public CompositeBinaryNode(ComponentNode rightNode, ComponentNode leftNode){
+	public PlusCompositeBinaryNode(ComponentNode rightNode, ComponentNode leftNode){
 		super(rightNode, leftNode);
 	}
 	
