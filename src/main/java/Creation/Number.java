@@ -1,4 +1,11 @@
+import java.util.List;
+
 public class Number extends Symbol {
+	
+	public ComponentNode build(){
+		return new LeafNode(getSymbol());
+	}
+	
 	public boolean interpret(List<Symbol> parsedList){
 		return true;
 	}	

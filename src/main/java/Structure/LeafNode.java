@@ -1,12 +1,12 @@
 public class LeafNode implements ComponentNode {
 	
-	private int item;
+	private String item;
 	
-	public LeafNode(int item){
+	public LeafNode(String item){
 		this.item = item;
 	}
 	
-	public int getItem(){
+	public String getItem(){
 		return item;	
 	}
 	

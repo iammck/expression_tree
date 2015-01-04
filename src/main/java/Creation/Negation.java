@@ -1,9 +1,13 @@
-public class Negate extends UnaryOperator {
+public class Negation extends UnaryOperator {
+	
+	public ComponentNode build(){
+		return new NegationCompositeUnaryNode( rightItem.build());
+	}
+	
 	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
-		String otherSymbol = otherSymbol.getSymbol;
 		// if parenthesis or negaite
 		if ( otherSymbol instanceof Parenthesis
-			|| otherSymbol instanceof Negate ){
+			|| otherSymbol instanceof Negation ){
 			return true;
 		} else {
 			return false;

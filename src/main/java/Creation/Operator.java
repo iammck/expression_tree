@@ -1,5 +1,6 @@
-public abstract class Operator extends Symbol {	
-	
+import java.util.List;
+
+public abstract class Operator extends Symbol {		
 	/*
 	 * Adds this operator instance to the accumulated operators list just after
 	 * attepting to interprete any preveous operaton of equal or less precedence.

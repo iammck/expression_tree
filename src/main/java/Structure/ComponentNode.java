@@ -1,6 +1,6 @@
 public interface ComponentNode {
-	int getItem();
-	ComponentNode getRightChild();
+	String getItem();
 	ComponentNode getLeftChild();
+	ComponentNode getRightChild();
 }
 

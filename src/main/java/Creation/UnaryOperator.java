@@ -1,5 +1,7 @@
-public class UnaryOperator extends Symbol {
-	Symbol rightItem;
+import java.util.List;
+
+public abstract class UnaryOperator extends Operator {
+	protected Symbol rightItem;
 	
 	/*
 	 * If there is a symbols in the parseArray, this instance will use it

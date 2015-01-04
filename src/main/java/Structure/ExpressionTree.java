@@ -6,7 +6,7 @@ public class ExpressionTree {
 		this.root = root;
 	}
 	
-	int getItem(){
+	public String getItem(){
 		return root.getItem();
 	}
 	

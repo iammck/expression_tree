@@ -1,12 +1,28 @@
 -d bin
 -cp bin
+
 .\src\main\java\Structure\ComponentNode.java
 .\src\main\java\Structure\LeafNode.java
 .\src\main\java\Structure\CompositeUnaryNode.java
 .\src\main\java\Structure\CompositeBinaryNode.java
-.\src\main\java\Structure\NegateCompositeUnaryNode.java
-.\src\main\java\Structure\DivideCompositeBinaryNode.java
-.\src\main\java\Structure\MultiplyCompositeBinaryNode.java
-.\src\main\java\Structure\PlusCompositeBinaryNode.java
-.\src\main\java\Structure\SubtractCompositeBinaryNode.java
+.\src\main\java\Structure\NegationCompositeUnaryNode.java
+.\src\main\java\Structure\DivisionCompositeBinaryNode.java
+.\src\main\java\Structure\MultiplicationCompositeBinaryNode.java
+.\src\main\java\Structure\AdditionCompositeBinaryNode.java
+.\src\main\java\Structure\SubtractionCompositeBinaryNode.java
 .\src\main\java\Structure\ExpressionTree.java
+
+.\src\main\java\Creation\Symbol.java
+.\src\main\java\Creation\Number.java
+.\src\main\java\Creation\Parenthesis.java
+.\src\main\java\Creation\Operator.java
+.\src\main\java\Creation\UnaryOperator.java
+.\src\main\java\Creation\Negation.java
+.\src\main\java\Creation\BinaryOperator.java
+.\src\main\java\Creation\Addition.java
+.\src\main\java\Creation\Subtraction.java
+.\src\main\java\Creation\Multiplication.java
+.\src\main\java\Creation\Division.java
+.\src\main\java\Creation\InterpreterContext.java
+.\src\main\java\Creation\Interpreter.java
+

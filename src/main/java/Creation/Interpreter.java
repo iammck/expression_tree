@@ -1,61 +1,132 @@
 import java.util.*;
 
 public class Interpreter {
-	public ExpressionTree interpret(InterperterContext context, String input){
+	public ExpressionTree interpret(InterpreterContext context, String input){
 		// List of accumulated symbols waiting to be put in parsed list.
 		List<Symbol> accumSymbols = new ArrayList<Symbol>();
 		List<Symbol> parsedSymbols = new ArrayList<Symbol>();
-		// Keep track of last symbol for uniary minus.
-		Symbol prevSymbol = null;
-		for(String symbol; inputList){
+		List<String> inputList = getInputList(input);
+		// Keep track of last symbol for uniary operators.
+		String prevItem = null;
+		for(String item: inputList){
+			Symbol result = null;
 			//if the symbol is a number
-			if (isNumber(symbol)){
-				Number number = new Number();
-				number.setSymbol(number);
-				number.addToSymbols(parsedSymbols, accumSymbols);
-				prevItem = number;
+			if (isNumber(item)){
+				result = new Number();
 			// else if item is a unary operator
-			} else if (isUnaryOperator(symbol, prevSymbol)){
-				UnaryOperator unaryOperator = new Negate();
-				unaryOperator.setSymbol(symbol);
-				unaryOperator.addToSymbols(parsedSymbols, accumSymbols);
-				prevItem = unaryOperator;
+			} else if (isUnaryOperator(item, prevItem)){
+				// only unary is negation.
+				result = new Negation();
 			// else if symbol is a binary operator
-			} else if (isBinaryOperator(symbol)){
+			} else if (isBinaryOperator(item)){
 				// create the right operator
 				BinaryOperator binaryOperator = null;
-				if (symbol.equals("+")){
-					binaryOperator = new Add();
+				if (item.equals("+")){
+					binaryOperator = new Addition();
 				} else if (item.equals("-")){
-					binaryOperator = new Subtract();
+					binaryOperator = new Subtraction();
 				} else if (item.equals("*")){
-					binaryOperator = new Multiply();
+					binaryOperator = new Multiplication();
 				} else if (item.equals("/")){
-					binaryOperator = new Divide();
+					binaryOperator = new Division();
 				}
-				binaryOperator.setSymbol(symbol);
+				binaryOperator.setSymbol(item);
 				binaryOperator.addToSymbols(parsedSymbols, accumSymbols);
-				prevItem = binaryOperator;
 			// else if item is a parenthesis
-			} else if ( isParenthesis(symbol)){
-				Parenthesis parenthesis = new parenthesis();
-				parenthesis.setSymbol(symbol);
+			} else if ( isParenthesis(item)){
+				Parenthesis parenthesis = new Parenthesis();
+				parenthesis.setSymbol(item);
 				parenthesis.addToSymbols(parsedSymbols, accumSymbols);
-				prevItem = parenthesis;
 			}
+			result.setSymbol(item);
+			result.addToSymbols(parsedSymbols, accumSymbols);
+
+			prevItem = item;
 		}
 		// If accumOperators greater than 1, attempt interpret. Handle time out?
 		while (accumSymbols.size() > 1){
 			Symbol op = accumSymbols.get(accumSymbols.size()-1);
-			op.interprete(parsedSymbols);
+			op.interpret(parsedSymbols);
 		}
-		// TODO build the expression tree from parse tree and return it.
-		return expressionTree;
+		// build the expression tree from parse tree and return it.
+		ComponentNode rootNode = 
+				accumSymbols.get(accumSymbols.size()-1).build();
+		return new ExpressionTree(rootNode);
 	}
 	
-	private List<String> getInputArray(String input){
-		// TODO
-		return null;
+	private List<String> getInputList(String input){
+		// Itterate through the list one
+		List<String> result = new ArrayList<String>();
+		int inputLength = input.length();
+		int index = 0; 
+		while (index < inputLength){
+			// Get next symbol
+			index = getNextSymbol(index, input, result);
+		}		
+		return result;
+	}
+	
+	private int getNextSymbol(int index, String input, List<String> output){
+		// The length of the input
+		int inputLength = input.length();
+		// char for the current character
+		char current;
+		// remove any while space
+		while (index < inputLength && isWhiteSpace(input.charAt(index))){
+			index +=1;
+		}
+		// if the index is out of bounds, return.
+		if (index >= inputLength){
+			return index;
+		}
+		current = input.charAt(index);
+		// if ch is a number or a period, get and return the next number.
+		if ( ((int) current >=48 && (int) current <= 57) 
+						|| (int) current == 46){
+			return getNextNumber(index, input, output);
+		} // Otherwise use a while loop to build up to a symbol
+		StringBuilder result = new StringBuilder();
+		while (inputLength < index){
+			result.append(input.charAt(index));
+			// is the result a valid symbol
+			if (isValidSymbol(result.toString())){
+				output.add(result.toString());
+				return index + 1;
+			}
+			index += 1;
+		}
+		return index;
+	}
+	
+	private boolean isWhiteSpace(char ch){
+		if (ch <= 32 || ch >= 127)
+			return true;
+		return false;
+	}
+	
+	private boolean isValidSymbol(String symbol){
+		// Atm, all symbols are a single char.
+		return true;
+	}
+	
+	private int getNextNumber(int index, String input, List<String> output){
+		StringBuilder result = new StringBuilder();
+		int inputLength = input.length();
+		while(index < inputLength){
+			char ch = input.charAt(index);
+			if (((int) ch >=48 && (int) ch <= 57)){
+				result.append(ch);
+			} else if ((int) ch == 46) {
+				result.append(ch);
+			} else {
+				break;
+			}
+			index += 1;
+		}
+		if (result.length() > 0){
+			output.add(result.toString());
+		}
+		return index;
 	}
 
 	private boolean isNumber(String item){
@@ -75,7 +146,7 @@ public class Interpreter {
 		return false;
 	}
 	
-	private boolean isUnaryOperator(String prevItem, String item){
+	private boolean isUnaryOperator(String item, String prevItem){
 		if (item.equals("-") && (prevItem == null || prevItem.equals("(") )){
 			return true;
 		} else {

@@ -1,6 +1,8 @@
-public abstract class BinaryOperator extends Symbol {	
-	Symbol leftItem;
-	Symbol rightItem;
+import java.util.List;
+
+public abstract class BinaryOperator extends Operator {	
+	protected Symbol leftItem;
+	protected Symbol rightItem;
 	
 	/*
 	 * If there are atleast two symbols in the parseArray, this instance will use
@@ -9,12 +11,12 @@ public abstract class BinaryOperator extends Symbol {
 	 */	
 	public boolean interpret(List<Symbol> parsedArray){
 		// if not enough symbols in parse array, need to wait.
-		if ( parseArray.size() < 2){
+		if ( parsedArray.size() < 2){
 			return false;
 		} else { // else grab last two digits, add this to parse array
-			rightItem = parseArray.remove(parseArray.size() - 1);
-			leftItem = parseArray.remove(parseArray.size() - 1);
-			parseArray.add(this);
+			rightItem = parsedArray.remove(parsedArray.size() - 1);
+			leftItem = parsedArray.remove(parsedArray.size() - 1);
+			parsedArray.add(this);
 			return true;
 		}
 	}
