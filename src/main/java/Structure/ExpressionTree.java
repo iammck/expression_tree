@@ -1,4 +1,4 @@
-public class ExpressionTree {
+public class ExpressionTree implements ComponentNode {
 	
 	ComponentNode root;
 	
