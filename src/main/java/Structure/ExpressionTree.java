@@ -10,11 +10,11 @@ public class ExpressionTree implements ComponentNode {
 		return root.getItem();
 	}
 	
-	ComponentNode getRightChild(){
+	public ComponentNode getRightChild(){
 		return root.getRightChild();
 	}
 	
-	ComponentNode getLeftChild(){
+	public ComponentNode getLeftChild(){
 		return root.getLeftChild();
 	}
 }
