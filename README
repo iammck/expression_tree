@@ -25,14 +25,14 @@ The implementation of the various elements are distinct, yet should be accessed 
 
 -ExpressionTree creation
 
-The expression tree is created using the interpreter and builder patterns. The interpreter patter is used to interpreted a string input into interpretable parts. The root of the interpretable parts then builds and expression tree with itself as the root node, then an ExpressionTree object is instantiated with the resulting expression tree. The interpreter input string must be an infix expression. How does one handle pre and post fix notational input? The interpreter class should be able to use the same Symbol derived classes for each input grammer. In addition to this problem I am considering grouping operators and how to implement them. For now the Parenthesis implementation of the Symbol class removes itself from the parsed List. so a phrases like 2*(3-4) and 2*3-4
+The expression tree is created using the interpreter and builder patterns. The interpreter patter is used to interpreted a string input into interpretable parts. The root of the interpretable parts then builds and expression tree with itself as the root node, then an ExpressionTree object is instantiated with the resulting expression tree. The interpreter input string must be an infix expression The algorithm used seems to be the shunting-yard algorithm. How does one handle pre and post fix notational input? The interpreter class should be able to use the same Symbol derived classes for each input grammer. In addition to this problem I am considering grouping operators and how to implement them. For now the Parenthesis implementation of the Symbol class removes itself from the parsed List. so a phrases like 2*(3-4) and 2*3-4
 looks like
 		  *			 -
 		 / \			/ \
 		2   -		       *   4
 		   / \		      / \
 		  3   4		     2   3
-At present in order rebuilding of the input give the same answer 2*3-4 for both trees. The parenthesis should be added when rebuilding into output string or calculated. The structure may be updated to include additional behavior for the parenthesis symbols by including a means of interpreting them in a desireable way into the paresedList then adding relevant node during the build() expression tree phase. At present I think the composite nodes to be added to the structure are the LeftGroupingComposite and the RightGroupingComposite. In example, a left parenthesis would have a LeftGroupingComponsite with a ( item, no left node, and a right node, where as a right parenthesis whould have a RightGroupingComposit with a ) item, a left node, and no right node. The second node does not behave like a unary node because it has a child node on the left. The above would look like 
+At present in order rebuilding of the input give the same answer 2*3-4 for both trees. The parenthesis should be added when rebuilding into output string or calculated. The structure may be updated to include additional behavior for the parenthesis symbols by including a means of interpreting them in a desireable way into the paresedList then adding relevant node during the build() expression tree phase. The end result may look like 
 		  *			
 		 / \			
 		2   (
@@ -42,7 +42,11 @@ At present in order rebuilding of the input give the same answer 2*3-4 for both 
 		    -		      
 		   / \		      
 		  3   4
-		  
+But then there is a problem when going from infix to expression tree, epression tree to prefix, prefix to expression tree, finally expression tree to infix. The parenthesis are lost and the initial equation does not equal the final equation.		  
+By always adding a '(' before a left traverse and adding a ')' after the right traverse the expression can be remade with redundant parenthesis. The above trees would be returned as (2*(3-4)) and ((2 * 3) - 4) which return the correct answer. Perhapse then the redundancies can be removed. 
+Additionally, iterating through the expression tree (next section) is supposed to happen without knowledge of the location within the tree. Users of the iterator will not know how the tree is being iterated so the iterator must perform the tracking and adding of the parenthesis by returning some kind of parenthesis ComponentNode when needed. 
+
+I think I will proceed as if the user of the iterator is suposed to be able to extrapolate how to to properly reform the expression and its parenthesis. If the user of the iterator is unable to add the parenthesis correctly, the Iterator will make the attempt.
 
 -Iteration
 Users of the expression tree should be able to iterate through it in various ways; in order, reverse order, level order. The project should have an iterator base class and use derived classes for each way the expression tree can be iterated.
