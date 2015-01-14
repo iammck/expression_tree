@@ -49,8 +49,14 @@ At the moment there is only one interpreter for creating the expression tree. Th
 -Visitor pattern.
 
 -Testing
-Test code is located at src\test\java
+Test code is located at src\test\java. Testing is done using JUnit. The
+jar for JUnit is in the lib folder. Another jar is necessary, hamcrest-core-1.3.jar. Testing from powershell may include several step.
 
-There is a testExpressionTreeStructure() method stub. It will test both the creation of concrete composite node objects and check compareToNode() to check precedence settings for the nodes..
+remove-item bin/*.class to get rid of any existing classes.
+javac `@argfile `@testargfile to recompile all classes.
+set-location bin
+java -classpass .`;../lib/* MyTestRunner to run the tests. this line includes the classpath for the bin and lib files.
+
+There is a single testCreateLeafNode() method stub. The method is curently failing.
 
 

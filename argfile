@@ -1,8 +1,11 @@
 -d bin
--cp bin
+-cp bin;lib
 
 .\src\main\java\Structure\ComponentNode.java
 .\src\main\java\Structure\LeafNode.java
+.\src\main\java\Structure\NumberLeafNode.java
+.\src\main\java\Structure\LeftParenthesisLeafNode.java
+.\src\main\java\Structure\RightParenthesisLeafNode.java
 .\src\main\java\Structure\CompositeUnaryNode.java
 .\src\main\java\Structure\CompositeBinaryNode.java
 .\src\main\java\Structure\NegationCompositeUnaryNode.java
@@ -27,4 +30,6 @@
 .\src\main\java\Creation\Interpreter.java
 
 .\src\main\java\Iteration\InOrderExpressionTreeIterator.java
+
+
 
