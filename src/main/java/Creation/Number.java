@@ -3,7 +3,7 @@ import java.util.List;
 public class Number extends Symbol {
 	
 	public ComponentNode build(){
-		return new LeafNode(getSymbol());
+		return new NumberLeafNode(getSymbol());
 	}
 	
 	public boolean interpret(List<Symbol> parsedList){

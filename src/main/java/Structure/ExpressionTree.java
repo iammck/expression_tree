@@ -17,4 +17,8 @@ public class ExpressionTree implements ComponentNode {
 	public ComponentNode getLeftChild(){
 		return root.getLeftChild();
 	}
+	
+	public int compareToNode(ComponentNode node){
+		return root.compareToNode(node);
+	}
 }

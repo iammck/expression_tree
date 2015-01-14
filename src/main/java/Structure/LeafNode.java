@@ -1,4 +1,4 @@
-public class LeafNode implements ComponentNode {
+public abstract class LeafNode implements ComponentNode {
 	
 	private String item;
 	

@@ -1,8 +1,8 @@
 The goal of this project is to aid in learning design pattern concepts using an expression tree processor as the example program.
 
-This project uses a video series presented by Douglas Schmidt available on YouTube as a basis for concept, design, and work flow. Schmidt uses the example to cover several design patterns from the book 'Design Patterns: Elements of Reusable Object-Oriented Software', (Gang of Four).
+This project uses a video series presented by Douglas Schmidt available on YouTube as a basis for concept, design, and work flow. Schmidt uses the example to cover several design patterns from the book 'Design Patterns: Elements of Reusable Object-Oriented Software', (Gang of Four) to produce an expression tree processor.
 
-I shall attempt to follow this series as a guide for writing code that leans heavily on common design patterns. I have not yet seen Schmidt's coded solution to the test case and most of the code samples available through out the videos are written in c++. I shall attempt to write the application using java. Since java uses a garbage collection mechanism for memory management, Schmidt suggests that Bridge pattern may be omitted. To achieve my goals for this exercise, I shall attempt to implement the Bridge pattern along with all the other patterns described in my version of the test case.
+I shall attempt to follow this series using it as a guide for writing code leaning heavily on common design patterns. I have not yet seen Schmidt's coded solution to the test case and most of the code samples available through out the videos are written in c++. I shall attempt to write the application using java. Since java uses a garbage collection mechanism for memory management, Schmidt suggests that Bridge pattern may be omitted. To achieve my goals for this exercise, I shall attempt to implement the Bridge pattern along with all the other patterns described in my version of the test case.
 
 I am using a file, argfile to aid the compiling process using the command
 	javac @argfile or javac `@argfile in power shell.
@@ -10,7 +10,7 @@ I am using a file, argfile to aid the compiling process using the command
 The application receives an input expression from the user. It then interprets the expression and forms a binary tree structure. The user can then run several commands upon the structure to print and evaluate the expression. The program has two modes of opperation. The first mode, succinct mode, evaluates a given expression using default parameters. The second, verbose, allows the user to control how the expression is to be evaluated (ie infix, prefix, postfix) and can continue to run until the user quits the application.
 
 -Tree Structure and Access
-My first step is to design the appropriate data structures. Each data element in the tree structure is a node, either a branch node or a leaf node. Leaf nodes appear as numbers, while branch nodes are as processes to be performed on its child nodes. A branch node may have one child (ie a unary opperation like negation) or it may have two child nodes. The child nodes of a branch node may be either branch nodes or leaf nodes.
+My first step is to design the appropriate data structures. Each data element in the tree structure is a node, either a branch node or a leaf node. Leaf nodes appear as numbers or parenthesis, while branch nodes are as processes to be performed on its child nodes. A branch node may have one child (ie a unary opperation like negation) or it may have two child nodes. The child nodes of a branch node may be either branch nodes or leaf nodes.
 
        *
       / \
@@ -20,28 +20,37 @@ My first step is to design the appropriate data structures. Each data element in
       5  3   4
 
 Because of the similarities in the different elements of data and since each data element should be accessible in a uniform way, a Composite pattern is to be used to implement the data model for the application. The Composite pattern consists of the Component, Composite and leaf node elements. The Component is the base class which both composite and leaf nodes extend. A leaf has no children extending component, where as the composite does have child objects extending the component. 
-In this case the component is a node, the nodes representing processes are composite (having one ore two child nodes) and the nodes representing numbers are the leaves.  Each node has an item (ie a number, plus, minus, etc), a left and right child node, as well as an accept() method to be used to interact with the node via the visitor pattern.
+A composite component is termed a node, the nodes representing processes are composite (having one ore two child nodes) and the nodes representing numbers and parenthesis are the leaves.  Each node has an item (ie a number, plus, minus, etc), a left and right child node, as well as an accept() method to be used to interact with the node via the visitor pattern.
 The implementation of the various elements are distinct, yet should be accessed in a uniform way. The Bridge pattern shall be use to sepparate the abstraction from the implementation. In this way interaction with each node can be accessed in a uniform way.
+In addition to the objects found in the Expression Tree, I have also made left and right parenthesis sub-classes of the LeafNode class. To achieve this, i have also created a NumberLeafNode class which extends LeafNode. Parenthesis are not stored in the expression tree and may not be needed to compute the tree, but to print the tree using an in-order traversal (such as to recreate an infix expression) the precedence between symbols must be (re)applies. To this end the InOrderExpressionTreeIterator class utilizes the symbels as possible return values. 
+At present, implementing the parenthesis seems to have placed additional overhead on the composite structure, introducing a new mehtod of each concrete class and implementing composite nodes taht are not part of the expression tree. Additionally, considering the name of the iterator, InOrderExpressionTreeIterator, suggests that it should simply do an inorder traversal of the tree and that it is the job of the client of the iterator to reinsert operator precedence. If the task were to be the job of the client, the client would still need to understand how to compare two nodes, but there wouldn't be a need for the left and right parenthesis as composite nodes and the iterator would be returning an accurate representation of the tree. Considering how the client is to compare (4+5)*(6+7), it may not be obvious how to reconstruct the approriate parenthesis. More about this in the Iteration section.
 
 -ExpressionTree creation
 
-The expression tree is created using the interpreter and builder patterns. The interpreter patter is used to interpreted a string input into interpretable parts. The root of the interpretable parts then builds and expression tree with itself as the root node, then an ExpressionTree object is instantiated with the resulting expression tree. The interpreter input string must be an infix expression The algorithm used seems to be the shunting-yard algorithm. How does one handle pre and post fix notational input? The interpreter class should be able to use the same Symbol derived classes for each input grammer. In addition to this problem I am considering grouping operators and how to implement them. For now the Parenthesis implementation of the Symbol class removes itself from the parsed List. so a phrases like 2*(3-4) and 2*3-4
+The expression tree is created using the interpreter and builder patterns. The interpreter patter is used to interpreted a string input into interpretable parts. The root of the interpretable parts then builds and expression tree with itself as the root node, then an ExpressionTree object is instantiated with the resulting expression tree. The interpreter input string must be an infix expression The algorithm used seems to be the shunting-yard algorithm. How does one handle pre and post fix notational input? The interpreter class should be able to use the same Symbol derived classes for each input grammer. 
+
+-Iteration
+Users of the expression tree should be able to iterate through it in various ways; in order, reverse order, level order. The project should have an iterator base class and use derived classes for each way the expression tree can be iterated.
+
+I am considering grouping operators and how to implement them. For now the Parenthesis implementation of the Symbol class removes itself from the parsed List. so a phrases like 2*(3-4) and 2*3-4
 looks like
 		  *			 -
 		 / \			/ \
 		2   -		       *   4
 		   / \		      / \
 		  3   4		     2   3
-but yield the same answer 2*3-4 for both trees when rebuilding the expression tree using the InfixItterator class. The parenthesis should be added when rebuilding into output string. 
-By always adding a '(' before a left traverse and adding a ')' after the right traverse the expression can be remade with redundant parenthesis. The above trees would be returned as (2*(3-4)) and ((2 * 3) - 4) which return the correct answer. Perhapse then the redundancies can be removed. 
-Additionally, iterating through the expression tree (next section) is supposed to happen without knowledge of the location within the tree. Users of the iterator may not know how the tree is being iterated so the specific infix order iterator could perform the tracking and adding of the parenthesis by returning some kind of parenthesis ComponentNode when needed. 
+but yield the same answer 2*3-4 for both trees when rebuilding the expression tree using in order traversal. The parenthesis should be added when rebuilding into output string so that operator precedence is preserved. 
+By always adding a '(' before a left traverse and adding a ')' after the right traverse the expression can be remade with redundant parenthesis. The above trees would be returned as (2*(3-4)) and ((2 * 3) - 4) which return the correct answer. 
+Additionally, iterating through the expression tree (next section) is supposed to happen without knowledge of the location within the tree. Users of the iterator may not know how the tree is being iterated so in-order iterator could perform the tracking and adding of the parenthesis by returning some kind of parenthesis ComponentNode when needed. By comparing the current node to its left child node during traversal, the parenthesis may be omited if the child has greater or equal value to the current node. 
 
 At the moment there is only one interpreter for creating the expression tree. This interpreter interpretes a grammer as an infix expression into an expression tree. I wonder how the expression tree would be effected by adding a left and right grouping component nodes to the epxression tree during creation. Users of both postfix and prefix interpreters and iterators would need to handle parenthesis, either by adding during creation or while using the expression tree with the iterator to match infix creation.
 
--Iteration
-Users of the expression tree should be able to iterate through it in various ways; in order, reverse order, level order. The project should have an iterator base class and use derived classes for each way the expression tree can be iterated.
 
 -Visitor pattern.
 
 -Testing
-Test code is located at src\test\java and at the moment includes only a main method and a stub for testing creation of an expression. It currently returns false so failing the tests!
+Test code is located at src\test\java
+
+There is a testExpressionTreeStructure() method stub. It will test both the creation of concrete composite node objects and check compareToNode() to check precedence settings for the nodes..
+
+

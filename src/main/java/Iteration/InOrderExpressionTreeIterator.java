@@ -2,9 +2,9 @@ import java.util.*;
 
 public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
 
-	// TODO This class must some how add parenthesis	
 	List<ComponentNode> pendingList;
 	ComponentNode current;
+	ComponentNode preveous;
 	
 	private InOrderExpressionTreeIterator(){}
 	
@@ -37,20 +37,24 @@ public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
 	
 	private void goLeft(){
 		while (current != null){
-			// if has a left child, add the ( ) to pending when needed
-			boolean hasLeftChild = 
-				(current.getLeftChild() != null) ? true: false;
-			if (hasLeftChild){
-				int rightParPos = lastIndexOfRightParenthesis() + 1; 
-				pendingList.add(rightParPos, new LeafNode(")"));
+			// Determine if needing parenthesis before decent
+			boolean needsParenthesis = false; 
+			ComponentNode child = current.getLeftChild();
+			// if left child exists and current has greater node value
+			if (child != null && current.compareToNode(child) > 0){
+				needsParenthesis = true;
+			}
+			if (needsParenthesis){
+				int rightParPos = lastIndexOfLeftParenthesis() + 1; 
+				pendingList.add(rightParPos, new RightParenthesisLeafNode());
 			}
 			// add the current to pending
-			int curPos = lastIndexOfRightParenthesis() + 1;
+			int curPos = lastIndexOfLeftParenthesis() + 1;
 			pendingList.add(curPos, current);
 			// if has a left child the the ( to pending after.
-			if (hasLeftChild){
-				int leftParPos = lastIndexOfRightParenthesis() + 1; 
-				pendingList.add(leftParPos, new LeafNode("("));
+			if (needsParenthesis){
+				int leftParPos = lastIndexOfLeftParenthesis() + 1; 
+				pendingList.add(leftParPos, new LeftParenthesisLeafNode());
 			}
 			// next
 			current = current.getLeftChild();
@@ -60,7 +64,7 @@ public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
 			current = pendingList.remove(0); // remove it!
 	}
 	
-	private int lastIndexOfRightParenthesis(){
+	private int lastIndexOfLeftParenthesis(){
 		int result = -1;
 		int pendingListSize = pendingList.size(); 
 		if (pendingListSize == 0){
@@ -69,7 +73,7 @@ public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
 		int index = 0;
 		// get the first as next for entrance into a while loop
 		ComponentNode next = pendingList.get(index);
-		while(next.getItem().equals("(")){
+		while(next instanceof LeftParenthesisLeafNode){
 			result = index;
 			index += 1;
 			if (index  >= pendingListSize){
