@@ -57,6 +57,7 @@ javac `@argfile `@testargfile to recompile all classes.
 set-location bin
 java -classpass .`;../lib/* MyTestRunner to run the tests. this line includes the classpath for the bin and lib files.
 
+The TestStructure class does several tests. First for creating each of the leaf nodes. There is also a method for creating each composite node with leaf node or composite node children and another for the NegationCompositeUnaryNode creation. The final test tests the ComponentNode compareToNode() method return values are correct for each of the concrete nodes compared to any other concrete node.
 There is a single testCreateLeafNode() method stub. The method is curently failing.
 
 
