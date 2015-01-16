@@ -1,7 +1,7 @@
 public class Division extends BinaryOperator {
 	public ComponentNode build(){
 		return new DivisionCompositeBinaryNode( 
-			leftItem.build(), rightItem.build());
+			leftSymbol.build(), rightSymbol.build());
 	}
 	
 	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){

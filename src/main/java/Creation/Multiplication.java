@@ -2,7 +2,7 @@ public class Multiplication extends BinaryOperator {
 	
 	public ComponentNode build(){
 		return new MultiplicationCompositeBinaryNode( 
-			leftItem.build(), rightItem.build());
+			leftSymbol.build(), rightSymbol.build());
 	}
 	
 	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){

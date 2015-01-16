@@ -11,16 +11,6 @@ public class TestStructure {
 	ComponentNode multiplication, division, 
 			addition, subtraction, negation;
 	
-	@BeforeClass
-	public static void beforeAllTests(){
-		
-	}
-	
-	@AfterClass
-	public static void afterAllTests(){
-		
-	}
-	
 	/**
 	 * Knowing that number leaf nodes can be created,
 	 * creates some leaf nodes to use with objects.
@@ -42,11 +32,6 @@ public class TestStructure {
 		addition  = new AdditionCompositeBinaryNode(three, four);
 		subtraction  = new SubtractionCompositeBinaryNode(three, four);
 		negation = new NegationCompositeUnaryNode(two);
-		
-	}
-	
-	@After
-	public void afterEachTest(){
 		
 	}
 	
@@ -325,9 +310,7 @@ public class TestStructure {
 		node = rightParenthesis;
 		checkCompareToNodeResultIsNegativeOne(node, greaterList);
 		checkCompareToNodeResultIsZero(node, equalList);
-		checkCompareToNodeResultIsPositiveOne(node, lesserList);
-		
-		
+		checkCompareToNodeResultIsPositiveOne(node, lesserList);		
 	}
 	
 	private void checkCompareToNodeResultIsNegativeOne(

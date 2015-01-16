@@ -1,7 +1,7 @@
 public class Negation extends UnaryOperator {
 	
 	public ComponentNode build(){
-		return new NegationCompositeUnaryNode( rightItem.build());
+		return new NegationCompositeUnaryNode( rightSymbol.build());
 	}
 	
 	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){

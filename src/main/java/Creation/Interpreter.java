@@ -12,7 +12,7 @@ public class Interpreter {
 			Symbol result = null;
 			//if the symbol is a number
 			if (isNumber(item)){
-				result = new Number();
+				result = new Number(item);
 			// else if item is a unary operator
 			} else if (isUnaryOperator(item, prevItem)){
 				// only unary is negation.
@@ -20,25 +20,19 @@ public class Interpreter {
 			// else if symbol is a binary operator
 			} else if (isBinaryOperator(item)){
 				// create the right operator
-				BinaryOperator binaryOperator = null;
 				if (item.equals("+")){
-					binaryOperator = new Addition();
+					result = new Addition();
 				} else if (item.equals("-")){
-					binaryOperator = new Subtraction();
+					result = new Subtraction();
 				} else if (item.equals("*")){
-					binaryOperator = new Multiplication();
+					result = new Multiplication();
 				} else if (item.equals("/")){
-					binaryOperator = new Division();
+					result = new Division();
 				}
-				binaryOperator.setSymbol(item);
-				binaryOperator.addToSymbols(parsedSymbols, accumSymbols);
 			// else if item is a parenthesis
 			} else if ( isParenthesis(item)){
-				Parenthesis parenthesis = new Parenthesis();
-				parenthesis.setSymbol(item);
-				parenthesis.addToSymbols(parsedSymbols, accumSymbols);
+				result = new Parenthesis(item);
 			}
-			result.setSymbol(item);
 			result.addToSymbols(parsedSymbols, accumSymbols);
 
 			prevItem = item;

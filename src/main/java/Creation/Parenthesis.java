@@ -1,6 +1,10 @@
 import java.util.List;
 
-public class Parenthesis extends Symbol{		
+public class Parenthesis extends Symbol{
+	private String symbol;
+	public Parenthesis(String symbol){
+		this.symbol = symbol;
+	}
 	
 	public ComponentNode build(){
 		return null;
@@ -12,7 +16,7 @@ public class Parenthesis extends Symbol{
 	 */	 
 	public void addToSymbols(List<Symbol> parsedSymbols, List<Symbol> accumSymbols){		
 		// if symbol is (, put into accumulated operators
-		if (getSymbol().equals("(")){
+		if (symbol.equals("(")){
 			accumSymbols.add(this);
 			return;
 		}
@@ -24,12 +28,13 @@ public class Parenthesis extends Symbol{
 			topSymbol = accumSymbols.get(accumSymbols.size() - 1);
 		}
 		// if the last top operator is a (, then remove it.
-		if ( topSymbol.getSymbol().equals("(")){
-			accumSymbols.remove(topSymbol);
+		if ( topSymbol instanceof Parenthesis){
+			if( ((Parenthesis) topSymbol).symbol.equals("("))
+				accumSymbols.remove(topSymbol);
 		}
 	}
 	
-	public boolean interpret(List<Symbol> parseArray){
+	public boolean interpret(List<Symbol> parseSymbols){
 		return false;
 	}
 	

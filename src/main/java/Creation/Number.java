@@ -1,20 +1,26 @@
 import java.util.List;
 
 public class Number extends Symbol {
-	
-	public ComponentNode build(){
-		return new NumberLeafNode(getSymbol());
+	String number;
+	public Number(String number){
+		this.number = number;
 	}
 	
-	public boolean interpret(List<Symbol> parsedList){
+	public ComponentNode build(){
+		return new NumberLeafNode(number);
+	}
+	
+	public boolean interpret(List<Symbol> parsedSymbols){
+		parsedSymbols.add(this);
 		return true;
-	}	
+	}
+	
 	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
 		return true;
 	}
 	
 	public void addToSymbols(List<Symbol> parsedSymbols, List<Symbol> accumSymbols){
-		parsedSymbols.add(this);
+		this.interpret(parsedSymbols);
 	}
 	
 }
