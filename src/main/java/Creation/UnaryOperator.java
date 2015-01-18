@@ -20,6 +20,16 @@ public abstract class UnaryOperator extends Operator {
 		}
 	}
 	
+	/*
+	 * Adds this operator instance to the accumulated operators.
+	 *
+	 */
+	public void addToSymbols(List<Symbol> interpretedSymbols, List<Symbol> accumSymbols){		
+				
+		// put this on accumOperators.
+		accumSymbols.add(this);
+	}
+	
 	
 	// used for testing.
 	public Symbol getRightSymbol(){

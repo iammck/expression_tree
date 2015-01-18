@@ -2,7 +2,15 @@ public class ExpressionTree implements ComponentNode {
 	
 	ComponentNode root;
 	
+	private ExpressionTree(){
+	}
+	
 	public ExpressionTree(ComponentNode root){
+		if (root == null){
+			throw new IllegalArgumentException(
+				"ExpressionTree constructor requires "
+				+ "valid ComponentNode.");
+		}
 		this.root = root;
 	}
 	

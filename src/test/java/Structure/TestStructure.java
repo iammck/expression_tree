@@ -347,4 +347,31 @@ public class TestStructure {
 			}
 		}
 	}
+	
+	@Test
+	public void testExpressionTree(){
+		// an expression tree with just a number.
+		
+		ExpressionTree result =  new ExpressionTree(two);
+		assertEquals("ExpressionTree result root should contain 2",
+			"2", result.getItem());
+		assertNull("ExpressionTree result should have no children", 
+			result.getRightChild());
+		assertNull("ExpressionTree result should have no children", 
+			result.getLeftChild());
+		assertEquals("",
+			0, result.compareToNode(three));
+		
+	}
+	
+	@Test 
+	public void checkExpressionTreeCreationWithBadArgument(){
+		try{
+			// create with null leaf node is an error
+			ExpressionTree result = new ExpressionTree(null);
+			fail("should have thrown IllegalArgumentException.");
+		} catch (IllegalArgumentException e){
+			return;		
+		}
+	}
 }

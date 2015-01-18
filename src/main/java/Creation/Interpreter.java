@@ -4,7 +4,7 @@ public class Interpreter {
 	public ExpressionTree interpret(InterpreterContext context, String input){
 		// List of accumulated symbols waiting to be put in parsed list.
 		List<Symbol> accumSymbols = new ArrayList<Symbol>();
-		List<Symbol> parsedSymbols = new ArrayList<Symbol>();
+		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
 		List<String> inputList = getInputList(input);
 		// Keep track of last symbol for uniary operators.
 		String prevItem = null;
@@ -33,22 +33,40 @@ public class Interpreter {
 			} else if ( isParenthesis(item)){
 				result = new Parenthesis(item);
 			}
-			result.addToSymbols(parsedSymbols, accumSymbols);
+			result.addToSymbols(interpretedSymbols, accumSymbols);
 
 			prevItem = item;
 		}
-		// If accumOperators greater than 1, attempt interpret. Handle time out?
-		while (accumSymbols.size() > 1){
+		// If accumOperators greater than 0, attempt interpret. Handle time out?
+		while (accumSymbols.size() > 0){
 			Symbol op = accumSymbols.get(accumSymbols.size()-1);
-			op.interpret(parsedSymbols);
+			if(op.interpret(interpretedSymbols)){
+				accumSymbols.remove(accumSymbols.size()-1);
+			} else {
+				String result = "Unable to interpret symbol "
+					+ op.toString()
+					+ " in accumSymbols list.\n"
+					+ "interpretedSymbols: " 
+					+ interpretedSymbols.toString()
+					+ "\naccumSymbols: " 
+					+ accumSymbols.toString();
+					
+				throw new IllegalStateException(result);
+			}
 		}
-		// build the expression tree from parse tree and return it.
-		ComponentNode rootNode = 
-				accumSymbols.get(accumSymbols.size()-1).build();
-		return new ExpressionTree(rootNode);
+		
+		ComponentNode rootNode = null;
+		if (interpretedSymbols.size() > 0){
+		// build the expression tree from interpred symbols and return it.
+			rootNode = interpretedSymbols.get(
+				interpretedSymbols.size()-1).build();
+				return new ExpressionTree(rootNode);
+		}
+		// otherwise failed to build an expression tree. return null.
+		return null;
 	}
 	
-	private List<String> getInputList(String input){
+	public List<String> getInputList(String input){
 		// Itterate through the list one
 		List<String> result = new ArrayList<String>();
 		int inputLength = input.length();
@@ -65,7 +83,7 @@ public class Interpreter {
 		int inputLength = input.length();
 		// char for the current character
 		char current;
-		// remove any while space
+		// remove any white space
 		while (index < inputLength && isWhiteSpace(input.charAt(index))){
 			index +=1;
 		}
@@ -80,7 +98,7 @@ public class Interpreter {
 			return getNextNumber(index, input, output);
 		} // Otherwise use a while loop to build up to a symbol
 		StringBuilder result = new StringBuilder();
-		while (inputLength < index){
+		while (index < inputLength){
 			result.append(input.charAt(index));
 			// is the result a valid symbol
 			if (isValidSymbol(result.toString())){
@@ -141,7 +159,8 @@ public class Interpreter {
 	}
 	
 	private boolean isUnaryOperator(String item, String prevItem){
-		if (item.equals("-") && (prevItem == null || prevItem.equals("(") )){
+		if (item.equals("-") && 
+			(prevItem == null || (!isNumber(prevItem)) ) ){
 			return true;
 		} else {
 			return false;
