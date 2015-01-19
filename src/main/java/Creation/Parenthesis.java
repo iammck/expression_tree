@@ -20,11 +20,24 @@ public class Parenthesis extends Symbol{
 			accumSymbols.add(this);
 			return;
 		}
+		// if there are no accumulated symbols, this ) is missing a (
+		if (accumSymbols.size() == 0){
+			throw new InvalidInputException(
+				"this ) is missing a (", this,
+				interpretedSymbols, accumSymbols);
+		}
 		// while there are accumulated operators and the top is not (
 		Symbol topSymbol = accumSymbols.get(accumSymbols.size() - 1);
 		while (topSymbol.interpret(interpretedSymbols)){
-			// remove it from the accumulated operators and get next.
+			// remove it from the accumulated operators.
 			accumSymbols.remove(topSymbol);
+			// if out of symbols, this ) is missing a (
+			if (accumSymbols.size() == 0){
+				throw new InvalidInputException(
+					"this ) is missing a (", this,
+					interpretedSymbols, accumSymbols);
+			}
+			// get the next symbol
 			topSymbol = accumSymbols.get(accumSymbols.size() - 1);
 		}
 		// if the last top operator is a (, then remove it.

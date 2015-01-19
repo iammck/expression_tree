@@ -6,6 +6,8 @@ I shall attempt to follow this series using it as a guide for writing code leani
 
 I am using a file, argfile to aid the compiling process using the command
 	javac @argfile or javac `@argfile in power shell.
+I am currently using the next line run from \bin to test.
+	remove-item *.class; cd ..; javac `@argfile `@testargfile; cd bin; java -cp .`;..\lib\* MyTestRunner
 
 The application receives an input expression from the user. It then interprets the expression and forms a binary tree structure. The user can then run several commands upon the structure to print and evaluate the expression. The program has two modes of opperation. The first mode, succinct mode, evaluates a given expression using default parameters. The second, verbose, allows the user to control how the expression is to be evaluated (ie infix, prefix, postfix) and can continue to run until the user quits the application.
 
@@ -59,5 +61,11 @@ java -classpass .`;../lib/* MyTestRunner to run the tests. this line includes th
 
 The TestStructure class does several tests. First for creating each of the leaf nodes. There is also a method for creating each composite node with leaf node or composite node children and another for the NegationCompositeUnaryNode creation. The final test tests the ComponentNode compareToNode() method return values are correct for each of the concrete nodes compared to any other concrete node.
 There is a single testCreateLeafNode() method stub. The method is curently failing.
+
+TestCreation class tests the creation of an expression  tree, symbols addingingToSymbols, interpreting wrt interpretedSymbols and accumulated symbols. Test creation determins that each item is working as it should be.
+
+TestCreationError is responsible for exposing common errors and the development of solutions for those errors. Missing parenthesis, erroneous input statements should be handled by users of interpret() These errors are returned as InvalidInputExceptions to the caller of Interpret(). A thrown Exception should come with if any current symbol that found the error as well as the interpretedSymbols and accumSymbols lists, and a string description of the error.
+
+
 
 

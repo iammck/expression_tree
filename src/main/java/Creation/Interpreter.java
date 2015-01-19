@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class Interpreter {
-	public ExpressionTree interpret(InterpreterContext context, String input){
+	public ExpressionTree interpret(InterpreterContext context, String input)
+			throws InvalidInputException{
 		// List of accumulated symbols waiting to be put in parsed list.
 		List<Symbol> accumSymbols = new ArrayList<Symbol>();
 		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
@@ -33,11 +34,14 @@ public class Interpreter {
 			} else if ( isParenthesis(item)){
 				result = new Parenthesis(item);
 			}
-			result.addToSymbols(interpretedSymbols, accumSymbols);
-
+			if (result != null)
+				result.addToSymbols(interpretedSymbols, accumSymbols);
+			else
+				throw new InvalidInputException(item + " is invalid input.",
+					null, interpretedSymbols, accumSymbols);
 			prevItem = item;
 		}
-		// If accumOperators greater than 0, attempt interpret. Handle time out?
+		// If accumOperators greater than 0, attempt interpret.
 		while (accumSymbols.size() > 0){
 			Symbol op = accumSymbols.get(accumSymbols.size()-1);
 			if(op.interpret(interpretedSymbols)){
@@ -51,19 +55,24 @@ public class Interpreter {
 					+ "\naccumSymbols: " 
 					+ accumSymbols.toString();
 					
-				throw new InvalidInputException(result);
+				throw new InvalidInputException(result, 
+					op, interpretedSymbols, accumSymbols);
 			}
 		}
 		
 		ComponentNode rootNode = null;
-		if (interpretedSymbols.size() > 0){
+		if (interpretedSymbols.size() == 0 ){
+			return null;
+		} else if (interpretedSymbols.size() == 1) {
 		// build the expression tree from interpred symbols and return it.
 			rootNode = interpretedSymbols.get(
 				interpretedSymbols.size()-1).build();
 				return new ExpressionTree(rootNode);
+		} else {
+			throw new InvalidInputException(
+				"InpterpretSymbols has unhandled terms.",
+				null, interpretedSymbols, accumSymbols);
 		}
-		// otherwise failed to build an expression tree. return null.
-		return null;
 	}
 	
 	public List<String> getInputList(String input){
