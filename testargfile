@@ -2,6 +2,7 @@
 
 .\src\test\java\Structure\TestStructure.java
 .\src\test\java\Creation\TestCreation.java
+.\src\test\java\Creation\TestCreationErrors.java
 
 .\src\test\java\MyTestRunner.java
 

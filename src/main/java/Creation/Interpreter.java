@@ -51,7 +51,7 @@ public class Interpreter {
 					+ "\naccumSymbols: " 
 					+ accumSymbols.toString();
 					
-				throw new IllegalStateException(result);
+				throw new InvalidInputException(result);
 			}
 		}
 		

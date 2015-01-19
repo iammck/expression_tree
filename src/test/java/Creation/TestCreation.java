@@ -1,5 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -566,17 +567,6 @@ public class TestCreation {
 		
 	}
 
-	@Test
-	public void testAddToSymbolsParenthesisErrors(){		
-		fail("testAddToSymbolsErrors() needs to be implemented.");		
-	}
-
-	
-	@Test
-	public void testAddToSymbolsOperatorErrors(){
-		fail("testAddToSymbolsErrors() needs to be implemented.");		
-	}
-	
 	
 	@Test(timeout=500)
 	public void testGetInputList(){
