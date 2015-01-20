@@ -22,17 +22,39 @@ public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
 	
 	public ComponentNode next(){
 		ComponentNode result = current;
-		if(current.getRightChild() != null)
-			goRight();
-		else
-			current = pendingList.remove(0);
+		getNext();
 		return result;
 	}
 	
+	private void getNext(){
+		if(current.getRightChild() != null){
+			goRight();
+		} else if (!pendingList.isEmpty()) {
+			current = pendingList.remove(0);
+		} else {
+			current = null;
+		}
+	}
+	
 	private void goRight(){
+		ComponentNode child = current.getRightChild();
+		// if child exists and is not a number and the
+		// current node has greater node value than child
+		if (child != null && (!(child instanceof NumberLeafNode)) 
+				&& current.compareToNode(child) > 0){
+			// add left and right parenthesis.
+			int leftParPos = lastIndexOfLeftParenthesis() + 1; 
+			pendingList.add(leftParPos, new LeftParenthesisLeafNode());
+			pendingList.add(leftParPos + 1, new RightParenthesisLeafNode());
+		}
+
+
+
 		current = current.getRightChild();
 		if (current.getLeftChild() != null)
 			goLeft();
+		
+		
 	}
 	
 	private void goLeft(){
@@ -40,21 +62,23 @@ public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
 			// Determine if needing parenthesis before decent
 			boolean needsParenthesis = false; 
 			ComponentNode child = current.getLeftChild();
-			// if left child exists and current has greater node value
-			if (child != null && current.compareToNode(child) > 0){
+			// if left child exists and is not a number and the
+			// current node has greater node value than child
+			if (child != null && (!(child instanceof NumberLeafNode)) 
+				&& current.compareToNode(child) > 0){
 				needsParenthesis = true;
 			}
 			if (needsParenthesis){
-				int rightParPos = lastIndexOfLeftParenthesis() + 1; 
-				pendingList.add(rightParPos, new RightParenthesisLeafNode());
+				int leftParPos = lastIndexOfLeftParenthesis() + 1; 
+				pendingList.add(leftParPos, new LeftParenthesisLeafNode());
 			}
 			// add the current to pending
 			int curPos = lastIndexOfLeftParenthesis() + 1;
 			pendingList.add(curPos, current);
 			// if has a left child the the ( to pending after.
 			if (needsParenthesis){
-				int leftParPos = lastIndexOfLeftParenthesis() + 1; 
-				pendingList.add(leftParPos, new LeftParenthesisLeafNode());
+				int rightParPos = lastIndexOfLeftParenthesis() + 1; 
+				pendingList.add(rightParPos, new RightParenthesisLeafNode());
 			}
 			// next
 			current = current.getLeftChild();

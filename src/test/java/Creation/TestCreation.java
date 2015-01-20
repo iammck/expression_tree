@@ -723,7 +723,6 @@ public class TestCreation {
 			"+", node.getItem());
 		assertEquals("node should have 3 as left child", 
 			"3", node.getLeftChild().getItem());
-		System.out.println("checkthree");
 		assertEquals("node should have 4 as right child", 
 			"4", node.getRightChild().getItem());
 		

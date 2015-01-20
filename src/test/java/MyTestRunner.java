@@ -9,6 +9,7 @@ public class MyTestRunner{
 		runClassTests(TestStructure.class);
 		runClassTests(TestCreation.class);
 		runClassTests(TestCreationErrors.class);
+		runClassTests(TestInOrderExpressionTreeIterator.class);
 	}
 	
 	
