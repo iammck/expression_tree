@@ -2,6 +2,7 @@ import java.util.List;
 
 public class Parenthesis extends Symbol{
 	private String symbol;
+	
 	public Parenthesis(String symbol){
 		this.symbol = symbol;
 	}

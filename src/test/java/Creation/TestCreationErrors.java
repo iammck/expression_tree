@@ -16,6 +16,12 @@ import static org.junit.Assert.*;
 
 public class TestCreationErrors {
 	
+	@Test
+	public void shouldPass(){
+	String testString = "  (5 +)( 4)) ";
+		assertTrue("Failed to raise eception with " + testString,
+			failInterpretWithInvalidInputException(testString));
+	}
 
 	@Test
 	public void testAddToSymbolsParenthesis(){		

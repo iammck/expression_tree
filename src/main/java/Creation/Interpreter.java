@@ -8,6 +8,8 @@ public class Interpreter {
 		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
 		List<String> inputList = getInputList(input);
 		// Keep track of last symbol for uniary operators.
+		// and the parenthesis cound
+		int parenthesisCount = 0;
 		String prevItem = null;
 		for(String item: inputList){
 			Symbol result = null;
@@ -32,7 +34,16 @@ public class Interpreter {
 				}
 			// else if item is a parenthesis
 			} else if ( isParenthesis(item)){
+				if (item.equals("(")){
+						parenthesisCount++;
+				} else if (--parenthesisCount < 0) {
+					throw new InvalidInputException(
+						"must have an extra (",
+						null, interpretedSymbols,
+						accumSymbols);
+				}
 				result = new Parenthesis(item);
+				
 			}
 			if (result != null)
 				result.addToSymbols(interpretedSymbols, accumSymbols);
