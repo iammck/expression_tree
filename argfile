@@ -29,9 +29,10 @@
 .\src\main\java\Creation\InterpreterContext.java
 .\src\main\java\Creation\Interpreter.java
 
+
 .\src\main\java\Exceptions\InvalidInputException.java
 
 .\src\main\java\Iteration\InOrderExpressionTreeIterator.java
 
-
+.\src\main\java\Visitor\ComponentNodeVisitor.java
 

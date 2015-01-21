@@ -17,4 +17,8 @@ public abstract class LeafNode implements ComponentNode {
 	public ComponentNode getRightChild(){
 		return null;
 	}
+	
+	public void accept(ComponentNodeVisitor componentNodeVisitor){
+		componentNodeVisitor.respondToVisit(this);
+	}
 }

@@ -13,4 +13,8 @@ public abstract class CompositeUnaryNode implements ComponentNode {
 	public ComponentNode getRightChild(){
 		return rightChild;
 	}
+	
+	public void accept(ComponentNodeVisitor componentNodeVisitor){
+		componentNodeVisitor.respondToVisit(this);
+	}
 }

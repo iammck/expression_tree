@@ -10,6 +10,7 @@ public class MyTestRunner{
 		runClassTests(TestCreation.class);
 		runClassTests(TestCreationErrors.class);
 		runClassTests(TestInOrderExpressionTreeIterator.class);
+		runClassTests(TestComponentNodeVisitor.class);
 	}
 	
 	

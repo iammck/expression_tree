@@ -4,7 +4,7 @@
 .\src\test\java\Creation\TestCreation.java
 .\src\test\java\Creation\TestCreationErrors.java
 .\src\test\java\Iterator\TestInOrderExpressionTreeIterator.java
-
+.\src\test\java\Visitor\TestComponentNodeVisitor.java
 
 .\src\test\java\MyTestRunner.java
 

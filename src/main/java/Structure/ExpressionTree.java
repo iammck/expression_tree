@@ -29,4 +29,8 @@ public class ExpressionTree implements ComponentNode {
 	public int compareToNode(ComponentNode node){
 		return root.compareToNode(node);
 	}
+	
+	public void accept(ComponentNodeVisitor componentNodeVisitor){
+		componentNodeVisitor.respondToVisit(this);
+	}
 }

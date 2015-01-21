@@ -3,6 +3,7 @@ public interface ComponentNode {
 	ComponentNode getLeftChild();
 	ComponentNode getRightChild();	
 	int compareToNode(ComponentNode node);
+	void accept(ComponentNodeVisitor visitor);
 	
 }
 
