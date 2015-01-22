@@ -11,6 +11,9 @@ public class MyTestRunner{
 		runClassTests(TestCreationErrors.class);
 		runClassTests(TestInOrderExpressionTreeIterator.class);
 		runClassTests(TestComponentNodeVisitor.class);
+		runClassTests(TestCommand.class);
+		runClassTests(TestCommandFactory.class);
+		
 	}
 	
 	

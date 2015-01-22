@@ -5,6 +5,8 @@
 .\src\test\java\Creation\TestCreationErrors.java
 .\src\test\java\Iterator\TestInOrderExpressionTreeIterator.java
 .\src\test\java\Visitor\TestComponentNodeVisitor.java
+.\src\test\java\Command\TestCommand.java
+.\src\test\java\Command\TestCommandFactory.java
 
 .\src\test\java\MyTestRunner.java
 

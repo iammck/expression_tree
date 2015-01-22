@@ -36,3 +36,23 @@
 
 .\src\main\java\Visitor\ComponentNodeVisitor.java
 
+.\src\main\java\Context\ExpressionTreeContext.java
+
+.\src\main\java\Command\Command.java
+.\src\main\java\Command\PrintCommand.java
+.\src\main\java\Command\EvaluateCommand.java
+.\src\main\java\Command\MacroCommand.java
+.\src\main\java\Command\QuitCommand.java
+.\src\main\java\Command\SetExpressionCommand.java
+.\src\main\java\Command\SetFormatCommand.java
+
+.\src\main\java\Command\CommandFactory\CommandFactory.java
+.\src\main\java\Command\CommandFactory\ConcreteCommandFactory.java
+.\src\main\java\Command\CommandFactory\CommandMaker.java
+.\src\main\java\Command\CommandFactory\PrintCommandMaker.java
+.\src\main\java\Command\CommandFactory\QuitCommandMaker.java
+.\src\main\java\Command\CommandFactory\MacroCommandMaker.java
+.\src\main\java\Command\CommandFactory\EvaluateCommandMaker.java
+.\src\main\java\Command\CommandFactory\SetExpressionCommandMaker.java
+.\src\main\java\Command\CommandFactory\SetFormatCommandMaker.java
+
