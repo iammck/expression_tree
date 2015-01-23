@@ -4,6 +4,7 @@ public class PrintCommand extends Command{
 	}
 	
 	public void execute(){
+		context.print(arg);
 	}
 	
 	public void unexecute(){

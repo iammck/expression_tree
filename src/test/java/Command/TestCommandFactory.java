@@ -24,6 +24,10 @@ public class TestCommandFactory{
 	@Test
 	public void testMakeCommandMacro(){
 		assertCanMakeCommand("macro", null);
+		assertCanMakeCommand("macro", "");
+		assertCanMakeCommand("macro", "bad expr");
+		assertCanMakeCommand("macro", "4*5");
+
 	}
 	
 	@Test

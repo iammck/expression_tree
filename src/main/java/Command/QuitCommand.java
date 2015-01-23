@@ -5,6 +5,7 @@ public class QuitCommand extends Command{
 	}
 	
 	public void execute(){
+		context.quit(arg);
 	}
 	
 	public void unexecute(){

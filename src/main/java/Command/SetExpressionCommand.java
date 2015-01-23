@@ -5,7 +5,7 @@ public class SetExpressionCommand extends Command{
 	}
 	
 	public void execute(){
-	
+		context.setExpression(arg);
 	}
 	
 	public void unexecute(){

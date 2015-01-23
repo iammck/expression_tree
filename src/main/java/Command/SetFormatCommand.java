@@ -5,7 +5,7 @@ public class SetFormatCommand extends Command{
 	}
 	
 	public void execute(){
-	
+		context.setFormat(arg);	
 	}
 	
 	public void unexecute(){

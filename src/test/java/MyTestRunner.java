@@ -7,12 +7,15 @@ public class MyTestRunner{
 	public static void main(String[] args){
 		System.out.print("\n\n");
 		runClassTests(TestStructure.class);
-		runClassTests(TestCreation.class);
+		runClassTests(TestCreationInterpreter.class);
+		runClassTests(TestCreationSymbols.class);
 		runClassTests(TestCreationErrors.class);
-		runClassTests(TestInOrderExpressionTreeIterator.class);
-		runClassTests(TestComponentNodeVisitor.class);
+		runClassTests(TestIterators.class);
+		runClassTests(TestVisitor.class);
 		runClassTests(TestCommand.class);
 		runClassTests(TestCommandFactory.class);
+		runClassTests(TestState.class);
+		
 		
 	}
 	

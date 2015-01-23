@@ -38,6 +38,12 @@
 
 .\src\main\java\Context\ExpressionTreeContext.java
 
+.\src\main\java\State\State.java
+.\src\main\java\State\InitialState.java
+.\src\main\java\State\FormatedState.java
+.\src\main\java\State\FormatedNoExpressionState.java
+.\src\main\java\State\FormatedWithExpressionState.java
+
 .\src\main\java\Command\Command.java
 .\src\main\java\Command\PrintCommand.java
 .\src\main\java\Command\EvaluateCommand.java

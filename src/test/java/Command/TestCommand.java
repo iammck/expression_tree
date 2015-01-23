@@ -1,6 +1,9 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
   * Test the instantiation of each command class. Possible commands:
   * set format, set expression, evaluate, macro, print, quit
@@ -8,37 +11,46 @@ import static org.junit.Assert.*;
 
 public class TestCommand{
 
-	@Test
-	public void testInstantiateCommands(){
-		
+	// commands can take a context and arg.
+	ExpressionTreeContext context;
+	String arg;
+	
+	Command setFormat;
+	Command setExpression;
+	Command evaluate;
+	Command macro;
+	Command print;
+	Command  quit;
+	
+	List<Command> commands;
+	
+	@Before
+	public void instantiateCommands(){
 		// commands can take a context and arg.
 		ExpressionTreeContext context = new ExpressionTreeContext();
 		String arg = "random arg";
-		Command command = new SetFormatCommand(context, arg);
-		command = new SetExpressionCommand(context, arg);
-		command = new EvaluateCommand(context, arg);
-		command = new MacroCommand(context, arg);
-		command = new PrintCommand(context, arg);
-		command = new QuitCommand(context, arg);
+		setFormat = new SetFormatCommand(context, arg);
+		setExpression = new SetExpressionCommand(context, arg);
+		evaluate = new EvaluateCommand(context, arg);
+		print = new PrintCommand(context, arg);
+		quit = new QuitCommand(context, arg);
+		
+		commands = new ArrayList<Command>();
+		commands.add(setFormat);
+		commands.add(setExpression);
+		commands.add(evaluate);
+		commands.add(quit);
+		
+		macro = new MacroCommand(context, commands);
 	}
 	
 	@Test
 	public void testExecuteCommands(){
-		// commands can take a context and arg.
-		ExpressionTreeContext context = new ExpressionTreeContext();
-		String arg = "random arg";
-		
-		Command command = new SetFormatCommand(context, arg);
-		command.execute();
-		command = new SetExpressionCommand(context, arg);
-		command.execute();
-		command = new EvaluateCommand(context, arg);
-		command.execute();
-		command = new MacroCommand(context, arg);
-		command.execute();
-		command = new PrintCommand(context, arg);
-		command.execute();
-		command = new QuitCommand(context, arg);
-		command.execute();
+		setFormat.execute();
+		setExpression.execute();
+		evaluate.execute();
+		macro.execute();
+		print.execute();
+		quit.execute();
 	}
 }

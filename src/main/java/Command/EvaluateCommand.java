@@ -5,7 +5,7 @@ public class EvaluateCommand extends Command{
 	}	
 	
 	public void execute(){
-	
+		context.evaluate(arg);
 	}
 	
 	public void unexecute(){
