@@ -9,7 +9,7 @@ public class MyTestRunner{
 		runClassTests(TestStructure.class);
 		runClassTests(TestInterpreter.class);
 		runClassTests(TestInterpreterInputErrors.class);
-		//runClassTests(TestIterators.class);
+		runClassTests(TestIterators.class);
 		//runClassTests(TestVisitor.class);
 		//runClassTests(TestCommand.class);
 		//runClassTests(TestCommandFactory.class);

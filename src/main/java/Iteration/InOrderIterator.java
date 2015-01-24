@@ -1,14 +1,14 @@
 import java.util.*;
 
-public class InOrderExpressionTreeIterator implements Iterator<ComponentNode>{
+public class InOrderIterator implements Iterator<ComponentNode>{
 
 	List<ComponentNode> pendingList;
 	ComponentNode current;
 	ComponentNode preveous;
 	
-	private InOrderExpressionTreeIterator(){}
+	private InOrderIterator(){}
 	
-	public InOrderExpressionTreeIterator(ExpressionTree expressionTree){
+	public InOrderIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
 		current = expressionTree;
 		goLeft();

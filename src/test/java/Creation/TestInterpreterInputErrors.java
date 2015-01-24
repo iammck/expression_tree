@@ -52,6 +52,7 @@ public class TestInterpreterInputErrors {
 
 	@Test
 	public void testAddToSymbolsWithErroneousOperator(){
+		assertAllFail(" 7 8");
 		assertAllFail("  5 ++  4 ");
 		assertAllFail( "  +5 +  4 ");
 		assertAllFail( "  5 +  4 + ");

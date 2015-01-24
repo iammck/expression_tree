@@ -35,7 +35,9 @@
 
 .\src\main\java\Exceptions\InvalidInputException.java
 
-.\src\main\java\Iteration\InOrderExpressionTreeIterator.java
+.\src\main\java\Iteration\InOrderIterator.java
+.\src\main\java\Iteration\PreOrderIterator.java
+.\src\main\java\Iteration\PostOrderIterator.java
 
 .\src\main\java\Visitor\ComponentNodeVisitor.java
 
