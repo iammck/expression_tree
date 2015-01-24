@@ -62,4 +62,10 @@ public abstract class BinaryOperator extends Operator {
 	public Symbol getRightSymbol(){
 		return rightSymbol;
 	}
+	
+	public void swapLeftRightSymbols(){
+		Symbol temp = leftSymbol;
+		leftSymbol = rightSymbol;
+		rightSymbol = temp;
+	}
 }

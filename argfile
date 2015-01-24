@@ -28,6 +28,9 @@
 .\src\main\java\Creation\Division.java
 .\src\main\java\Creation\InterpreterContext.java
 .\src\main\java\Creation\Interpreter.java
+.\src\main\java\Creation\InfixInterpreter.java
+.\src\main\java\Creation\PrefixInterpreter.java
+.\src\main\java\Creation\PostfixInterpreter.java
 
 
 .\src\main\java\Exceptions\InvalidInputException.java

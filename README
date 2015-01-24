@@ -6,8 +6,8 @@ I shall attempt to follow this series using it as a guide for writing code leani
 
 I am using a file, argfile to aid the compiling process using the command
 	javac @argfile or javac `@argfile in power shell.
-I am currently using the next line run from \bin to test.
-	remove-item *.class; cd ..; javac `@argfile `@testargfile; cd bin; java -cp .`;..\lib\* MyTestRunner
+I am currently using the next line run from ExpressionTree directory to test.
+	remove-item bin\*.class; javac `@argfile `@testargfile; java -cp lib\*`;bin MyTestRunner
 
 The application receives an input expression from the user. It then interprets the expression and forms a binary tree structure. The user can then run several commands upon the structure to print and evaluate the expression. The program has two modes of opperation. The first mode, succinct mode, evaluates a given expression using default parameters. The second, verbose, allows the user to control how the expression is to be evaluated (ie infix, prefix, postfix) and can continue to run until the user quits the application.
 

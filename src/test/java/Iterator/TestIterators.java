@@ -3,10 +3,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 
-public class TestIterators {
-	
-	
-	
+public class TestIterators {	
 	@Test
 	public void testInOrderExpressionTreeIterator(){
 		// testing in order iteration, can create expression tree with infix.
@@ -25,10 +22,11 @@ public class TestIterators {
 			             "(4+5)*7*4*(5+7)");
 		assertInOrderExpressionTreeIteratorIterateResult("(4+5)*(7*(4*(5+7 * 8 *( 12 + 4))))", 
 			             "(4+5)*7*4*(5+7*8*(12+4))");
-		
+		// check for empty string activity.
 		// create an expression tree from empty input string.
 		InterpreterContext context = new InterpreterContext();
-		Interpreter interpreter = new Interpreter();
+		// should expression trees be interpreted by hand?
+		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = interpreter.interpret(context, "");
 		assertNull("There must not exist a resulting "
 			+ "expression tree from emtpy input string.",expTree);		
@@ -81,7 +79,7 @@ public class TestIterators {
 	private ExpressionTree getExpressionTree(String input){
 		// create an expression tree from input string.
 		InterpreterContext context = new InterpreterContext();
-		Interpreter interpreter = new Interpreter();
+		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = interpreter.interpret(context, input);
 		assertNotNull("Unable to get expression tree from input "
 			+ input + ".", expTree);		
