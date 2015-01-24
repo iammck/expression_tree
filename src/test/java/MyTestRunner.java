@@ -8,7 +8,6 @@ public class MyTestRunner{
 		System.out.print("\n\n");
 		runClassTests(TestStructure.class);
 		runClassTests(TestInterpreter.class);
-		runClassTests(TestCreationSymbols.class);
 		runClassTests(TestInterpreterInputErrors.class);
 		//runClassTests(TestIterators.class);
 		//runClassTests(TestVisitor.class);

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestCreationSymbols {
+public class TestSymbols {
 	// some default symbols to be used in tests. setup before 
 	Symbol number, negation, addition, subtraction,
 		multiplication, division,
