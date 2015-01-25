@@ -52,9 +52,11 @@ public class Parenthesis extends Symbol{
 		return false;
 	}
 	
-	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
-		if (otherSymbol instanceof Parenthesis)
-			return true;
-		return false;
+	public int comparedToSymbol(Symbol otherSymbol){
+		if (otherSymbol instanceof Parenthesis){
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 }

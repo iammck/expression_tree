@@ -15,8 +15,12 @@ public class Number extends Symbol {
 		return true;
 	}
 	
-	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
-		return true;
+	public int comparedToSymbol(Symbol otherSymbol){
+		if (otherSymbol instanceof Number){
+			return 0;
+		} else {
+			return -1;
+		}
 	}
 	
 	public void addToSymbols(List<Symbol> interpretedSymbols, List<Symbol> accumSymbols){

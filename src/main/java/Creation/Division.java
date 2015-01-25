@@ -4,14 +4,16 @@ public class Division extends BinaryOperator {
 			leftSymbol.build(), rightSymbol.build());
 	}
 	
-	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
-		if ( (otherSymbol instanceof Parenthesis)
-			|| (otherSymbol instanceof Negation)
-			|| (otherSymbol instanceof Multiplication)
+	public int comparedToSymbol(Symbol otherSymbol){
+		if ((otherSymbol instanceof Multiplication)
 			|| (otherSymbol instanceof Division)){
-			return true;
+			return 0;
+		} else if ( (otherSymbol instanceof Parenthesis)
+			|| (otherSymbol instanceof Negation)){
+			return -1;
+		} else {
+			return 1;
 		}
-		return false;
 	}
 	
 }

@@ -4,7 +4,6 @@ public class InOrderIterator implements Iterator<ComponentNode>{
 
 	List<ComponentNode> pendingList;
 	ComponentNode current;
-	ComponentNode preveous;
 	
 	private InOrderIterator(){}
 	

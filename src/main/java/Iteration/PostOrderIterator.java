@@ -9,12 +9,11 @@ public class PostOrderIterator implements Iterator<ComponentNode>{
 	public PostOrderIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
 		current = expressionTree;
+		goLeft();
 	}
 
 	public boolean hasNext(){
-		if (current != null)
-			return true;
-		return false;
+		return (current != null)? true:false;
 	}
 	
 	public ComponentNode next(){
@@ -24,11 +23,37 @@ public class PostOrderIterator implements Iterator<ComponentNode>{
 	}
 	
 	private void getNext(){
-	}
-	
-	private void goRight(){
+		// nothing pending? done.
+		if (pendingList.isEmpty()){
+			current = null;
+			return;
+		}
+		// else get the last node and its right child node.
+		int last = pendingList.size() - 1;
+		ComponentNode node = pendingList.get(last);
+		ComponentNode child = node.getRightChild();
+		if (current != child){
+			current = child;
+			goLeft();
+		} else {
+			current = node;
+			pendingList.remove(node);
+		}
 	}
 	
 	private void goLeft(){
+		ComponentNode child = current.getLeftChild();
+		while (child != null){
+			// add the current to pending.
+			pendingList.add(current);
+			current = child;
+			child = current.getLeftChild();
+		}
+		// if current is a unary node will have a right child,
+		if (current.getRightChild() != null){
+		// need to add a NumberLeafNode with a "0" item
+			pendingList.add(current);
+			current = new NumberLeafNode("0");
+		}
 	}
 }

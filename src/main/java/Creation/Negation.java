@@ -4,13 +4,13 @@ public class Negation extends UnaryOperator {
 		return new NegationCompositeUnaryNode( rightSymbol.build());
 	}
 	
-	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
-		// if parenthesis or negaite
-		if ( otherSymbol instanceof Parenthesis
-			|| otherSymbol instanceof Negation ){
-			return true;
+	public int comparedToSymbol(Symbol otherSymbol){
+		if (otherSymbol instanceof Parenthesis){
+				return -1;
+		} else if (otherSymbol instanceof Negation){
+			return 0;
 		} else {
-			return false;
+			return 1;
 		}
 	}
 }

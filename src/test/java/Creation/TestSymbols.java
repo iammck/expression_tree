@@ -59,12 +59,12 @@ public class TestSymbols {
 	
 	@Test
 	public void testNumberHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// numbers should be less or equal to all other symbol 
-		// put all the symbols into the the symbolList
-		symbolList = new ArrayList<Symbol>();
-		symbolList.add(number);
+		// check that numbers compared to numbers are 0.
+		assertEquals("Number.compareToSymbol(Number) should result in 0 ",
+				0, number.comparedToSymbol(number));
+		
+		// numbers should be less than all other symbol
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
 		symbolList.add(negation);
 		symbolList.add(addition);
 		symbolList.add(subtraction);
@@ -73,173 +73,161 @@ public class TestSymbols {
 		symbolList.add(leftParenthesis);
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
-			boolean result = number
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Number failed to have less or "
-				+ "equal precedence.", result);
+			int result = number
+				.comparedToSymbol(symbol);
+			assertEquals("Number.compareToSymbol() "
+				+ "should result in -1.", -1, result);
 		}
 		
 	}
 	
 	@Test
 	public void testAdditionHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// Addition should be less or equal to itself, subtaction
-		// parenthesis, multiplication, and divition. 
-		// Put these symbols into the the symbolList
-		symbolList = new ArrayList<Symbol>();
+		// check that Addition compared to addition is 0.
+		assertEquals("Addition.compareToSymbol(Addition) should result in 0 ",
+				0, addition.comparedToSymbol(addition));
+		// check that Addition compared to subtraction is 0.
+		assertEquals("Addition.compareToSymbol(Subtraction) should result in 0 ",
+				0, addition.comparedToSymbol(subtraction));
+		
+		
+		// addition should be less than these
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
 		symbolList.add(negation);
-		symbolList.add(leftParenthesis);
-		symbolList.add(rightParenthesis);
-		symbolList.add(addition);
-		symbolList.add(subtraction);
 		symbolList.add(multiplication);
 		symbolList.add(division);
+		symbolList.add(leftParenthesis);
+		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
-			boolean result = addition
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Addition failed to have less or "
-				+ "equal precedence.", result);
-		}
+			int result = addition
+				.comparedToSymbol(symbol);
+			assertEquals("addition compareToSymbol " + symbol.toString()
+				+ " should result in -1.", -1, result);
+		}	
 		
-		// addition should be greater than numbers,
-		// put number in the symbol list
-		symbolList = new ArrayList<Symbol>();
-		symbolList.add(number);
-		for(Symbol symbol: symbolList){
-			boolean result = addition
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertFalse("Addition failed to have greater "
-				+ "precedence.", result);
-		}
+		// check that Addition compared to numbers is 1.
+		assertEquals("Addition.compareToSymbol(number) should result in 1 ",
+				1, addition.comparedToSymbol(number));
+		
 	}
 	
 	@Test
 	public void testSubtractionHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// Subtraction should be less or equal to itself, addition
-		// parenthesis, multiplication, and divition. 
-		// Put these symbols into the the symbolList
-		symbolList = new ArrayList<Symbol>();
+		// check that subtraction compared to addition is 0.
+		assertEquals("subtraction.compareToSymbol(subtraction) should result in 0 ",
+				0, subtraction.comparedToSymbol(addition));
+		// check that subtraction compared to subtraction is 0.
+		assertEquals("subtraction.compareToSymbol(Subtraction) should result in 0 ",
+				0, subtraction.comparedToSymbol(subtraction));
+		
+		
+		// subtraction should be less than these
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
 		symbolList.add(negation);
-		symbolList.add(leftParenthesis);
-		symbolList.add(rightParenthesis);
-		symbolList.add(addition);
-		symbolList.add(subtraction);
 		symbolList.add(multiplication);
 		symbolList.add(division);
+		symbolList.add(leftParenthesis);
+		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
-			boolean result = subtraction
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Subtraction failed to have less or "
-				+ "equal precedence.", result);
-		}
+			int result = subtraction
+				.comparedToSymbol(symbol);
+			assertEquals("subtraction compareToSymbol " + symbol.toString()
+				+ " should result in -1.", -1, result);
+		}	
 		
-		// subtraction should be greater than numbers,
-		// put number in the symbol list
-		symbolList = new ArrayList<Symbol>();
-		symbolList.add(number);
-		for(Symbol symbol: symbolList){
-			boolean result = subtraction
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertFalse("Subtraction failed to have greater "
-				+ "precedence.", result);
-		}
+		// check that subtraction compared to numbers is 1.
+		assertEquals("subtraction.compareToSymbol(number) should result in 1 ",
+				1, subtraction.comparedToSymbol(number));
 	}
 	
 	@Test
 	public void testMultiplicationHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// multiplication should be less or equal to itself
-		// parenthesis, negation and divition. 
-		// Put these symbols into the the symbolList
-		symbolList = new ArrayList<Symbol>();
+		// check that multiplication compared to multiplication is 0.
+		assertEquals("multiplication.compareToSymbol(multiplication) should result in 0 ",
+				0, multiplication.comparedToSymbol(multiplication));
+		// check that multiplication compared to division is 0.
+		assertEquals("multiplication.compareToSymbol(division) should result in 0 ",
+				0, multiplication.comparedToSymbol(division));		
+		
+		// multiplication should be less than these
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
 		symbolList.add(negation);
 		symbolList.add(leftParenthesis);
 		symbolList.add(rightParenthesis);
-		symbolList.add(multiplication);
-		symbolList.add(division);
 		for(Symbol symbol: symbolList){
-			boolean result = multiplication
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Multiplication failed to have less or "
-				+ "equal precedence.", result);
+			int result = multiplication
+				.comparedToSymbol(symbol);
+			assertEquals("multiplication compareToSymbol " + symbol.toString()
+				+ " should result in -1.", -1, result);
 		}
 		
-		// Multiplication should be greater than numbers,
-		// subtraction and addition
-		// put number in the symbol list
+		// multiplication should be greater than these
 		symbolList = new ArrayList<Symbol>();
 		symbolList.add(number);
 		symbolList.add(addition);
 		symbolList.add(subtraction);
 		for(Symbol symbol: symbolList){
-			boolean result = multiplication
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertFalse("Multiplication failed to have greater "
-				+ "precedence.", result);
+			int result = multiplication
+				.comparedToSymbol(symbol);
+			assertEquals("multiplication compareToSymbol " + symbol.toString()
+				+ " should result in 1.", 1, result);
 		}
 	}
 	
 	@Test
 	public void testDivisionHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// division should be less or equal to itself
-		// parenthesis, negation and multiplication. 
-		// Put these symbols into the the symbolList
-		symbolList = new ArrayList<Symbol>();
+		// check that division compared to multiplication is 0.
+		assertEquals("division.compareToSymbol(multiplication) should result in 0 ",
+				0, division.comparedToSymbol(multiplication));
+		// check that division compared to division is 0.
+		assertEquals("division.compareToSymbol(division) should result in 0 ",
+				0, division.comparedToSymbol(division));
+		
+		
+		// division should be less than these
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
 		symbolList.add(negation);
 		symbolList.add(leftParenthesis);
 		symbolList.add(rightParenthesis);
-		symbolList.add(multiplication);
-		symbolList.add(division);
 		for(Symbol symbol: symbolList){
-			boolean result = division
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Division failed to have less or "
-				+ "equal precedence.", result);
+			int result = division
+				.comparedToSymbol(symbol);
+			assertEquals("division compareToSymbol " + symbol.toString()
+				+ " should result in -1.", -1, result);
 		}
 		
-		// Division should be greater than numbers,
-		// subtraction and addition
-		// put number in the symbol list
+		// division should be greater than these
 		symbolList = new ArrayList<Symbol>();
 		symbolList.add(number);
 		symbolList.add(addition);
 		symbolList.add(subtraction);
 		for(Symbol symbol: symbolList){
-			boolean result = division
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertFalse("Division failed to have greater "
-				+ "precedence.", result);
+			int result = division
+				.comparedToSymbol(symbol);
+			assertEquals("division compareToSymbol " + symbol.toString()
+				+ " should result in 1.", 1, result);
 		}
 	}
 	
 	
 	@Test
 	public void testNegationHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// negation should be less or equal to itself and 
-		// parenthesis. put these symbols into the the 
-		// symbolList
-		symbolList = new ArrayList<Symbol>();
-		symbolList.add(negation);
+		// check that negation compared to negation is 0.
+		assertEquals("negation.compareToSymbol(negation) should result in 0 ",
+				0, negation.comparedToSymbol(negation));
+		
+		// negation should be less than these
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
 		symbolList.add(leftParenthesis);
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
-			boolean result = negation
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Negation failed to have less or "
-				+ "equal precedence.", result);
+			int result = negation
+				.comparedToSymbol(symbol);
+			assertEquals("negation compareToSymbol " + symbol.toString()
+				+ " should result in -1.", -1, result);
 		}
 		
-		// negation should be greater than all else,
-		// put these in the symbol list
+		// negation should be greater than these
 		symbolList = new ArrayList<Symbol>();
 		symbolList.add(number);
 		symbolList.add(addition);
@@ -247,44 +235,36 @@ public class TestSymbols {
 		symbolList.add(multiplication);
 		symbolList.add(division);
 		for(Symbol symbol: symbolList){
-			boolean result = negation
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertFalse("Negation failed to have greater "
-				+ "precedence.", result);
+			int result = negation
+				.comparedToSymbol(symbol);
+			assertEquals("negation compareToSymbol " + symbol.toString()
+				+ " should result in 1.", 1, result);
 		}
 	}
 
 	
 	@Test
 	public void testParenthesisHasLessOrEqualPrecedenceOver(){
-		// an array list to hold the symbols
-		ArrayList<Symbol> symbolList;
-		// parenthesis should be less or equal to itself 
-		// put these symbols into the the symbolList
-		symbolList = new ArrayList<Symbol>();
-		symbolList.add(leftParenthesis);
-		symbolList.add(rightParenthesis);
-		for(Symbol symbol: symbolList){
-			boolean result = leftParenthesis
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertTrue("Parethesis failed to have less or "
-				+ "equal precedence.", result);
-		}
+		// check that leftParenthesis compared to leftParenthesis is 0.
+		assertEquals("leftParenthesis.compareToSymbol(leftParenthesis) should result in 0 ",
+				0, leftParenthesis.comparedToSymbol(leftParenthesis));
 		
-		// parethesis should be greater than all else,
-		// put these in the symbol list
+		// leftParenthesis should be less than these none
+		ArrayList<Symbol> symbolList = null;
+		
+		// leftParenthesis should be greater than these
 		symbolList = new ArrayList<Symbol>();
-		symbolList.add(negation);
 		symbolList.add(number);
 		symbolList.add(addition);
 		symbolList.add(subtraction);
 		symbolList.add(multiplication);
 		symbolList.add(division);
+		symbolList.add(negation);
 		for(Symbol symbol: symbolList){
-			boolean result = leftParenthesis
-				.hasLessOrEqualPrecedenceOver(symbol);
-			assertFalse("Parethesis failed to have greater "
-				+ "precedence.", result);
+			int result = leftParenthesis
+				.comparedToSymbol(symbol);
+			assertEquals("leftParenthesis compareToSymbol " + symbol.toString()
+				+ " should result in 1.", 1, result);
 		}
 	}
 	

@@ -5,10 +5,14 @@ public class Addition extends BinaryOperator {
 			leftSymbol.build(), rightSymbol.build());
 	}
 	
-	public boolean hasLessOrEqualPrecedenceOver(Symbol otherSymbol){
+	public int comparedToSymbol(Symbol otherSymbol){
 		if ((otherSymbol instanceof Number)){
-				return false;
+				return +1;
+		} else if (( otherSymbol instanceof Addition)
+				|| (otherSymbol instanceof Subtraction)){
+			return 0;
+		} else {
+			return -1;
 		}
-		return true;
 	}
 }

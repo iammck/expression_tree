@@ -26,6 +26,11 @@ public class TestIterators {
 			             "(4+5)*7*4*(5+7)");
 		assertInOrderIteratorResult("(4+5)*(7*(4*(5+7 * 8 *( 12 + 4))))", 
 			             "(4+5)*7*4*(5+7*8*(12+4))");		
+		assertInOrderIteratorResult("(4+5)*(7*(4*(5+7 * (8 *( 12 + 4)))))", 
+			             "(4+5)*7*4*(5+7*8*(12+4))");		
+		assertInOrderIteratorResult("2","2");
+		assertInOrderIteratorResult("-2","-2");
+
 	}
 	
 	@Test
@@ -39,21 +44,72 @@ public class TestIterators {
 		assertPreOrderIteratorResult("(4+5)*3", "*+453");
 		assertPreOrderIteratorResult("4*5+4", "+*454");
 		assertPreOrderIteratorResult("4*(5+5)", "*4+55");
-		assertPreOrderIteratorResult("4*5+6", "*+456");
+		assertPreOrderIteratorResult("4*5+6", "+*456");
+		// no difference in next two because infix interpreter
 		assertPreOrderIteratorResult("4+5+7", "++457");
+		assertPreOrderIteratorResult("(4+5)+7", "++457");
+		// but the interpreter does create a diff tree as below.
+		assertPreOrderIteratorResult("4+(5+7)", "+4+57");
 		assertPreOrderIteratorResult("(4+5)*(6+2)", "*+45+62");
 		assertPreOrderIteratorResult("4*(1+3)*(6+2)", "**4+13+62");
 
-		assertPreOrderIteratorResult("(4+5)+7", "++457");
 		assertPreOrderIteratorResult("(4+5)*(7*(4*(5+7)))", 
 			            	    "*+45*7*4+57");
+		// the follwing pair of lines each evaluate differently
+		// because infix interpreter created the expression tree.
 		assertPreOrderIteratorResult("(4+5)*(7*(4*(5+7 * 8 *( 12 + 4))))", 
+			             "*+45*7*4+5**78+124");
+		assertPreOrderIteratorResult("(4+5)*(7*(4*(5+7 *( 8 *( 12 + 4)))))", 
 			             "*+45*7*4+5*7*8+124");		
+		// the follwing pair of lines each evaluate differently
+		// because infix interpreter created the expression tree.
+		assertPreOrderIteratorResult("(5+7 * 8 *( 12 + 4))", 
+			             "+5**78+124");		
+		assertPreOrderIteratorResult("(5+7 *( 8 *( 12 + 4)))", 
+			             "+5*7*8+124");
+		assertPreOrderIteratorResult("2","2");
+		assertPreOrderIteratorResult("-2","-02");
 	}
 	
 	@Test
 	public void testPostOrderIterator(){
-		fail("method needs to be implemented.");
+		// The first parameter is to be interpreted by an InfixInterpreter
+		// which creates the expression tree to iterate through. The second 
+		// result is the output from the iteration in pre order. Note that
+		// the user of the iterator is resposible for spacing symbols.
+		assertPostOrderIteratorResult("4+1", "41+");
+		assertPostOrderIteratorResult("4+5*2", "452*+");
+		assertPostOrderIteratorResult("(4+5)*3", "45+3*");
+		assertPostOrderIteratorResult("4*5+4", "45*4+");
+		assertPostOrderIteratorResult("4*(5+5)", "455+*");
+		assertPostOrderIteratorResult("4*5+6", "45*6+");
+		// no difference in next two because infix interpreter
+		assertPostOrderIteratorResult("4+5+7", "45+7+");
+		assertPostOrderIteratorResult("(4+5)+8", "45+8+");
+		// but the interpreter does create a diff tree as below.
+		assertPostOrderIteratorResult("4+(5+9)", "459++");
+		assertPostOrderIteratorResult("(4+5)*(6+2)", "45+62+*");
+		assertPostOrderIteratorResult("4*(1+3)*(6+2)", "413+*62+*");
+
+		assertPostOrderIteratorResult("(4+5)*(7*(4*(5+7)))", 
+			            	      "45+7457+***");
+		// the follwing pair of lines each evaluate differently
+		// because infix interpreter created the expression tree.
+		assertPostOrderIteratorResult("(4+5)*(7*(4*(5+7 * 8 *( 12 + 4))))", 
+			             	      "45+74578*124+*+***");
+		assertPostOrderIteratorResult("(4+5)*(7*(4*(5+7 *( 8 *( 12 + 4)))))", 
+			                      "45+74578124+**+***");		
+		// the follwing pair of lines each evaluate differently
+		// because infix interpreter created the expression tree.
+		assertPostOrderIteratorResult("(5+7 * 8 *( 12 + 4))", 
+			             	      "578*124+*+");		
+		assertPostOrderIteratorResult("(5+7 *( 8 *( 12 + 4)))", 
+			             	      "578124+**+");
+		assertPostOrderIteratorResult("2","2");
+		assertPostOrderIteratorResult("-2","02-");
+		assertPostOrderIteratorResult("5+-6","506-+");
+		
+
 	}	
 	
 	private void assertInOrderIteratorResult(String input, String output){

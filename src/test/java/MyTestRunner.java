@@ -10,7 +10,7 @@ public class MyTestRunner{
 		runClassTests(TestInterpreter.class);
 		runClassTests(TestInterpreterInputErrors.class);
 		runClassTests(TestIterators.class);
-		//runClassTests(TestVisitor.class);
+		runClassTests(TestVisitor.class);
 		//runClassTests(TestCommand.class);
 		//runClassTests(TestCommandFactory.class);
 		//runClassTests(TestState.class);		

@@ -166,9 +166,7 @@ public class TestInterpreter {
 		assertEquals("node should have 3 as left child", 
 			"3", node.getLeftChild().getItem());
 		assertEquals("node should have 4 as right child", 
-			"4", node.getRightChild().getItem());
-		
-		
+			"4", node.getRightChild().getItem());		
 		// -( -3 + 4  ) * ----- 5		
 		testString = "  -  (  -3   +  4   )* ----- 5  ";
 		result = interpreter.interpret(context,testString);
@@ -200,6 +198,16 @@ public class TestInterpreter {
 		// the item of this node is 5
 		assertEquals("node should be 5",
 			"5", node.getItem());
+		
+		// the following two lines should interprete to the same tree
+		//("(5+7 * 8 *( 12 + 4))", "+5**78+124");
+		//("(5+7 *( 8 *( 12 + 4)))","+5*7*8+124");
+		// iterating through in pre order shows that they are not.
+		// It happens because the parenthesis change the order of evaluation
+		// 7*8 is evaluated first in the first statement and
+		// (8*....) is evaluated first in the second when the parenthesis
+		// are done with addToSymbols, perhaps, the prev operator can be
+		// interpreted? Testing showed no effect.
 	}
 	
 	@Test
