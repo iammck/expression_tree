@@ -16,6 +16,32 @@ import static org.junit.Assert.*;
 
 public class TestInterpreterInputErrors {
 	
+	// the interpreter
+	Interpreter interpreter;	
+	// any InterpreterContext should work
+	InterpreterContext context;
+	
+	@Before
+	public void beforeEachTest(){
+		interpreter = new InfixInterpreter();
+		context = new InterpreterContext();
+		ExpressionTreeContext ec = new ExpressionTreeContext();
+		context.setExpressionTreeContext(ec);
+	}
+	
+	@Test
+	public void testEmptyStringInput(){
+		// empty string
+		String testString = "";
+		// get the resulting expression tree
+		ExpressionTree result = interpreter.interpret(context, testString);
+		// this should produce a null expression tree
+		assertNull("an empty string should interprete to a null "
+				+ "expression tree.", result);
+		
+		
+	}
+	
 	@Test
 	public void shouldFail(){
 	String testString = "  (5 +)( 4)) ";
@@ -86,9 +112,8 @@ public class TestInterpreterInputErrors {
 	
 	
 	private boolean failInfixInterpretWithInvalidInputException(String testString){
-		Interpreter interpreter = new InfixInterpreter();
-		InterpreterContext context = new InterpreterContext();
-
+		interpreter = new InfixInterpreter();
+		
 		try {
 			ExpressionTree result = 
 			interpreter.interpret( context,testString);
@@ -101,9 +126,8 @@ public class TestInterpreterInputErrors {
 	}
 	
 	private boolean failPrefixInterpretWithInvalidInputException(String testString){
-		Interpreter interpreter = new PrefixInterpreter();
-		InterpreterContext context = new InterpreterContext();
-
+		interpreter = new PrefixInterpreter();
+		
 		try {
 			ExpressionTree result = 
 			interpreter.interpret( context,testString);
@@ -116,9 +140,8 @@ public class TestInterpreterInputErrors {
 	}
 	
 	private boolean failPostfixInterpretWithInvalidInputException(String testString){
-		Interpreter interpreter = new PostfixInterpreter();
-		InterpreterContext context = new InterpreterContext();
-
+		interpreter = new PostfixInterpreter();
+		
 		try {
 			ExpressionTree result = 
 			interpreter.interpret( context,testString);

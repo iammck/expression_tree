@@ -8,7 +8,7 @@ public class PreOrderIterator implements Iterator<ComponentNode>{
 	
 	public PreOrderIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
-		current = expressionTree;
+		current = expressionTree.getRoot();
 	}
 
 	public boolean hasNext(){

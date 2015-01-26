@@ -8,7 +8,7 @@ public class PostOrderIterator implements Iterator<ComponentNode>{
 	
 	public PostOrderIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
-		current = expressionTree;
+		current = expressionTree.getRoot();
 		goLeft();
 	}
 

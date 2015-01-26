@@ -352,7 +352,8 @@ public class TestStructure {
 	public void testExpressionTree(){
 		// an expression tree with just a number.
 		
-		ExpressionTree result =  new ExpressionTree(two);
+		ExpressionTree expTree =  new ExpressionTree(new ExpressionTreeContext(), two);
+		ComponentNode result = expTree.getRoot();
 		assertEquals("ExpressionTree result root should contain 2",
 			"2", result.getItem());
 		assertNull("ExpressionTree result should have no children", 
@@ -368,7 +369,7 @@ public class TestStructure {
 	public void checkExpressionTreeCreationWithBadArgument(){
 		try{
 			// create with null leaf node is an error
-			ExpressionTree result = new ExpressionTree(null);
+			ExpressionTree result = new ExpressionTree(null, null);
 			fail("should have thrown IllegalArgumentException.");
 		} catch (IllegalArgumentException e){
 			return;		

@@ -1,4 +1,11 @@
 public class ExpressionTreeContext {
+	
+	public enum TraversalOrder {
+		preorder, inorder, postorder };
+	
+	TraversalOrder currentTraversalOrder;
+	
+	
 	public void print(String arg){
 		
 	}
@@ -17,6 +24,10 @@ public class ExpressionTreeContext {
 	
 	public void setFormat(String arg){
 		
+	}
+	
+	public TraversalOrder getCurrentTraversalOrder(){
+		return currentTraversalOrder;
 	}
 	
 

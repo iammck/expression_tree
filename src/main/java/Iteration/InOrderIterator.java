@@ -9,7 +9,7 @@ public class InOrderIterator implements Iterator<ComponentNode>{
 	
 	public InOrderIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
-		current = expressionTree;
+		current = expressionTree.getRoot();
 		goLeft();
 	}
 

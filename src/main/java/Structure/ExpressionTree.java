@@ -1,36 +1,43 @@
-public class ExpressionTree implements ComponentNode {
+import java.util.*;
+
+public class ExpressionTree implements Iterable<ComponentNode> {
 	
 	ComponentNode root;
+	ExpressionTreeContext context;
 	
 	private ExpressionTree(){
 	}
 	
-	public ExpressionTree(ComponentNode root){
-		if (root == null){
+	public ExpressionTree(ExpressionTreeContext context, ComponentNode root){
+		if (context == null || root == null){
 			throw new IllegalArgumentException(
 				"ExpressionTree constructor requires "
-				+ "valid ComponentNode.");
+				+ "valid ExressionTreeContext and ComponentNode.");
 		}
 		this.root = root;
+		this.context = context;
 	}
 	
-	public String getItem(){
-		return root.getItem();
+	public ComponentNode getRoot(){
+		return root;
 	}
 	
-	public ComponentNode getRightChild(){
-		return root.getRightChild();
-	}
-	
-	public ComponentNode getLeftChild(){
-		return root.getLeftChild();
-	}
-	
-	public int compareToNode(ComponentNode node){
-		return root.compareToNode(node);
+	public Iterator<ComponentNode> iterator(){
+		// want an iterator to match the current traversal order
+		ExpressionTreeContext.TraversalOrder order = context.getCurrentTraversalOrder();
+		switch (order){
+		case preorder:
+			return new PreOrderIterator(this);
+		case postorder:
+			return new PostOrderIterator(this);
+		case inorder:
+			return new InOrderIterator(this);			
+		};
+		return null;
 	}
 	
 	public void accept(ComponentNodeVisitor componentNodeVisitor){
-		componentNodeVisitor.respondToVisit(this);
+		//componentNodeVisitor.respondToVisit();
+		
 	}
 }

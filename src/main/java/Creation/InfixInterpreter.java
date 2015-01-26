@@ -71,7 +71,6 @@ public ExpressionTree interpret(InterpreterContext context, String input)
 					op, interpretedSymbols, accumSymbols);
 			}
 		}
-		
 		ComponentNode rootNode = null;
 		if (interpretedSymbols.size() == 0 ){
 			return null;
@@ -79,7 +78,8 @@ public ExpressionTree interpret(InterpreterContext context, String input)
 		// build the expression tree from interpred symbols and return it.
 			rootNode = interpretedSymbols.get(
 				interpretedSymbols.size()-1).build();
-				return new ExpressionTree(rootNode);
+				return new ExpressionTree(
+					context.getExpressionTreeContext(), rootNode);
 		} else {
 			throw new InvalidInputException(
 				"InpterpretSymbols has unhandled terms.",

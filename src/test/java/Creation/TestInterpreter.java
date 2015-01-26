@@ -5,12 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestInterpreter {
+	// the interpreter
+	Interpreter interpreter;	
+	// any InterpreterContext should work
+	InterpreterContext context;
+	
+	@Before
+	public void beforeEachTest(){
+		// any InterpreterContext should work
+		context = new InterpreterContext();
+		ExpressionTreeContext ec = new ExpressionTreeContext();
+		context.setExpressionTreeContext(ec);
+	}	
 	
 	@Test(timeout=500)
 	public void testGetInputList(){
 		// will need an interpreter to do the work
 		// should work for any subclass
-		Interpreter interpreter = new InfixInterpreter();
+		interpreter = new InfixInterpreter();
 		
 		// "2",
 		String two = "2";
@@ -76,57 +88,52 @@ public class TestInterpreter {
 					"08", result.get(8));		
 	}
 	
+	private ComponentNode getExpressionTreeRoot(String testString){
+		ExpressionTree et = interpreter.interpret(context,testString);
+		ComponentNode result = et.getRoot();
+		return result;
+	}
 	
 	@Test
 	public void testInterperterWithInfix(){
-		// create the interpreter
-		Interpreter interpreter = new InfixInterpreter();
-		// any InterpreterContext should work
-		InterpreterContext context = new InterpreterContext(); 
-		String testString = null;
-		// empty string
-		testString = "";
-		// get the resulting expression tree
-		ExpressionTree result = interpreter.interpret(context,testString);
-		// this should produce a null expression tree
-		assertNull("an empty string should interprete to a null "
-				+ "expression tree.", result);
+		// set the interpreter
+		interpreter = new InfixInterpreter();
 		// 3
-		testString = "3";
-		result = interpreter.interpret(context,testString);
-		// this should produce an expression tree equal to 3 and no child
-		assertEquals("ExpressionTree result should contain 3",
+		String testString = "3";
+		ComponentNode result = getExpressionTreeRoot(testString);
+		// this should produce an expression tree root node equal to 3 and no child
+		assertEquals("ExpressionTree root node should contain 3",
 			"3", result.getItem());
-		assertNull("ExpressionTree result should have no children", 
+		assertNull("ExpressionTree root node should have no children", 
 			result.getRightChild());
-		assertNull("ExpressionTree result should have no children", 
+		assertNull("ExpressionTree root node should have no children", 
 			result.getLeftChild());
 		// 3 + 4
 		testString = "3   +4";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 4 as right child", 
+		assertEquals("ExpressionTree root node should have 4 as right child", 
 			"4", result.getRightChild().getItem());		
 		// (3 + 4)
 		testString = "  (3   +  4    )  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 4 as right child", 
+		assertEquals("ExpressionTree root node should have 4 as right child", 
 			"4", result.getRightChild().getItem());		
 		// 3 + 4 * 5
 		testString = "  3   +  4* 5  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have * as right child", 
+		assertEquals("ExpressionTree root node should have * as right child", 
 			"*", result.getRightChild().getItem());
 		ComponentNode node = result.getRightChild();
 		assertEquals("node should have 4 as left child", 
@@ -135,12 +142,12 @@ public class TestInterpreter {
 			"5", node.getRightChild().getItem());
 		// (3 + 4) * 5
 		testString = "  (  3   +  4)* 5  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain * as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain * as root",
 			"*", result.getItem());
-		assertEquals("ExpressionTree result should have + as left child", 
+		assertEquals("ExpressionTree root node should have + as left child", 
 			"+", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 5 as right child", 
+		assertEquals("ExpressionTree root node should have 5 as right child", 
 			"5", result.getRightChild().getItem());
 		node = result.getLeftChild();
 		assertEquals("node should have 3 as left child", 
@@ -150,12 +157,12 @@ public class TestInterpreter {
 		
 		// -(3 + 4) * -5		
 		testString = "  -(  3   +  4)* - 5  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain * as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain * as root",
 			"*", result.getItem());
-		assertEquals("ExpressionTree result should have - as left child", 
+		assertEquals("ExpressionTree root node should have - as left child", 
 			"-", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have - as right child", 
+		assertEquals("ExpressionTree root node should have - as right child", 
 			"-", result.getRightChild().getItem());
 		// the left child of result. is -
 		node = result.getLeftChild();
@@ -169,12 +176,12 @@ public class TestInterpreter {
 			"4", node.getRightChild().getItem());		
 		// -( -3 + 4  ) * ----- 5		
 		testString = "  -  (  -3   +  4   )* ----- 5  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain * as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain * as root",
 			"*", result.getItem());
-		assertEquals("ExpressionTree result should have - as left child", 
+		assertEquals("ExpressionTree root node should have - as left child", 
 			"-", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have - as right child", 
+		assertEquals("ExpressionTree root node should have - as right child", 
 			"-", result.getRightChild().getItem());
 		// the left child of result. is -
 		node = result.getLeftChild();
@@ -213,45 +220,35 @@ public class TestInterpreter {
 	@Test
 	public void testInterperterWithPrefix(){
 		// create the interpreter
-		Interpreter interpreter = new PrefixInterpreter();
-		// any InterpreterContext should work
-		InterpreterContext context = new InterpreterContext(); 
-		String testString = null;
-		// empty string
-		testString = "";
-		// get the resulting expression tree
-		ExpressionTree result = interpreter.interpret(context,testString);
-		// this should produce a null expression tree
-		assertNull("an empty string should interprete to a null "
-				+ "expression tree.", result);
+		interpreter = new PrefixInterpreter();
 		// 3
-		testString = "3";
-		result = interpreter.interpret(context,testString);
+		String testString = "3";
+		ComponentNode result = getExpressionTreeRoot(testString);
 		// this should produce an expression tree equal to 3 and no child
-		assertEquals("ExpressionTree result should contain 3",
+		assertEquals("ExpressionTree root node should contain 3",
 			"3", result.getItem());
-		assertNull("ExpressionTree result should have no children", 
+		assertNull("ExpressionTree root node should have no children", 
 			result.getRightChild());
-		assertNull("ExpressionTree result should have no children", 
+		assertNull("ExpressionTree root node should have no children", 
 			result.getLeftChild());
 		
 		// (3 + 4)  = + 3 4
 		testString = "  + 3 4  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 4 as right child", 
+		assertEquals("ExpressionTree root node should have 4 as right child", 
 			"4", result.getRightChild().getItem());		
 		// 3 + 4 * 5 =   + 3 * 4 5 
 		testString = "   + 3 * 4  5     ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have * as right child", 
+		assertEquals("ExpressionTree root node should have * as right child", 
 			"*", result.getRightChild().getItem());
 		ComponentNode node = result.getRightChild();
 		assertEquals("node should have 4 as left child", 
@@ -261,12 +258,12 @@ public class TestInterpreter {
 		
 		// (3 + 4) * 5 = *+345
 		testString = "  *    	+ 3 4 5  ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain * as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain * as root",
 			"*", result.getItem());
-		assertEquals("ExpressionTree result should have + as left child", 
+		assertEquals("ExpressionTree root node should have + as left child", 
 			"+", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 5 as right child", 
+		assertEquals("ExpressionTree root node should have 5 as right child", 
 			"5", result.getRightChild().getItem());
 		node = result.getLeftChild();
 		assertEquals("node should have 3 as left child", 
@@ -278,45 +275,35 @@ public class TestInterpreter {
 	@Test
 	public void testInterperterWithPostfix(){
 		// create the interpreter
-		Interpreter interpreter = new PostfixInterpreter();
-		// any InterpreterContext should work
-		InterpreterContext context = new InterpreterContext(); 
-		String testString = null;
-		// empty string
-		testString = "";
-		// get the resulting expression tree
-		ExpressionTree result = interpreter.interpret(context,testString);
-		// this should produce a null expression tree
-		assertNull("an empty string should interprete to a null "
-				+ "expression tree.", result);
+		interpreter = new PostfixInterpreter();
 		// 3
-		testString = "3";
-		result = interpreter.interpret(context,testString);
+		String testString = "3";
+		ComponentNode result = getExpressionTreeRoot(testString);
 		// this should produce an expression tree equal to 3 and no child
-		assertEquals("ExpressionTree result should contain 3",
+		assertEquals("ExpressionTree root node should contain 3",
 			"3", result.getItem());
-		assertNull("ExpressionTree result should have no children", 
+		assertNull("ExpressionTree root node should have no children", 
 			result.getRightChild());
-		assertNull("ExpressionTree result should have no children", 
+		assertNull("ExpressionTree root node should have no children", 
 			result.getLeftChild());
 		
 		// (3 + 4)  = + 3 4 = 3 4 +
 		testString = "  3 4 + ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 4 as right child", 
+		assertEquals("ExpressionTree root node should have 4 as right child", 
 			"4", result.getRightChild().getItem());		
 		// 3 + 4 * 5 =   + 3 * 4 5 = 3 4 5 * + 
 		testString = "   3  4  5 * +     ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain + as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain + as root",
 			"+", result.getItem());
-		assertEquals("ExpressionTree result should have 3 as left child", 
+		assertEquals("ExpressionTree root node should have 3 as left child", 
 			"3", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have * as right child", 
+		assertEquals("ExpressionTree root node should have * as right child", 
 			"*", result.getRightChild().getItem());
 		ComponentNode node = result.getRightChild();
 		assertEquals("node should have 4 as left child", 
@@ -326,12 +313,12 @@ public class TestInterpreter {
 		
 		// (3 + 4) * 5 = *+345 = 3 4 + 5 *
 		testString = "  3 4 + 5 * ";
-		result = interpreter.interpret(context,testString);
-		assertEquals("ExpressionTree result should contain * as root",
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain * as root",
 			"*", result.getItem());
-		assertEquals("ExpressionTree result should have + as left child", 
+		assertEquals("ExpressionTree root node should have + as left child", 
 			"+", result.getLeftChild().getItem());
-		assertEquals("ExpressionTree result should have 5 as right child", 
+		assertEquals("ExpressionTree root node should have 5 as right child", 
 			"5", result.getRightChild().getItem());
 		node = result.getLeftChild();
 		assertEquals("node should have 3 as left child", 
