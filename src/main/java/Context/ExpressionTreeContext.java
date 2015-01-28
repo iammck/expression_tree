@@ -30,5 +30,9 @@ public class ExpressionTreeContext {
 		return currentTraversalOrder;
 	}
 	
+	public void setCurrentTraversalOrder(TraversalOrder current){
+		this.currentTraversalOrder = current;
+	}
+	
 
 }

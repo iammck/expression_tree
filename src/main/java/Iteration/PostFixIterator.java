@@ -1,15 +1,15 @@
 import java.util.*;
 
-public class PostOrderIterator implements Iterator<ComponentNode>{
+public class PostFixIterator implements Iterator<ComponentNode>{
 	List<ComponentNode> pendingList;
 	ComponentNode current;
 	
-	private PostOrderIterator(){}
+	private PostFixIterator(){}
 	
-	public PostOrderIterator(ExpressionTree expressionTree){
+	public PostFixIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
 		current = expressionTree.getRoot();
-		goRight();
+		goLeft();
 	}
 
 	public boolean hasNext(){
@@ -28,27 +28,32 @@ public class PostOrderIterator implements Iterator<ComponentNode>{
 			current = null;
 			return;
 		}
-		// else get the last node and its left child node.
+		// else get the last node and its right child node.
 		int last = pendingList.size() - 1;
 		ComponentNode node = pendingList.get(last);
-		ComponentNode child = node.getLeftChild();
-		// if there is a left child and it is not current
-		if (child != null && current != child){
+		ComponentNode child = node.getRightChild();
+		if (current != child){
 			current = child;
-			goRight();
+			goLeft();
 		} else {
 			current = node;
 			pendingList.remove(node);
 		}
 	}
 	
-	private void goRight(){
-		ComponentNode child = current.getRightChild();
+	private void goLeft(){
+		ComponentNode child = current.getLeftChild();
 		while (child != null){
 			// add the current to pending.
 			pendingList.add(current);
 			current = child;
-			child = current.getRightChild();
+			child = current.getLeftChild();
+		}
+		// if current is a unary node will have a right child,
+		if (current.getRightChild() != null){
+		// need to add a NumberLeafNode with a "0" item
+			pendingList.add(current);
+			current = new NumberLeafNode("0");
 		}
 	}
 }

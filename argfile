@@ -36,10 +36,14 @@
 .\src\main\java\Exceptions\InvalidInputException.java
 
 .\src\main\java\Iteration\InOrderIterator.java
+.\src\main\java\Iteration\InFixIterator.java
 .\src\main\java\Iteration\PreOrderIterator.java
+.\src\main\java\Iteration\PreFixIterator.java
 .\src\main\java\Iteration\PostOrderIterator.java
+.\src\main\java\Iteration\PostFixIterator.java
 
 .\src\main\java\Visitor\ComponentNodeVisitor.java
+.\src\main\java\Visitor\PrintVisitor.java
 
 .\src\main\java\Context\ExpressionTreeContext.java
 

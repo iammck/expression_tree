@@ -1,12 +1,12 @@
 import java.util.*;
 
-public class PreOrderIterator implements Iterator<ComponentNode>{
+public class PreFixIterator implements Iterator<ComponentNode>{
 	List<ComponentNode> pendingList;
 	ComponentNode current;
 	
-	private PreOrderIterator(){}
+	private PreFixIterator(){}
 	
-	public PreOrderIterator(ExpressionTree expressionTree){
+	public PreFixIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
 		current = expressionTree.getRoot();
 	}
@@ -32,17 +32,20 @@ public class PreOrderIterator implements Iterator<ComponentNode>{
 			pendingList.add(current);
 			current = child;
 			return true;
+		// if current is unary, it will have a right, 
+		} else if ( current.getRightChild() != null){
+			// Will need a NumberLeafNode with "0" as left.
+			pendingList.add(current);
+			current = new NumberLeafNode("0");
+			return true;
 		} else {
 			return false;
 		}
 	}
 	
 	private void goRight(){
-		ComponentNode child = current.getRightChild();
 		int last = pendingList.size() - 1;
-		if(child != null){
-			current = child;
-		} else if (last >= 0){
+		if (last >= 0){
 			ComponentNode node = pendingList.remove(last);
 			current = node.getRightChild();
 		} else {
