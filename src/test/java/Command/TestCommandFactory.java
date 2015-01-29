@@ -4,10 +4,12 @@ import static org.junit.Assert.*;
 /**
   * Test the instantiation of the command factory. 
   * check that the factory can interprete the Possible commands:
-  * set format, set expression, evaluate, macro, print, quit
+  * set input format, set expression, evaluate, macro, print, quit
+  * and set tree order.
   */
 public class TestCommandFactory{
 	CommandFactory factory;
+	
 	
 	@Before
 	public void createConcreteCommandFactory(){
@@ -23,11 +25,12 @@ public class TestCommandFactory{
 	
 	@Test
 	public void testMakeCommandMacro(){
+		// a command may be made with any arg. Bad args are
+		// exposed when the command is executed.
 		assertCanMakeCommand("macro", null);
 		assertCanMakeCommand("macro", "");
 		assertCanMakeCommand("macro", "bad expr");
 		assertCanMakeCommand("macro", "4*5");
-
 	}
 	
 	@Test
@@ -50,11 +53,19 @@ public class TestCommandFactory{
 	}
 	
 	@Test
-	public void testMakeCommandSetFormat(){
-		assertCanMakeCommand("setformat", null);
-		assertCanMakeCommand("setformat", "bad arg");
-		assertCanMakeCommand("setformat", "in-fix");
+	public void testMakeCommandSetInputFormat(){
+		assertCanMakeCommand("setinputformat", null);
+		assertCanMakeCommand("setinputformat", "bad arg");
+		assertCanMakeCommand("setinputformat", "infix");
 	}
+	
+	@Test
+	public void testMakeCommandSetTreeOrder(){
+		assertCanMakeCommand("settreeorder", null);
+		assertCanMakeCommand("settreeorder", "bad arg");
+		assertCanMakeCommand("settreeorder", "infix");
+	}
+
 	
 	private void assertCanMakeCommand(String name, String arg){
 		Command command = factory.makeCommand(name, arg);

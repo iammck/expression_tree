@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 public class TestCommand{
 
-	// commands can take a context and arg.
+	// commands can take a context and "".
 	ExpressionTreeContext context;
-	String arg;
 	
-	Command setFormat;
+	Command setInputFormat;
 	Command setExpression;
 	Command evaluate;
+	Command setTreeOrder;
 	Command macro;
 	Command print;
 	Command  quit;
@@ -26,19 +26,21 @@ public class TestCommand{
 	
 	@Before
 	public void instantiateCommands(){
-		// commands can take a context and arg.
+		// commands take a context
 		ExpressionTreeContext context = new ExpressionTreeContext();
-		String arg = "random arg";
-		setFormat = new SetFormatCommand(context, arg);
-		setExpression = new SetExpressionCommand(context, arg);
-		evaluate = new EvaluateCommand(context, arg);
-		print = new PrintCommand(context, arg);
-		quit = new QuitCommand(context, arg);
-		
+		System.out.println("instantiateCommands()");
+		setInputFormat = new SetInputFormatCommand(context, "infix");
+		setExpression = new SetExpressionCommand(context, "");
+		evaluate = new EvaluateCommand(context, "");
+		setTreeOrder = new SetTreeOrderCommand(context, "inorder");
+		print = new PrintCommand(context, "");
+		quit = new QuitCommand(context, "");
+		// a macro takes a list of commands.
 		commands = new ArrayList<Command>();
-		commands.add(setFormat);
+		commands.add(setInputFormat);
 		commands.add(setExpression);
 		commands.add(evaluate);
+		// commands.add(SetTreeOrder); // should be set already. with input
 		commands.add(quit);
 		
 		macro = new MacroCommand(context, commands);
@@ -46,11 +48,12 @@ public class TestCommand{
 	
 	@Test
 	public void testExecuteCommands(){
-		setFormat.execute();
+		setInputFormat.execute();
 		setExpression.execute();
 		evaluate.execute();
-		macro.execute();
+		setTreeOrder.execute();
 		print.execute();
 		quit.execute();
+		macro.execute();
 	}
 }

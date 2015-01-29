@@ -12,8 +12,8 @@ public class ConcreteCommandFactory implements CommandFactory{
 		commandTable.put("macro", new MacroCommandMaker());
 		commandTable.put("quit", new QuitCommandMaker());
 		commandTable.put("setexpression", new SetExpressionCommandMaker());
-		commandTable.put("setformat", new SetFormatCommandMaker());
-		
+		commandTable.put("settreeorder", new SetTreeOrderCommandMaker());
+		commandTable.put("setinputformat", new SetInputFormatCommandMaker());
 	}
 	
 	public Command makeCommand(String commandName, String arg){

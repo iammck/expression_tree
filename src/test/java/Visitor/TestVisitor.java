@@ -150,7 +150,8 @@ public class TestVisitor{
 	private ExpressionTree getInfixInOrderExpressionTree(String input){
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
-		ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.inorder);
+		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		ec.setTreeOrder("inorder");
 		InterpreterContext ic = new InterpreterContext();
 		ic.setExpressionTreeContext(ec);
 		Interpreter interpreter = new InfixInterpreter();
@@ -161,7 +162,8 @@ public class TestVisitor{
 	private ExpressionTree getInfixPreOrderExpressionTree(String input){
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
-		ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		ec.setTreeOrder("preorder");
 		InterpreterContext ic = new InterpreterContext();
 		ic.setExpressionTreeContext(ec);
 		Interpreter interpreter = new InfixInterpreter();
@@ -173,17 +175,12 @@ public class TestVisitor{
 	private ExpressionTree getInfixPostOrderExpressionTree(String input){
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
-		ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.postorder);
+		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		ec.setTreeOrder("postorder");
 		InterpreterContext ic = new InterpreterContext();
 		ic.setExpressionTreeContext(ec);
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = interpreter.interpret(ic, input);
 		return expTree;
 	}
-	
-	@Test
-	public void testEvaluateVisitor(){
-		fail("method needs implementation.");
-	}
-		
 }

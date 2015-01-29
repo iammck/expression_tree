@@ -11,8 +11,8 @@ public class MyTestRunner{
 		runClassTests(TestInterpreterInputErrors.class);
 		runClassTests(TestIterators.class);
 		runClassTests(TestVisitor.class);
-		//runClassTests(TestCommand.class);
-		//runClassTests(TestCommandFactory.class);
+		runClassTests(TestCommand.class);
+		runClassTests(TestCommandFactory.class);
 		//runClassTests(TestState.class);		
 	}
 	

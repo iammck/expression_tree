@@ -24,7 +24,7 @@ public class ExpressionTree implements Iterable<ComponentNode> {
 	
 	public Iterator<ComponentNode> iterator(){
 		// want an iterator to match the current traversal order
-		ExpressionTreeContext.TraversalOrder order = context.getCurrentTraversalOrder();
+		ExpressionTreeContext.TreeOrder order = context.getCurrentTreeOrder();
 		switch (order){
 		case preorder:
 			return new PreOrderIterator(this);

@@ -1,10 +1,38 @@
 public class ExpressionTreeContext {
 	
-	public enum TraversalOrder {
-		preorder, inorder, postorder };
+	public enum TreeOrder {
+		preorder, inorder, postorder,
+		prefix, infix, postfix 		};
 	
-	TraversalOrder currentTraversalOrder;
+	public enum InputFormat {
+		prefix, infix, postfix 		};
+		
+	TreeOrder currentTreeOrder;
+	InputFormat currentInputFormat;
 	
+	
+	public void setExpression(String arg){
+		// TODO
+	}
+	
+	public void setInputFormat(String arg){
+		currentInputFormat =
+			Enum.valueOf(InputFormat.class, arg);
+		setTreeOrder(arg);
+	}	
+	
+	public void evaluate(String arg){
+		// TODO
+	}
+	
+	public void setTreeOrder(String arg){
+		currentTreeOrder = Enum
+			.valueOf(TreeOrder.class, arg);
+	}
+	
+	public TreeOrder getCurrentTreeOrder(){
+		return currentTreeOrder;
+	}
 	
 	public void print(String arg){
 		
@@ -13,26 +41,4 @@ public class ExpressionTreeContext {
 	public void quit(String arg){
 		
 	}
-	
-	public void evaluate(String arg){
-		
-	}
-	
-	public void setExpression(String arg){
-		
-	}
-	
-	public void setFormat(String arg){
-		
-	}
-	
-	public TraversalOrder getCurrentTraversalOrder(){
-		return currentTraversalOrder;
-	}
-	
-	public void setCurrentTraversalOrder(TraversalOrder current){
-		this.currentTraversalOrder = current;
-	}
-	
-
 }
