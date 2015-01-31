@@ -284,9 +284,8 @@ public class TestIterators {
 	
 	private ExpressionTree getExpressionTree(String input){
 		// create an expression tree from input string.
-		InterpreterContext context = new InterpreterContext();
-		ExpressionTreeContext ec = new ExpressionTreeContext();
-		context.setExpressionTreeContext(ec);
+		ExpressionTreeContext context = new ExpressionTreeContext();
+		context.setInputFormat("infix");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = interpreter.interpret(context, input);
 		assertNotNull("Unable to get expression tree from input "

@@ -19,27 +19,34 @@ public class TestInterpreterInputErrors {
 	// the interpreter
 	Interpreter interpreter;	
 	// any InterpreterContext should work
-	InterpreterContext context;
+	ExpressionTreeContext context;
 	
 	@Before
 	public void beforeEachTest(){
 		interpreter = new InfixInterpreter();
-		context = new InterpreterContext();
+		context = new ExpressionTreeContext();
 		ExpressionTreeContext ec = new ExpressionTreeContext();
-		context.setExpressionTreeContext(ec);
 	}
 	
 	@Test
 	public void testEmptyStringInput(){
-		// empty string
-		String testString = "";
-		// get the resulting expression tree
-		ExpressionTree result = interpreter.interpret(context, testString);
-		// this should produce a null expression tree
-		assertNull("an empty string should interprete to a null "
-				+ "expression tree.", result);
+		assertEmptyStringThrowsError(new InfixInterpreter());	
+		assertEmptyStringThrowsError(new PrefixInterpreter());	
+		assertEmptyStringThrowsError(new PostfixInterpreter());	
 		
-		
+	}
+	
+	private void assertEmptyStringThrowsError(Interpreter interpreter){
+		try {
+			// empty string
+			String testString = "";
+			// get the resulting expression tree
+			ExpressionTree result = interpreter.interpret(context, testString);
+			fail(interpreter.toString() 
+				+ " should have thrown an exception for empty string.");
+		} catch (InvalidInputException e) {
+			return;
+		}
 	}
 	
 	@Test

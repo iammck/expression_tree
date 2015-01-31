@@ -47,7 +47,7 @@ public class TestVisitor{
 		assertInfixPreOrderPrintVisitorEquals("3","3");
 		assertInfixPreOrderPrintVisitorEquals("3+3","+33");
 		assertInfixPreOrderPrintVisitorEquals("(3+3)*6","*+336");
-
+		
 	}
 	
 	private void assertInfixInOrderPrintVisitorEquals(String input, String output){
@@ -80,7 +80,20 @@ public class TestVisitor{
 			System.out.println("Unable to create PrintStream for PrintVisiter.log.");
 		} catch (IOException e){
 			System.out.println("Unable to create BufferedReader for PrintVisiter.log.");
+		} catch (Exception e){
+			System.out.println(e.toString());
 		}
+	}
+	PrintStream original;
+			
+	@Before
+	public void beforeEachTest(){
+		original = System.out;
+	}
+	
+	@After
+	public void afterEachTest(){
+		System.setOut(original);
 	}
 	
 	private void assertInfixPreOrderPrintVisitorEquals(String input, String output){
@@ -116,10 +129,10 @@ public class TestVisitor{
 	}
 	
 	private void assertPrefixPostOrderPrintVisitorEquals(String input, String output){
+		PrintStream original = System.out;
 		try {
 			// set the system out to something that can be checked.
 			PrintStream printStream = new PrintStream("bin\\PrintVisitor.log");
-			PrintStream original = System.out;
 			System.setOut(printStream);
 			// get a printvisitor
 			ComponentNodeVisitor printVisitor = new PrintVisitor();
@@ -141,8 +154,10 @@ public class TestVisitor{
 				output, result);
 			reader.close();
 		} catch (FileNotFoundException e){
+			System.setOut(original);
 			System.out.println("Unable to create PrintStream for PrintVisiter.log.");
 		} catch (IOException e){
+			System.setOut(original);
 			System.out.println("Unable to create BufferedReader for PrintVisiter.log.");
 		}
 	}
@@ -151,11 +166,10 @@ public class TestVisitor{
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		ec.setInputFormat("infix");
 		ec.setTreeOrder("inorder");
-		InterpreterContext ic = new InterpreterContext();
-		ic.setExpressionTreeContext(ec);
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(ic, input);
+		ExpressionTree expTree = interpreter.interpret(ec, input);
 		return expTree;
 	}
 	
@@ -163,11 +177,10 @@ public class TestVisitor{
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		ec.setInputFormat("infix");
 		ec.setTreeOrder("preorder");
-		InterpreterContext ic = new InterpreterContext();
-		ic.setExpressionTreeContext(ec);
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(ic, input);
+		ExpressionTree expTree = interpreter.interpret(ec, input);
 		return expTree;
 	}
 	
@@ -176,11 +189,10 @@ public class TestVisitor{
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
+		ec.setInputFormat("infix");
 		ec.setTreeOrder("postorder");
-		InterpreterContext ic = new InterpreterContext();
-		ic.setExpressionTreeContext(ec);
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(ic, input);
+		ExpressionTree expTree = interpreter.interpret(ec, input);
 		return expTree;
 	}
 }

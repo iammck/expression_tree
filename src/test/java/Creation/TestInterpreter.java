@@ -8,14 +8,12 @@ public class TestInterpreter {
 	// the interpreter
 	Interpreter interpreter;	
 	// any InterpreterContext should work
-	InterpreterContext context;
+	ExpressionTreeContext context;
 	
 	@Before
 	public void beforeEachTest(){
 		// any InterpreterContext should work
-		context = new InterpreterContext();
-		ExpressionTreeContext ec = new ExpressionTreeContext();
-		context.setExpressionTreeContext(ec);
+		context = new ExpressionTreeContext();
 	}	
 	
 	@Test(timeout=500)

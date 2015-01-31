@@ -1,6 +1,6 @@
-public class InitialState implements State {
+public class HasExpressionState implements State {
 	public void print(ExpressionTreeContext context, String arg){
-		throw new InvalidStateException("There is no expression to print!");
+		context.printCurrentExpressionTree();
 	}
 	
 	public void quit(ExpressionTreeContext context, String arg){
@@ -8,20 +8,18 @@ public class InitialState implements State {
 	}
 	
 	public void evaluate(ExpressionTreeContext context, String arg){
-		throw new InvalidStateException("There is no expression to evaluate!");		
+		context.evaluateCurrentExpressionTree();		
 	}
 	
 	public void setExpression(ExpressionTreeContext context, String arg){
-		throw new InvalidStateException("You must specify an input format!");
+		context.setCurrentExpression(arg);
 	}
 	
 	public void setInputFormat(ExpressionTreeContext context, String arg){
 		context.setCurrentInputFormat(arg);
-		context.setCurrentTreeOrder(arg);
-		context.setCurrentState(new FormatedState());
 	}
 	
 	public void setTreeOrder(ExpressionTreeContext context, String arg){
-		context.setCurrentTreeOrder(arg);		
+		context.setCurrentTreeOrder(arg);					
 	}
 }

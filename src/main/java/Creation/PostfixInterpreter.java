@@ -3,7 +3,7 @@ import java.util.Collections;
 
 public class PostfixInterpreter extends Interpreter {
 
-	public ExpressionTree interpret(InterpreterContext context, String input)
+	public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
 		// List of accumulated symbols waiting to be put in parsed list.
 		List<Symbol> accumSymbols = new ArrayList<Symbol>();
@@ -43,13 +43,13 @@ public class PostfixInterpreter extends Interpreter {
 		
 		ComponentNode rootNode = null;
 		if (interpretedSymbols.size() == 0 ){
-			return null;
+			String result = "Empty input String.";					
+			throw new InvalidInputException(result, null, null, null);
 		} else if (interpretedSymbols.size() == 1) {
 		// build the expression tree from interpred symbols and return it.
 			rootNode = interpretedSymbols.get(
 				interpretedSymbols.size()-1).build();
-				return new ExpressionTree(
-					context.getExpressionTreeContext(), rootNode);
+				return new ExpressionTree( context, rootNode);
 		} else {
 			throw new InvalidInputException(
 				"InpterpretSymbols has unhandled terms.",

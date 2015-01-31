@@ -26,7 +26,6 @@
 .\src\main\java\Creation\Subtraction.java
 .\src\main\java\Creation\Multiplication.java
 .\src\main\java\Creation\Division.java
-.\src\main\java\Creation\InterpreterContext.java
 .\src\main\java\Creation\Interpreter.java
 .\src\main\java\Creation\InfixInterpreter.java
 .\src\main\java\Creation\PrefixInterpreter.java
@@ -34,6 +33,7 @@
 
 
 .\src\main\java\Exceptions\InvalidInputException.java
+.\src\main\java\Exceptions\InvalidStateException.java
 
 .\src\main\java\Iteration\InOrderIterator.java
 .\src\main\java\Iteration\InFixIterator.java
@@ -50,8 +50,7 @@
 .\src\main\java\State\State.java
 .\src\main\java\State\InitialState.java
 .\src\main\java\State\FormatedState.java
-.\src\main\java\State\FormatedNoExpressionState.java
-.\src\main\java\State\FormatedWithExpressionState.java
+.\src\main\java\State\HasExpressionState.java
 
 .\src\main\java\Command\Command.java
 .\src\main\java\Command\PrintCommand.java

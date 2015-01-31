@@ -13,7 +13,7 @@ public class MyTestRunner{
 		runClassTests(TestVisitor.class);
 		runClassTests(TestCommand.class);
 		runClassTests(TestCommandFactory.class);
-		//runClassTests(TestState.class);		
+		runClassTests(TestState.class);		
 	}
 	
 	
@@ -23,13 +23,16 @@ public class MyTestRunner{
 		if( result.wasSuccessful()){
 			System.out.println(result.getRunCount()
 				+ " tests have completed succesfully.");
-		} else {		
+		} else if (result != null && System.out != null) {
 			System.out.println("Testing completed with " 
 				+ result.getFailureCount() + " failures out of "
 				+ result.getRunCount()	+ " total tests run.");
 			for(Failure failure: result.getFailures()){
 				System.out.println(failure.toString());	
 			}
+		} else {
+			System.out.println("Testing completed with no result or a "
+				+ "null System.out PrintStream.");
 		}
 		System.out.println( "The runtime was " 
 				+ String.valueOf(result.getRunTime())

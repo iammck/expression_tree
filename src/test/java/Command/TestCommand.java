@@ -30,7 +30,7 @@ public class TestCommand{
 		ExpressionTreeContext context = new ExpressionTreeContext();
 		System.out.println("instantiateCommands()");
 		setInputFormat = new SetInputFormatCommand(context, "infix");
-		setExpression = new SetExpressionCommand(context, "");
+		setExpression = new SetExpressionCommand(context, "3*4");
 		evaluate = new EvaluateCommand(context, "");
 		setTreeOrder = new SetTreeOrderCommand(context, "inorder");
 		print = new PrintCommand(context, "");
@@ -48,12 +48,24 @@ public class TestCommand{
 	
 	@Test
 	public void testExecuteCommands(){
+		// note that context state is at work here. so order of execution counds.
 		setInputFormat.execute();
+		assertEvaluateThrowsInvalidStateException();
 		setExpression.execute();
 		evaluate.execute();
 		setTreeOrder.execute();
 		print.execute();
 		quit.execute();
 		macro.execute();
+	}
+	
+	
+	private void assertEvaluateThrowsInvalidStateException(){
+		try {
+			evaluate.execute();
+			fail("should not have been able to execute.");
+		} catch (InvalidStateException e){
+			return;
+		}
 	}
 }
