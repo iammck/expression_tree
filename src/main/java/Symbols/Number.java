@@ -15,7 +15,7 @@ public class Number extends Symbol {
 		return true;
 	}
 	
-	public int comparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedToSymbol(Symbol otherSymbol){
 		if (otherSymbol instanceof Number){
 			return 0;
 		} else {

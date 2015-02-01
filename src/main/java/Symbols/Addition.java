@@ -1,11 +1,11 @@
-public class Subtraction extends BinaryOperator {
+public class Addition extends BinaryOperator {	
 	
 	public ComponentNode build(){
-		return new SubtractionCompositeBinaryNode( 
+		return new AdditionCompositeBinaryNode( 
 			leftSymbol.build(), rightSymbol.build());
 	}
 	
-	public int comparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedToSymbol(Symbol otherSymbol){
 		if ((otherSymbol instanceof Number)){
 				return +1;
 		} else if (( otherSymbol instanceof Addition)

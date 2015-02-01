@@ -2,7 +2,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
 
-public class TestStructure {
+public class TestComponentNodes {
 	
 	// number leaf nodes used to create composite nodes.
 	ComponentNode two, three, four, leftParenthesis, rightParenthesis;

@@ -61,7 +61,7 @@ public class TestSymbols {
 	public void testNumberHasLessOrEqualPrecedenceOver(){
 		// check that numbers compared to numbers are 0.
 		assertEquals("Number.compareToSymbol(Number) should result in 0 ",
-				0, number.comparedToSymbol(number));
+				0, number.precedenceComparedToSymbol(number));
 		
 		// numbers should be less than all other symbol
 		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
@@ -74,7 +74,7 @@ public class TestSymbols {
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
 			int result = number
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("Number.compareToSymbol() "
 				+ "should result in -1.", -1, result);
 		}
@@ -85,10 +85,10 @@ public class TestSymbols {
 	public void testAdditionHasLessOrEqualPrecedenceOver(){
 		// check that Addition compared to addition is 0.
 		assertEquals("Addition.compareToSymbol(Addition) should result in 0 ",
-				0, addition.comparedToSymbol(addition));
+				0, addition.precedenceComparedToSymbol(addition));
 		// check that Addition compared to subtraction is 0.
 		assertEquals("Addition.compareToSymbol(Subtraction) should result in 0 ",
-				0, addition.comparedToSymbol(subtraction));
+				0, addition.precedenceComparedToSymbol(subtraction));
 		
 		
 		// addition should be less than these
@@ -100,14 +100,14 @@ public class TestSymbols {
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
 			int result = addition
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("addition compareToSymbol " + symbol.toString()
 				+ " should result in -1.", -1, result);
 		}	
 		
 		// check that Addition compared to numbers is 1.
 		assertEquals("Addition.compareToSymbol(number) should result in 1 ",
-				1, addition.comparedToSymbol(number));
+				1, addition.precedenceComparedToSymbol(number));
 		
 	}
 	
@@ -115,10 +115,10 @@ public class TestSymbols {
 	public void testSubtractionHasLessOrEqualPrecedenceOver(){
 		// check that subtraction compared to addition is 0.
 		assertEquals("subtraction.compareToSymbol(subtraction) should result in 0 ",
-				0, subtraction.comparedToSymbol(addition));
+				0, subtraction.precedenceComparedToSymbol(addition));
 		// check that subtraction compared to subtraction is 0.
 		assertEquals("subtraction.compareToSymbol(Subtraction) should result in 0 ",
-				0, subtraction.comparedToSymbol(subtraction));
+				0, subtraction.precedenceComparedToSymbol(subtraction));
 		
 		
 		// subtraction should be less than these
@@ -130,24 +130,24 @@ public class TestSymbols {
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
 			int result = subtraction
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("subtraction compareToSymbol " + symbol.toString()
 				+ " should result in -1.", -1, result);
 		}	
 		
 		// check that subtraction compared to numbers is 1.
 		assertEquals("subtraction.compareToSymbol(number) should result in 1 ",
-				1, subtraction.comparedToSymbol(number));
+				1, subtraction.precedenceComparedToSymbol(number));
 	}
 	
 	@Test
 	public void testMultiplicationHasLessOrEqualPrecedenceOver(){
 		// check that multiplication compared to multiplication is 0.
 		assertEquals("multiplication.compareToSymbol(multiplication) should result in 0 ",
-				0, multiplication.comparedToSymbol(multiplication));
+				0, multiplication.precedenceComparedToSymbol(multiplication));
 		// check that multiplication compared to division is 0.
 		assertEquals("multiplication.compareToSymbol(division) should result in 0 ",
-				0, multiplication.comparedToSymbol(division));		
+				0, multiplication.precedenceComparedToSymbol(division));		
 		
 		// multiplication should be less than these
 		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
@@ -156,7 +156,7 @@ public class TestSymbols {
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
 			int result = multiplication
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("multiplication compareToSymbol " + symbol.toString()
 				+ " should result in -1.", -1, result);
 		}
@@ -168,7 +168,7 @@ public class TestSymbols {
 		symbolList.add(subtraction);
 		for(Symbol symbol: symbolList){
 			int result = multiplication
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("multiplication compareToSymbol " + symbol.toString()
 				+ " should result in 1.", 1, result);
 		}
@@ -178,10 +178,10 @@ public class TestSymbols {
 	public void testDivisionHasLessOrEqualPrecedenceOver(){
 		// check that division compared to multiplication is 0.
 		assertEquals("division.compareToSymbol(multiplication) should result in 0 ",
-				0, division.comparedToSymbol(multiplication));
+				0, division.precedenceComparedToSymbol(multiplication));
 		// check that division compared to division is 0.
 		assertEquals("division.compareToSymbol(division) should result in 0 ",
-				0, division.comparedToSymbol(division));
+				0, division.precedenceComparedToSymbol(division));
 		
 		
 		// division should be less than these
@@ -191,7 +191,7 @@ public class TestSymbols {
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
 			int result = division
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("division compareToSymbol " + symbol.toString()
 				+ " should result in -1.", -1, result);
 		}
@@ -203,7 +203,7 @@ public class TestSymbols {
 		symbolList.add(subtraction);
 		for(Symbol symbol: symbolList){
 			int result = division
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("division compareToSymbol " + symbol.toString()
 				+ " should result in 1.", 1, result);
 		}
@@ -214,7 +214,7 @@ public class TestSymbols {
 	public void testNegationHasLessOrEqualPrecedenceOver(){
 		// check that negation compared to negation is 0.
 		assertEquals("negation.compareToSymbol(negation) should result in 0 ",
-				0, negation.comparedToSymbol(negation));
+				0, negation.precedenceComparedToSymbol(negation));
 		
 		// negation should be less than these
 		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
@@ -222,7 +222,7 @@ public class TestSymbols {
 		symbolList.add(rightParenthesis);
 		for(Symbol symbol: symbolList){
 			int result = negation
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("negation compareToSymbol " + symbol.toString()
 				+ " should result in -1.", -1, result);
 		}
@@ -236,7 +236,7 @@ public class TestSymbols {
 		symbolList.add(division);
 		for(Symbol symbol: symbolList){
 			int result = negation
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("negation compareToSymbol " + symbol.toString()
 				+ " should result in 1.", 1, result);
 		}
@@ -247,7 +247,7 @@ public class TestSymbols {
 	public void testParenthesisHasLessOrEqualPrecedenceOver(){
 		// check that leftParenthesis compared to leftParenthesis is 0.
 		assertEquals("leftParenthesis.compareToSymbol(leftParenthesis) should result in 0 ",
-				0, leftParenthesis.comparedToSymbol(leftParenthesis));
+				0, leftParenthesis.precedenceComparedToSymbol(leftParenthesis));
 		
 		// leftParenthesis should be less than these none
 		ArrayList<Symbol> symbolList = null;
@@ -262,7 +262,7 @@ public class TestSymbols {
 		symbolList.add(negation);
 		for(Symbol symbol: symbolList){
 			int result = leftParenthesis
-				.comparedToSymbol(symbol);
+				.precedenceComparedToSymbol(symbol);
 			assertEquals("leftParenthesis compareToSymbol " + symbol.toString()
 				+ " should result in 1.", 1, result);
 		}

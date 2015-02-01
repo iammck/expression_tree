@@ -6,7 +6,8 @@ public class MyTestRunner{
 
 	public static void main(String[] args){
 		System.out.print("\n\n");
-		runClassTests(TestStructure.class);
+		runClassTests(TestComponentNodes.class);
+		runClassTests(TestSymbols.class);
 		runClassTests(TestInterpreter.class);
 		runClassTests(TestInterpreterInputErrors.class);
 		runClassTests(TestIterators.class);

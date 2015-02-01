@@ -52,7 +52,7 @@ public class Parenthesis extends Symbol{
 		return false;
 	}
 	
-	public int comparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedToSymbol(Symbol otherSymbol){
 		if (otherSymbol instanceof Parenthesis){
 			return 0;
 		} else {

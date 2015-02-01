@@ -4,7 +4,7 @@ public class Division extends BinaryOperator {
 			leftSymbol.build(), rightSymbol.build());
 	}
 	
-	public int comparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedToSymbol(Symbol otherSymbol){
 		if ((otherSymbol instanceof Multiplication)
 			|| (otherSymbol instanceof Division)){
 			return 0;

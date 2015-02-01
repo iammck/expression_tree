@@ -15,21 +15,22 @@
 .\src\main\java\Structure\SubtractionCompositeBinaryNode.java
 .\src\main\java\Structure\ExpressionTree.java
 
-.\src\main\java\Creation\Symbol.java
-.\src\main\java\Creation\Number.java
-.\src\main\java\Creation\Parenthesis.java
-.\src\main\java\Creation\Operator.java
-.\src\main\java\Creation\UnaryOperator.java
-.\src\main\java\Creation\Negation.java
-.\src\main\java\Creation\BinaryOperator.java
-.\src\main\java\Creation\Addition.java
-.\src\main\java\Creation\Subtraction.java
-.\src\main\java\Creation\Multiplication.java
-.\src\main\java\Creation\Division.java
-.\src\main\java\Creation\Interpreter.java
-.\src\main\java\Creation\InfixInterpreter.java
-.\src\main\java\Creation\PrefixInterpreter.java
-.\src\main\java\Creation\PostfixInterpreter.java
+.\src\main\java\Symbols\Symbol.java
+.\src\main\java\Symbols\Number.java
+.\src\main\java\Symbols\Parenthesis.java
+.\src\main\java\Symbols\Operator.java
+.\src\main\java\Symbols\UnaryOperator.java
+.\src\main\java\Symbols\Negation.java
+.\src\main\java\Symbols\BinaryOperator.java
+.\src\main\java\Symbols\Addition.java
+.\src\main\java\Symbols\Subtraction.java
+.\src\main\java\Symbols\Multiplication.java
+.\src\main\java\Symbols\Division.java
+
+.\src\main\java\Interpreter\Interpreter.java
+.\src\main\java\Interpreter\InfixInterpreter.java
+.\src\main\java\Interpreter\PrefixInterpreter.java
+.\src\main\java\Interpreter\PostfixInterpreter.java
 
 
 .\src\main\java\Exceptions\InvalidInputException.java

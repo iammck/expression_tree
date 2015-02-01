@@ -37,7 +37,7 @@ public abstract class BinaryOperator extends Operator {
 			Symbol lastOp = accumSymbols.get(index);
 			// if this has less or equal 
 			// precedence over last op, interprete.
-			if (comparedToSymbol(lastOp) < 1){
+			if (precedenceComparedToSymbol(lastOp) < 1){
 				if (lastOp.interpret(interpretedSymbols)){
 					// remove it from the accumulated operators.
 					accumSymbols.remove(lastOp);
