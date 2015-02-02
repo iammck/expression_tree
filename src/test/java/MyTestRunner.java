@@ -3,9 +3,10 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 public class MyTestRunner{
+	
+	private static int totalFailedTests = 0;
 
 	public static void main(String[] args){
-		System.out.print("\n\n");
 		runClassTests(TestComponentNodes.class);
 		runClassTests(TestSymbols.class);
 		runClassTests(TestInterpreter.class);
@@ -14,7 +15,15 @@ public class MyTestRunner{
 		runClassTests(TestVisitor.class);
 		runClassTests(TestCommand.class);
 		runClassTests(TestCommandFactory.class);
-		runClassTests(TestState.class);		
+		runClassTests(TestState.class);
+		
+		if (totalFailedTests == 0){
+			System.out.println("All tests have passed!\n");
+		} else {
+			System.out.println( "All testing has completed."
+				+ String.valueOf(totalFailedTests)
+				+ " tests have failed.\n");
+		}
 	}
 	
 	
@@ -25,6 +34,7 @@ public class MyTestRunner{
 			System.out.println(result.getRunCount()
 				+ " tests have completed succesfully.");
 		} else if (result != null && System.out != null) {
+			totalFailedTests++;
 			System.out.println("Testing completed with " 
 				+ result.getFailureCount() + " failures out of "
 				+ result.getRunCount()	+ " total tests run.");
@@ -32,6 +42,7 @@ public class MyTestRunner{
 				System.out.println(failure.toString());	
 			}
 		} else {
+			totalFailedTests++;
 			System.out.println("Testing completed with no result or a "
 				+ "null System.out PrintStream.");
 		}
