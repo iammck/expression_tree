@@ -12,43 +12,41 @@ public class Parenthesis extends Symbol{
 	}
 	
 	/*
-	 * will add itself as top accum symbol if (. Otherwise, iterates through
-	 * accumSymbols calling interpret() then removing from accumOperators.
+	 * If a '(', will add itself to pendingList. Otherwise, it is a ')' so iterate through
+	 * pendingList calling interpret() then remove matching '(' from pendingList.
 	 */	 
-	public void addToSymbols(List<Symbol> interpretedSymbols, List<Symbol> accumSymbols){		
-		// if symbol is (, put into accumulated operators
+	public void addToInterpreter(List<Symbol> interpretedList, List<Symbol> pendingList){		
+		// if symbol is (, put into pendingList
 		if (symbol.equals("(")){
-			accumSymbols.add(this);
+			pendingList.add(this);
 			return;
 		}
-		// if there are no accumulated symbols, this ) is missing a (
-		if (accumSymbols.size() == 0){
+		// if pendingList is empty, this ) is missing a (
+		if (pendingList.size() == 0){
 			throw new InvalidInputException(
-				"this ) is missing a (", this,
-				interpretedSymbols, accumSymbols);
+				"this ) is missing a (" );
 		}
-		// while there are accumulated operators and the top is not (
-		Symbol topSymbol = accumSymbols.get(accumSymbols.size() - 1);
-		while (topSymbol.interpret(interpretedSymbols)){
+		// while there are pendingList items and the last is not (
+		Symbol lastSymbol = pendingList.get(pendingList.size() - 1);
+		while (lastSymbol.interpret(interpretedList)){
 			// remove it from the accumulated operators.
-			accumSymbols.remove(topSymbol);
+			pendingList.remove(lastSymbol);
 			// if out of symbols, this ) is missing a (
-			if (accumSymbols.size() == 0){
+			if (pendingList.size() == 0){
 				throw new InvalidInputException(
-					"this ) is missing a (", this,
-					interpretedSymbols, accumSymbols);
+					"this ) is missing a (");
 			}
 			// get the next symbol
-			topSymbol = accumSymbols.get(accumSymbols.size() - 1);
+			lastSymbol = pendingList.get(pendingList.size() - 1);
 		}
-		// if the last top operator is a (, then remove it.
-		if ( topSymbol instanceof Parenthesis){
-			if( ((Parenthesis) topSymbol).symbol.equals("("))
-				accumSymbols.remove(topSymbol);
+		// if the last symbol is a (, then remove it.
+		if ( lastSymbol instanceof Parenthesis){
+			if( ((Parenthesis) lastSymbol).symbol.equals("("))
+				pendingList.remove(lastSymbol);
 		}
 	}
 	
-	public boolean interpret(List<Symbol> interpretedSymbols){
+	public boolean interpret(List<Symbol> interpretedList){
 		return false;
 	}
 	

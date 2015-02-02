@@ -1,8 +1,11 @@
 import java.util.List;
 
-public abstract class Symbol {
+public abstract class Symbol implements Interpretable {
 	public abstract ComponentNode build();
-	public abstract boolean interpret(List<Symbol> interpretedSymbols);
 	public abstract int precedenceComparedToSymbol(Symbol otherSymbol);
-	public abstract void addToSymbols(List<Symbol> interpretedSymbols, List<Symbol> accumSymbols);	
+
+//	public abstract boolean evaluate(List<Symbol> evaluatedSymbols);
+//	public abstract void addToEvaluateLists(List<Symbol> evaluatedSymbols, 
+//								List<Symbol> pendingSymbols);	
+
 }

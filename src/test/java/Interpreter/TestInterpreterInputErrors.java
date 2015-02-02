@@ -25,7 +25,6 @@ public class TestInterpreterInputErrors {
 	public void beforeEachTest(){
 		interpreter = new InfixInterpreter();
 		context = new ExpressionTreeContext();
-		ExpressionTreeContext ec = new ExpressionTreeContext();
 	}
 	
 	@Test
@@ -51,35 +50,26 @@ public class TestInterpreterInputErrors {
 	
 	@Test
 	public void shouldFail(){
-	String testString = "  (5 +)( 4)) ";
-		assertTrue("Failed to raise exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		String testString = "  (5 +)( 4)) ";
+		assertFailInfixInterpretWithInvalidInputException(testString);
 	}
 
 	@Test
 	public void testAddToSymbolsParenthesis(){		
 		String testString = "  ((5 +  4) ";
-		assertTrue("Failed to raise exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		assertFailInfixInterpretWithInvalidInputException(testString);
 		testString = "  (5 +  4)) ";
-		assertTrue("Failed to raise exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		assertFailInfixInterpretWithInvalidInputException(testString);
 		testString = "  (5 +)( ";
-		assertTrue("Failed to raise exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		assertFailInfixInterpretWithInvalidInputException(testString);
 		testString = "  (5 + 5)(  4)) ";
-		assertTrue("Failed to raise exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		assertFailInfixInterpretWithInvalidInputException(testString);
 		testString = "  (5 + 5)*(  4)) ";
-		assertTrue("Failed to raise exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		assertFailInfixInterpretWithInvalidInputException(testString);
 		testString = "  ( (((5) + 5))*(  4) ) ";
-		assertFalse("Raised exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
+		assertPassInfixInterpretWithInvalidInputException(testString);
 		testString = "  ((5 +()  4)) ";
-		assertFalse("Raised exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
-				
+		assertPassInfixInterpretWithInvalidInputException(testString);		
 	}
 	
 
@@ -94,12 +84,9 @@ public class TestInterpreterInputErrors {
 	}
 	
 	private void assertAllFail(String testString){
-		assertTrue("Failed to raise infix exception with " + testString,
-			failInfixInterpretWithInvalidInputException(testString));
-		assertTrue("Failed to raise prefix exception with " + testString,
-			failPrefixInterpretWithInvalidInputException(testString));
-		assertTrue("Failed to raise postfix exception with " + testString,
-			failPostfixInterpretWithInvalidInputException(testString));
+		assertFailInfixInterpretWithInvalidInputException(testString);
+		assertFailPrefixInterpretWithInvalidInputException(testString);
+		assertFailPostfixInterpretWithInvalidInputException(testString);
 	}
 		
 	@Test
@@ -118,57 +105,49 @@ public class TestInterpreterInputErrors {
 	
 	
 	
-	private boolean failInfixInterpretWithInvalidInputException(String testString){
+	private void assertFailInfixInterpretWithInvalidInputException(String testString){
 		interpreter = new InfixInterpreter();
-		
 		try {
 			ExpressionTree result = 
 			interpreter.interpret( context,testString);
-			return false;
+			fail(testString + " should have failed with InvalidInputException.");
 		} catch (InvalidInputException exception){
-			checkInvalidInputExceptionData(exception);
-			return true;
+			return;
 		}
 		
 	}
 	
-	private boolean failPrefixInterpretWithInvalidInputException(String testString){
+	private void assertPassInfixInterpretWithInvalidInputException(String testString){
+		interpreter = new InfixInterpreter();
+		try {
+			ExpressionTree result = 
+			interpreter.interpret( context,testString);
+		} catch (InvalidInputException exception){
+			fail(testString + " should not have failed with InvalidInputException.");
+		}
+		
+	}
+	
+	private void assertFailPrefixInterpretWithInvalidInputException(String testString){
 		interpreter = new PrefixInterpreter();
-		
 		try {
 			ExpressionTree result = 
 			interpreter.interpret( context,testString);
-			return false;
+			fail(testString + " should have failed with InvalidInputException.");
 		} catch (InvalidInputException exception){
-			checkInvalidInputExceptionData(exception);
-			return true;
+			return;
 		}
-		
 	}
 	
-	private boolean failPostfixInterpretWithInvalidInputException(String testString){
+	private void assertFailPostfixInterpretWithInvalidInputException(String testString){
 		interpreter = new PostfixInterpreter();
-		
 		try {
 			ExpressionTree result = 
 			interpreter.interpret( context,testString);
-			return false;
+			fail(testString + " should have failed with InvalidInputException.");
 		} catch (InvalidInputException exception){
-			checkInvalidInputExceptionData(exception);
-			return true;
+			return;
 		}
-		
 	}
 	
-	
-	
-	void checkInvalidInputExceptionData(InvalidInputException exception){
-		// exception should have a current item
-		// and two lists.
-		assertNotNull("", exception.getInterpretedSymbols());
-		assertNotNull("", exception.getAccumSymbols());
-		
-	}
-
-
 }

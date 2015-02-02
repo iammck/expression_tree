@@ -4,9 +4,10 @@ import java.util.Collections;
 public class InfixInterpreter extends Interpreter {
 public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
+					
 		// List of accumulated symbols waiting to be put in parsed list.
-		List<Symbol> accumSymbols = new ArrayList<Symbol>();
-		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
+		List<Symbol> pendingList = new ArrayList<Symbol>();
+		List<Symbol> interpretedList = new ArrayList<Symbol>();
 		List<String> inputList = getInputList(input);
 		// Keep track of last symbol for uniary operators.
 		// and the parenthesis cound
@@ -39,51 +40,41 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 						parenthesisCount++;
 				} else if (--parenthesisCount < 0) {
 					throw new InvalidInputException(
-						"must have an extra (",
-						null, interpretedSymbols,
-						accumSymbols);
+						"must have an extra (");
 				}
 				result = new Parenthesis(item);
 				
 			}
 			if (result != null)
-				result.addToSymbols(interpretedSymbols, accumSymbols);
+				result.addToInterpreter(interpretedList, pendingList);
 			else
-				throw new InvalidInputException(item + " is invalid input.",
-					null, interpretedSymbols, accumSymbols);
+				throw new InvalidInputException(
+					item + " is invalid input.");
 			prevItem = item;
 		}
-		// If accumOperators greater than 0, attempt interpret.
-		while (accumSymbols.size() > 0){
-			Symbol op = accumSymbols.get(accumSymbols.size()-1);
-			if(op.interpret(interpretedSymbols)){
-				accumSymbols.remove(accumSymbols.size()-1);
+		// If pendingList greater than 0, attempt interpret.
+		while (pendingList.size() > 0){
+			Symbol lastSymbol = pendingList.get(pendingList.size()-1);
+			if(lastSymbol.interpret(interpretedList)){
+				pendingList.remove(lastSymbol);
 			} else {
-				String result = "Unable to interpret symbol "
-					+ op.toString()
-					+ " in accumSymbols list.\n"
-					+ "interpretedSymbols: " 
-					+ interpretedSymbols.toString()
-					+ "\naccumSymbols: " 
-					+ accumSymbols.toString();
-					
-				throw new InvalidInputException(result, 
-					op, interpretedSymbols, accumSymbols);
+				throw new InvalidInputException(
+					"Unable to interpret symbol "
+					+ lastSymbol.toString());
 			}
 		}
 		ComponentNode rootNode = null;
-		if (interpretedSymbols.size() == 0 ){
-			String result = "Empty input String.";					
-			throw new InvalidInputException(result, null, null, null);
-		} else if (interpretedSymbols.size() == 1) {
+		if (interpretedList.size() == 0 ){
+			throw new InvalidInputException(
+				"Empty input String.");
+		} else if (interpretedList.size() == 1) {
 		// build the expression tree from interpred symbols and return it.
-			rootNode = interpretedSymbols.get(
-				interpretedSymbols.size()-1).build();
+			rootNode = interpretedList.get(
+				interpretedList.size()-1).build();
 				return new ExpressionTree( context, rootNode);
 		} else {
 			throw new InvalidInputException(
-				"InpterpretSymbols has unhandled terms.",
-				null, interpretedSymbols, accumSymbols);
+				"InpterpretSymbols has unhandled terms." );
 		}
 	}
 }

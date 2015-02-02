@@ -28,23 +28,22 @@ public class PostfixInterpreter extends Interpreter {
 				} else if (item.equals("/")){
 					operator = new Division();
 				} else {
-					throw new InvalidInputException(item + " is invalid input.",
-					null, interpretedSymbols, accumSymbols);
+					throw new InvalidInputException(
+						item + " is invalid input.");
 				}
 				if (!operator.interpret(interpretedSymbols)){
-					throw new InvalidInputException(item + " was not interpreted.",
-					null, interpretedSymbols, accumSymbols);
+					throw new InvalidInputException(
+						item + " was not interpreted.");
 				}
 			} else {
-				throw new InvalidInputException(item + " is invalid input.",
-					null, interpretedSymbols, accumSymbols);
+				throw new InvalidInputException(
+					item + " is invalid input.");
 			}
 		}
 		
 		ComponentNode rootNode = null;
 		if (interpretedSymbols.size() == 0 ){
-			String result = "Empty input String.";					
-			throw new InvalidInputException(result, null, null, null);
+			throw new InvalidInputException("Empty input String.");
 		} else if (interpretedSymbols.size() == 1) {
 		// build the expression tree from interpred symbols and return it.
 			rootNode = interpretedSymbols.get(
@@ -52,8 +51,7 @@ public class PostfixInterpreter extends Interpreter {
 				return new ExpressionTree( context, rootNode);
 		} else {
 			throw new InvalidInputException(
-				"InpterpretSymbols has unhandled terms.",
-				null, interpretedSymbols, accumSymbols);
+				"InpterpretSymbols has unhandled terms.");
 		}
 	}
 }

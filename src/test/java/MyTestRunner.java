@@ -18,11 +18,14 @@ public class MyTestRunner{
 		runClassTests(TestState.class);
 		
 		if (totalFailedTests == 0){
-			System.out.println("All tests have passed!\n");
+			System.out.println("All test classes have passed!\n");
+		} else if (totalFailedTests == 1){
+			System.out.println( "All testing has completed with "
+				+ " 1 test class having failed.\n");
 		} else {
-			System.out.println( "All testing has completed."
+			System.out.println( "All testing has completed with "
 				+ String.valueOf(totalFailedTests)
-				+ " tests have failed.\n");
+				+ " test classes having failed.\n");
 		}
 	}
 	

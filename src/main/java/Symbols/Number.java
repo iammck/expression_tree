@@ -10,8 +10,8 @@ public class Number extends Symbol {
 		return new NumberLeafNode(number);
 	}
 	
-	public boolean interpret(List<Symbol> interpretedSymbols){
-		interpretedSymbols.add(this);
+	public boolean interpret(List<Symbol> interpretedList){
+		interpretedList.add(this);
 		return true;
 	}
 	
@@ -23,8 +23,9 @@ public class Number extends Symbol {
 		}
 	}
 	
-	public void addToSymbols(List<Symbol> interpretedSymbols, List<Symbol> accumSymbols){
-		this.interpret(interpretedSymbols);
+	public void addToInterpreter(List<Symbol> interpretedList, 
+						List<Symbol> pendingList){
+		this.interpret(interpretedList);
 	}
 	
 }

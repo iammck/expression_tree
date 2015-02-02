@@ -9,38 +9,38 @@ public abstract class BinaryOperator extends Operator {
 	 * them as the right and left child nodes. It will then be placed in the parse
 	 * array. if the parse array does not have two symbols then will return false.
 	 */	
-	public boolean interpret(List<Symbol> interpretedSymbols){
+	public boolean interpret(List<Symbol> interpretedList){
 		// if not enough symbols in parse array, need to wait.
-		if ( interpretedSymbols.size() < 2){
+		if ( interpretedList.size() < 2){
 			return false;
 		} else { // else grab last two digits, add this to parse array
 			// order matters.
-			rightSymbol = interpretedSymbols
-				.remove(interpretedSymbols.size() - 1);
-			leftSymbol = interpretedSymbols
-				.remove(interpretedSymbols.size() - 1);
-			interpretedSymbols.add(this);
+			rightSymbol = interpretedList
+				.remove(interpretedList.size() - 1);
+			leftSymbol = interpretedList
+				.remove(interpretedList.size() - 1);
+			interpretedList.add(this);
 			return true;
 		}
 	}
 	
 	/*
-	 * Adds this operator instance to the accumulated operators list just after
-	 * attepting to interprete any preveous operaton of equal or less precedence.
+	 * Adds this operator instance to the pendingList  after attepting to 
+	 * interprete preveous symbols of equal or less precedence. 
 	 *
 	 */
-	public void addToSymbols(List<Symbol> interpretedSymbols, List<Symbol> accumSymbols){		
-		// while there are accumulated opperators
-		while ( accumSymbols.size() > 0){
-			// get last opperation using an index.
-			int index = accumSymbols.size() - 1;
-			Symbol lastOp = accumSymbols.get(index);
+	public void addToInterpreter(List<Symbol> interpretedList, List<Symbol> pendingList){		
+		// while there are pendingList items
+		while ( pendingList.size() > 0){
+			// get last symbol using an index.
+			int index = pendingList.size() - 1;
+			Symbol lastSymbol = pendingList.get(index);
 			// if this has less or equal 
-			// precedence over last op, interprete.
-			if (precedenceComparedToSymbol(lastOp) < 1){
-				if (lastOp.interpret(interpretedSymbols)){
-					// remove it from the accumulated operators.
-					accumSymbols.remove(lastOp);
+			// precedence over last symbol, interprete.
+			if (precedenceComparedToSymbol(lastSymbol) < 1){
+				if (lastSymbol.interpret(interpretedList)){
+					// remove it from pendingList.
+					pendingList.remove(lastSymbol);
 				
 				} else { // else can not interprete. break for loop.
 					break;
@@ -49,8 +49,8 @@ public abstract class BinaryOperator extends Operator {
 				break;
 			}			
 		}		
-		// put this on accumOperators.
-		accumSymbols.add(this);
+		// put this in pendingList.
+		pendingList.add(this);
 	}
 	
 	// used for testing

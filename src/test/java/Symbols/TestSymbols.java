@@ -10,8 +10,8 @@ public class TestSymbols {
 		multiplication, division,
 		leftParenthesis, rightParenthesis;
 	// Lists for parsed and accumulated symbols.
-	ArrayList<Symbol> interpretedSymbols;
-	ArrayList<Symbol> accumSymbols;
+	ArrayList<Symbol> interpretedList;
+	ArrayList<Symbol> parsedList;
 	
 	/*
 	 * Having tested for the cretion of nodes, go ahead
@@ -29,8 +29,8 @@ public class TestSymbols {
 		leftParenthesis  = new Parenthesis("(");
 		rightParenthesis = new Parenthesis(")");
 	
-		interpretedSymbols = new ArrayList<Symbol>();
-		accumSymbols = new ArrayList<Symbol>();
+		interpretedList = new ArrayList<Symbol>();
+		parsedList = new ArrayList<Symbol>();
 	
 	
 	}
@@ -270,10 +270,10 @@ public class TestSymbols {
 	
 	@Test
 	public void testInterpretNumber(){
-		boolean result = number.interpret(interpretedSymbols);
+		boolean result = number.interpret(interpretedList);
 		// result should be true
 		assertTrue("number.interpret() should return true.", result);
-		int size = interpretedSymbols.size();
+		int size = interpretedList.size();
 		// length should be one.
 		assertEquals("interpreting number should add "
 				+ "it to the parsed list.", 1, size);
@@ -282,33 +282,33 @@ public class TestSymbols {
 	
 	@Test
 	public void testInterpretBinaryOperators(){
-		// will need some numbers for the interpretedSymbols
+		// will need some numbers for the interpretedList
 		Symbol num1 = new Number("1");
 		Symbol num2 = new Number("2");
 		Symbol num3 = new Number("3");
 		Symbol num4 = new Number("4");
 		// any binary operator will do since interprete is handled by
 		// the abstract BinaryOperator
-		boolean result = multiplication.interpret(interpretedSymbols);
-		// if there are no or not enough symbols in interpretedSymbols,
+		boolean result = multiplication.interpret(interpretedList);
+		// if there are no or not enough symbols in interpretedList,
 		// the operater should have a false result.
 		assertFalse("if there are no symbols in "
-				+ " interpretedSymbols, the operater should "
+				+ " interpretedList, the operater should "
 				+ " have a false result.",result);
-		interpretedSymbols.add(num1);
-		result = multiplication.interpret(interpretedSymbols);
+		interpretedList.add(num1);
+		result = multiplication.interpret(interpretedList);
 		assertFalse("if there are not enough symbols in "
-				+ " interpretedSymbols, the operater should "
+				+ " interpretedList, the operater should "
 				+ " have a false result.",result);
 		// If there are two, should have grabed last two numbers before
-		// inserting itself onto interpretedSymbols
-		interpretedSymbols.add(num2);
-		result = multiplication.interpret(interpretedSymbols);
+		// inserting itself onto interpretedList
+		interpretedList.add(num2);
+		result = multiplication.interpret(interpretedList);
 		assertTrue("if there are enough symbols in "
-				+ " interpretedSymbols, the operater should "
+				+ " interpretedList, the operater should "
 				+ " have a true result.",result);
-		// size of interpretedSymbols should be one.
-		int size = interpretedSymbols.size();
+		// size of interpretedList should be one.
+		int size = interpretedList.size();
 		assertEquals("interpreting binary operatoer should "
 				+ "remove two symbols and add itself "
 				+ "to the parsed list.", 1, size);
@@ -319,24 +319,24 @@ public class TestSymbols {
 				   	num2, ((BinaryOperator) multiplication).getRightSymbol());
 		// should be able to add two more numbers to the parsed symbol,
 		// then be able to and interprete another symbol.
-		interpretedSymbols.add(num3);
-		interpretedSymbols.add(num4);
-		division.interpret(interpretedSymbols);
-		// size of interpretedSymbols should be two.
-		size = interpretedSymbols.size();
+		interpretedList.add(num3);
+		interpretedList.add(num4);
+		division.interpret(interpretedList);
+		// size of interpretedList should be two.
+		size = interpretedList.size();
 		assertEquals("interpreting binary operatoer should "
 				+ "remove two symbols and add itself "
-				+ "to the parsed list.", 2, size);
+				+ "to the list.", 2, size);
 		// should be able to interprete the two symbols with a third.
-		addition.interpret(interpretedSymbols);
-		// size of interpretedSymbols should be one.
-		size = interpretedSymbols.size();
+		addition.interpret(interpretedList);
+		// size of interpretedList should be one.
+		size = interpretedList.size();
 		assertEquals("interpreting binary operatoer should "
 				+ "remove anytwo symbols and add itself "
-				+ "to the parsed list.", 1, size);
+				+ "to the list.", 1, size);
 		// the final symbol should be addition
 		assertSame("the final symbol should be addition",
-					addition, interpretedSymbols.get(0));
+					addition, interpretedList.get(0));
 		// addition should have multiplication as left symbol
 		assertSame("addition should have multiplication as left symbol",
 				multiplication, 
@@ -350,39 +350,39 @@ public class TestSymbols {
 	
 	@Test
 	public void testInterpretUnaryOperators(){
-		// will need some numbers for the interpretedSymbols
+		// will need some numbers for the interpretedList
 		Symbol num1 = new Number("1");
 		Symbol num2 = new Number("2");
 		Symbol num3 = new Number("3");
 		Symbol num4 = new Number("4");
-		boolean result = negation.interpret(interpretedSymbols);
-		// if there are no or not enough symbols in interpretedSymbols,
+		boolean result = negation.interpret(interpretedList);
+		// if there are no or not enough symbols in interpretedList,
 		// the operater should have a false result.
 		assertFalse(" If there are no symbols in "
-				+ " interpretedSymbols, negation should "
+				+ " interpretedList, negation should "
 				+ " have a false result.",result);
-		interpretedSymbols.add(num1);
-		result = negation.interpret(interpretedSymbols);
+		interpretedList.add(num1);
+		result = negation.interpret(interpretedList);
 		assertTrue(" If there are enough symbols in "
-				+ " interpretedSymbols, negation should "
+				+ " interpretedList, negation should "
 				+ " have a true result.",result);
-		int size = interpretedSymbols.size();
+		int size = interpretedList.size();
 		assertEquals("interpreting unary operatoer should "
 				+ "remove symbol and add itself "
-				+ "to the parsed list.", 1, size);
+				+ "to the list.", 1, size);
 		assertSame("negation has wrong right side symbol",
 				   	num1, ((UnaryOperator) negation).getRightSymbol());
 		// should be able to have a negation of a negation
 		Symbol neg1 = new  Negation();
-		result = neg1.interpret(interpretedSymbols);
+		result = neg1.interpret(interpretedList);
 		assertTrue(" If there is a negation symbol next in "
-				+ " interpretedSymbols, negation should "
+				+ " interpretedList, negation should "
 				+ " have a true result.",result);
-				// size of interpretedSymbols should be one.
-		size = interpretedSymbols.size();
+				// size of interpretedList should be one.
+		size = interpretedList.size();
 		assertEquals("interpreting unary operatoer should "
 				+ "remove symbol and add itself "
-				+ "to the parsed list.", 1, size);
+				+ "to the list.", 1, size);
 		assertSame("negation has wrong right side symbol",
 				   	negation, ((UnaryOperator) neg1).getRightSymbol());
 		
@@ -391,154 +391,154 @@ public class TestSymbols {
 	@Test
 	public void testInterpretParenthesis(){
 		assertFalse("Parenthesis interpret() should always be false.", 
-				leftParenthesis.interpret(interpretedSymbols));
+				leftParenthesis.interpret(interpretedList));
 	}
 	
 	
 	@Test
-	public void testAddToSymbolsNumber(){
-		// a number gets added to interpretedSymbols right away
-		number.addToSymbols(interpretedSymbols, accumSymbols);
-		int pSize = interpretedSymbols.size();
-		int aSize = accumSymbols.size();
-		assertEquals("interpretedSymbols should have size 1 one after a number is inserted.", 
-					1, pSize);
-		assertEquals("accumSymbols should have size 0  after a number is inserted.", 
-					0, aSize);
-		assertSame("Number should be the only thing ing symbols.", 
-					number, interpretedSymbols.get(0));
+	public void testAddToInterpretListsNumber(){
+		// a number gets added to interpretedList right away
+		number.addToInterpreter(interpretedList, parsedList);
+		int iSize = interpretedList.size();
+		int pSize = parsedList.size();
+		assertEquals("interpretedList should have size 1 one after a number is inserted.", 
+					1, iSize);
+		assertEquals("parsedList should have size 0  after a number is inserted.", 
+					0, pSize);
+		assertSame("Number should be the only thing in interpretedList.", 
+					number, interpretedList.get(0));
 	}
 	
 	@Test
-	public void testAddToSymbolsUnaryOperator(){
-		negation.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be one symbol, negation, in accumSymbols",
-				1, accumSymbols.size());
+	public void testAddToInterpretListsUnaryOperator(){
+		negation.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be one symbol, negation, in parsedList",
+				1, parsedList.size());
 		
 	}
 	
 	@Test
-	public void testAddToSymbolsBinaryOperatorWithEmptyAccumSymbols(){
-		// if there is nothing in the accumSymbols list the symbol should just add itself.
-		addition.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be one symbol in accumSymbols",
-				1, accumSymbols.size());
+	public void testAddToInterpretListsBinaryOperatorWithEmptyAccumSymbols(){
+		// if there is nothing in the parsedList list the symbol should just add itself.
+		addition.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be one symbol in parsedList",
+				1, parsedList.size());
 	}
 	
 	@Test
-	public void testAddToSymbolsBinaryOperatorWithEqPrecAccumSymbol(){
+	public void testAddToInterpretListsBinaryOperatorWithEqPrecAccumSymbol(){
 		// add the first
-		addition.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be one symbol, addition, in accumSymbols",
-				1, accumSymbols.size());
+		addition.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be one symbol, addition, in parsedList",
+				1, parsedList.size());
 		
 		// if another operator is added with equal precedence
 		// the first operator should be interpreted. if it fails,
 		// both should be left in accumOperatoers.
-		subtraction.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be two symbols in accumSymbols",
-				2, accumSymbols.size());
-		// add some numbers to interpretedSymbols
-		interpretedSymbols.add(new Number("67.8"));
-		interpretedSymbols.add(new Number("67.8"));
-		// remove subtraction from accumSymbols
-		accumSymbols.remove(subtraction);
-		assertEquals("subtraction should bave been removed from accumSymbols",
-				1, accumSymbols.size());
-		subtraction.addToSymbols(interpretedSymbols, accumSymbols);
-		// There should be two in accumSybols and paresed symbols.
-		assertEquals("There should be one symbol in accumSymbols list.",
-				1, accumSymbols.size());
+		subtraction.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be two symbols in parsedList",
+				2, parsedList.size());
+		// add some numbers to interpretedList
+		interpretedList.add(new Number("67.8"));
+		interpretedList.add(new Number("67.8"));
+		// remove subtraction from parsedList
+		parsedList.remove(subtraction);
+		assertEquals("subtraction should bave been removed from parsedList",
+				1, parsedList.size());
+		subtraction.addToInterpreter(interpretedList, parsedList);
+		// There should be one symbol in parsed list.
+		assertEquals("There should be one symbol in parsedList list.",
+				1, parsedList.size());
 		assertEquals("There should be one symbol in paresedSymbols: "
-				+ interpretedSymbols.toString(),
-				1, interpretedSymbols.size());
+				+ interpretedList.toString(),
+				1, interpretedList.size());
 	}
 	
 	@Test
-	public void testAddToSymbolsBinaryOperatorWithLessPrecThanLastAccumSymbol(){
+	public void testAddToInterpretListsBinaryOperatorWithLessPrecThanLastAccumSymbol(){
 		// add the first
-		multiplication.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be one symbol, multiplication, in accumSymbols",
-				1, accumSymbols.size());
+		multiplication.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be one symbol, multiplication, in parsedList",
+				1, parsedList.size());
 		
 		// if another operator is added with less precedence
 		// the first operator should be interpreted. If it fails,
 		// both operators are left in in accum operators.
-		subtraction.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be two symbols in accumSymbols",
-				2, accumSymbols.size());
-		// add some numbers to interpretedSymbols
-		interpretedSymbols.add(new Number("67.8"));
-		interpretedSymbols.add(new Number("67.8"));
-		// remove subtraction from accumSymbols
-		accumSymbols.remove(subtraction);
-		assertEquals("subtraction should bave been removed from accumSymbols",
-				1, accumSymbols.size());
-		subtraction.addToSymbols(interpretedSymbols, accumSymbols);
+		subtraction.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be two symbols in parsedList",
+				2, parsedList.size());
+		// add some numbers to interpretedList
+		interpretedList.add(new Number("67.8"));
+		interpretedList.add(new Number("67.8"));
+		// remove subtraction from parsedList
+		parsedList.remove(subtraction);
+		assertEquals("subtraction should bave been removed from parsedList",
+				1, parsedList.size());
+		subtraction.addToInterpreter(interpretedList, parsedList);
 		// There should be one in accumSybols and paresed symbols.
-		assertEquals("There should be 1 symbol in accumSymbols list.",
-				1, accumSymbols.size());
-		assertEquals("There should be 1 symbol in interpretedSymbols: "
-				+ interpretedSymbols.toString(),
-				1, interpretedSymbols.size());
+		assertEquals("There should be 1 symbol in parsedList list.",
+				1, parsedList.size());
+		assertEquals("There should be 1 symbol in interpretedList: "
+				+ interpretedList.toString(),
+				1, interpretedList.size());
 	}
 	
 	@Test
-	public void testAddToSymbolsBinaryOperatorWithGreaterPrecAccumSymbol(){
+	public void testAddToInterpretListsBinaryOperatorWithGreaterPrecAccumSymbol(){
 		// add the first
-		addition.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be one symbol, addition, in accumSymbols",
-				1, accumSymbols.size());
+		addition.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be one symbol, addition, in parsedList",
+				1, parsedList.size());
 		
 		// if another operator is added with greater precedence
 		// the first operator should not interpreted. if it fails,
 		// both should be left in accumOperatoers.
-		multiplication.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be two symbols in accumSymbols",
-				2, accumSymbols.size());
-		// add some numbers to interpretedSymbols
-		interpretedSymbols.add(new Number("67.8"));
-		interpretedSymbols.add(new Number("67.8"));
-		// remove multiplication from accumSymbols
-		accumSymbols.remove(multiplication);
-		assertEquals("multipliction should bave been removed from accumSymbols",
-				1, accumSymbols.size());
-		multiplication.addToSymbols(interpretedSymbols, accumSymbols);
+		multiplication.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be two symbols in parsedList",
+				2, parsedList.size());
+		// add some numbers to interpretedList
+		interpretedList.add(new Number("67.8"));
+		interpretedList.add(new Number("67.8"));
+		// remove multiplication from parsedList
+		parsedList.remove(multiplication);
+		assertEquals("multipliction should bave been removed from parsedList",
+				1, parsedList.size());
+		multiplication.addToInterpreter(interpretedList, parsedList);
 		// There should be two in accumSybols and paresed symbols.
-		assertEquals("There should be two symbol in accumSymbols list.",
-				2, accumSymbols.size());
-		assertEquals("There should be two symbol in interpretedSymbols: "
-				+ interpretedSymbols.toString(),
-				2, interpretedSymbols.size());
+		assertEquals("There should be two symbol in parsedList list.",
+				2, parsedList.size());
+		assertEquals("There should be two symbol in interpretedList: "
+				+ interpretedList.toString(),
+				2, interpretedList.size());
 	}
 	
 		
 	@Test
-	public void testAddToSymbolsParenthesis(){
-		// left parethesis will be put it on the accumSymbols list.
-		leftParenthesis.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be one symbol in accumSymbols list.",
-				1, accumSymbols.size());
+	public void testAddToInterpretListsParenthesis(){
+		// left parethesis will be put it on the parsedList list.
+		leftParenthesis.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be one symbol in parsedList list.",
+				1, parsedList.size());
 		assertSame("LeftParenthesis should be the only accumulated symbol.", 
-					leftParenthesis, accumSymbols.get(0));
+					leftParenthesis, parsedList.get(0));
 		// adding a right parethesis should remove both from the accum
-		rightParenthesis.addToSymbols(interpretedSymbols, accumSymbols);
-		assertEquals("There should be no symbols in accumSymbols list.",
-				0, accumSymbols.size());
+		rightParenthesis.addToInterpreter(interpretedList, parsedList);
+		assertEquals("There should be no symbols in parsedList list.",
+				0, parsedList.size());
 		// a parenthesis with a sub expression should be evaluated.
 		Symbol num1 = new Number("1");
 		Symbol num2 = new Number("2");
-		leftParenthesis.addToSymbols(interpretedSymbols,accumSymbols);
-		num1.addToSymbols(interpretedSymbols,accumSymbols);
-		addition.addToSymbols(interpretedSymbols,accumSymbols);
-		num2.addToSymbols(interpretedSymbols,accumSymbols);
-		rightParenthesis.addToSymbols(interpretedSymbols,accumSymbols);
-		assertEquals("There should be one symbol in interpretedSymbols list.",
-				1, interpretedSymbols.size());
-		assertEquals("There should be no symbols in interpretedSymbols list.",
-				0, accumSymbols.size());
+		leftParenthesis.addToInterpreter(interpretedList,parsedList);
+		num1.addToInterpreter(interpretedList,parsedList);
+		addition.addToInterpreter(interpretedList,parsedList);
+		num2.addToInterpreter(interpretedList,parsedList);
+		rightParenthesis.addToInterpreter(interpretedList,parsedList);
+		assertEquals("There should be one symbol in interpretedList list.",
+				1, interpretedList.size());
+		assertEquals("There should be no symbols in parsedList list.",
+				0, parsedList.size());
 		assertSame("addition should be the only parsed symbol.", 
-					addition, interpretedSymbols.get(0));
+					addition, interpretedList.get(0));
 		
 	}
 	
