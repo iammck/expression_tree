@@ -50,7 +50,6 @@ public class ExpressionTreeContext {
 		currentState.quit(this,arg);		
 	}
 	
-	
 	///////
 	///////
 	///////
@@ -72,6 +71,10 @@ public class ExpressionTreeContext {
 	public void setCurrentExpression(String expr){
 		Interpreter interpreter = getInterpreter();
 		currentExpTree = interpreter.interpret(this, expr);
+	}
+	
+	public ExpressionTree getCurrentExpressionTree(){
+		return currentExpTree;
 	}
 	
 	private Interpreter getInterpreter(){

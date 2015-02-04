@@ -16,6 +16,7 @@ public class MyTestRunner{
 		runClassTests(TestCommand.class);
 		runClassTests(TestCommandFactory.class);
 		runClassTests(TestState.class);
+		runClassTests(TestEvaluator.class);
 		
 		if (totalFailedTests == 0){
 			System.out.println("All test classes have passed!\n");

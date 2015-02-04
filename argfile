@@ -33,6 +33,12 @@
 .\src\main\java\Interpreter\PostfixInterpreter.java
 .\src\main\java\Interpreter\Interpretable.java
 
+.\src\main\java\Evaluator\Evaluatable.java
+.\src\main\java\Evaluator\Evaluator.java
+.\src\main\java\Evaluator\InfixEvaluator.java
+.\src\main\java\Evaluator\PrefixEvaluator.java
+.\src\main\java\Evaluator\PostfixEvaluator.java
+
 
 .\src\main\java\Exceptions\InvalidInputException.java
 .\src\main\java\Exceptions\InvalidStateException.java

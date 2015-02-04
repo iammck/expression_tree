@@ -9,6 +9,9 @@
 .\src\test\java\Command\TestCommand.java
 .\src\test\java\Command\TestCommandFactory.java
 .\src\test\java\State\TestState.java
+.\src\test\java\Evaluator\TestEvaluator.java
+
+
 
 .\src\test\java\MyTestRunner.java
 
