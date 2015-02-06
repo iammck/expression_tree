@@ -1,5 +1,5 @@
 public class PostfixEvaluator extends Evaluator {
-	protected float evaluate(){
+	protected double evaluate(){
 		return 0;
 	}
 }

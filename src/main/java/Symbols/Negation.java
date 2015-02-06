@@ -13,4 +13,9 @@ public class Negation extends UnaryOperator {
 			return 1;
 		}
 	}
+	
+	protected Number operate(Number firstParam, Number secondParam){
+		double value = -1 * secondParam.toDouble();
+		return new Number(String.valueOf(value));
+	}
 }

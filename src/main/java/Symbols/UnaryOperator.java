@@ -8,7 +8,7 @@ public abstract class UnaryOperator extends Operator {
 	 * array. if the interpretedList does not have any symbols then will return false.
 	 */	
 	public boolean interpret(List<Symbol> interpretedList){
-		// if not enough symbols in parse array, need to wait.
+		// if not enough symbols in list, need to wait.
 		if ( interpretedList.size() < 1){
 			return false;
 		} else { // else grab last interpretedList item then add this to the list.
@@ -20,10 +20,37 @@ public abstract class UnaryOperator extends Operator {
 	}
 	
 	/*
+	 * If there is an evaluatable in the interpretedList, operate will be called on
+	 * the evaluatable instance. It will then be placed last in the interpretedList
+	 * If the interpretedList does not have any symbols then will return false.
+	 */	
+	public boolean evaluate(List<Evaluatable> evaluatedList){
+		// if not enough evaluatables in list, need to wait.
+		if ( evaluatedList.size() < 1){
+			return false;
+		} else { // else grab last from evaluatedList cast as a Number. 
+			Number param = (Number) evaluatedList.remove(evaluatedList.size() - 1);
+			// add the result of operation to list.
+			Number result = this.operate(null, param);
+			evaluatedList.add(result);
+			// returning true
+			return true;
+		}
+	}
+	
+	/*
 	 * Adds this operator instance to the pendingList.
 	 */
 	public void addToInterpreter(List<Symbol> interpretedList, 
 					      List<Symbol> pendingList){		
+		pendingList.add(this);
+	}
+	
+	/*
+	 * Adds this operator instance to the pendingList.
+	 */
+	public void addToEvaluator(List<Evaluatable> interpretedList, 
+					      List<Evaluatable> pendingList){		
 		pendingList.add(this);
 	}
 	

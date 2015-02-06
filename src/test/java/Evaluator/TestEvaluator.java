@@ -13,8 +13,10 @@ public class TestEvaluator {
 	
 	@Test
 	public void testInfixEvaluatorEvaluate(){
-		
+		// get the context. 
 		ExpressionTreeContext context = new ExpressionTreeContext();
+		// the context must have a tree order for the iterator
+		context.setTreeOrder("infix");
 		Evaluator evaluator;
 		evaluator = new InfixEvaluator();
 		
@@ -24,7 +26,7 @@ public class TestEvaluator {
 		// Assert that the anser is obtained.
 		expressionTree = getExpressionTree(context, "2+3");
 		assertNotNull("expressionTree should not be null!", expressionTree);
-		float result = evaluator.evaluate(expressionTree);
+		double result = evaluator.evaluate(expressionTree);
 		assertEquals("The answer should be 5, but is "
 				+ result + ".", 5, result, 0.01 );
 		
@@ -43,7 +45,7 @@ public class TestEvaluator {
 	
 	private ExpressionTree getExpressionTree(ExpressionTreeContext context, String input){
 		ExpressionTree result = null;
-		Interpreter interp = new InfixInterpreter();		
+		Interpreter interp = new InfixInterpreter();
 		return interp.interpret(context, input);		
 	}
 	

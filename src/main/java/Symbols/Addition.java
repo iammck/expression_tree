@@ -15,4 +15,9 @@ public class Addition extends BinaryOperator {
 			return -1;
 		}
 	}
+	
+	protected Number operate(Number firstParam, Number secondParam){
+		double value = firstParam.toDouble() + secondParam.toDouble();
+		return new Number(String.valueOf(value));
+	}
 }

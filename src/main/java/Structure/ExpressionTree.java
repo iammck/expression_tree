@@ -25,6 +25,10 @@ public class ExpressionTree implements Iterable<ComponentNode> {
 	public Iterator<ComponentNode> iterator(){
 		// want an iterator to match the current traversal order
 		ExpressionTreeContext.TreeOrder order = context.getCurrentTreeOrder();
+		if (order == null){
+			throw new NullPointerException(
+				"Context must have a valid tree order.");
+		}			
 		switch (order){
 		case preorder:
 			return new PreOrderIterator(this);
@@ -32,8 +36,16 @@ public class ExpressionTree implements Iterable<ComponentNode> {
 			return new PostOrderIterator(this);
 		case inorder:
 			return new InOrderIterator(this);			
-		};
-		return null;
+		case prefix:
+			return new PreFixIterator(this);
+		case postfix:
+			return new PostFixIterator(this);
+		case infix:
+			return new InFixIterator(this);			
+		default:
+			throw new IllegalArgumentException( "Can not make an iterator "
+				+ "using current tree order " + order + ".");
+		}
 	}
 	
 	public void accept(ComponentNodeVisitor componentNodeVisitor){

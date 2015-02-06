@@ -1,5 +1,5 @@
 public class PrefixEvaluator extends Evaluator {
-	protected float evaluate(){
+	protected double evaluate(){
 		return 0;
 	}
 }

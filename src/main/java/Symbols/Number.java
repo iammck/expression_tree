@@ -15,6 +15,11 @@ public class Number extends Symbol {
 		return true;
 	}
 	
+	public boolean evaluate(List<Evaluatable> evaluatedList){
+		evaluatedList.add(this);
+		return true;
+	}
+	
 	public int precedenceComparedToSymbol(Symbol otherSymbol){
 		if (otherSymbol instanceof Number){
 			return 0;
@@ -28,4 +33,13 @@ public class Number extends Symbol {
 		this.interpret(interpretedList);
 	}
 	
+	public void addToEvaluator(List<Evaluatable> evaluatedList, 
+					List<Evaluatable> pendingList){
+	
+		this.evaluate(evaluatedList);	
+	}
+	
+	public double toDouble(){
+		return Double.valueOf(number);
+	}
 }

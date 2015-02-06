@@ -17,6 +17,11 @@ public class TestVisitor{
 		}
 	}
 	
+	/*
+	 * This test changes system.out.
+	 * This test will fail if system out is used.
+	 * during the test.
+	 */
 	@Test
 	public void testTestVisitorIsVisitedByNode(){
 		assertVisitTestVisitor(new NumberLeafNode("2"));
