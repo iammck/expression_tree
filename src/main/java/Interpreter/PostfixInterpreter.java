@@ -5,8 +5,6 @@ public class PostfixInterpreter extends Interpreter {
 
 	public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
-		// List of accumulated symbols waiting to be put in parsed list.
-		List<Symbol> accumSymbols = new ArrayList<Symbol>();
 		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
 		List<String> inputList = getInputList(input);
 		for(String item: inputList){

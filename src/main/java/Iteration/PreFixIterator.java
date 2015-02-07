@@ -9,6 +9,8 @@ public class PreFixIterator implements Iterator<ComponentNode>{
 	public PreFixIterator(ExpressionTree expressionTree){
 		pendingList = new ArrayList<ComponentNode>();
 		current = expressionTree.getRoot();
+		if (current instanceof NegationCompositeUnaryNode)
+			convertToSubtraction();
 	}
 
 	public boolean hasNext(){
@@ -31,12 +33,8 @@ public class PreFixIterator implements Iterator<ComponentNode>{
 		if(child != null){
 			pendingList.add(current);
 			current = child;
-			return true;
-		// if current is unary, it will have a right, 
-		} else if ( current.getRightChild() != null){
-			// Will need a NumberLeafNode with "0" as left.
-			pendingList.add(current);
-			current = new NumberLeafNode("0");
+			if (current instanceof NegationCompositeUnaryNode)
+				convertToSubtraction();
 			return true;
 		} else {
 			return false;
@@ -48,8 +46,20 @@ public class PreFixIterator implements Iterator<ComponentNode>{
 		if (last >= 0){
 			ComponentNode node = pendingList.remove(last);
 			current = node.getRightChild();
+			if (current instanceof NegationCompositeUnaryNode)
+				convertToSubtraction();
 		} else {
 			current = null;
 		}			
 	}
+	
+	private void convertToSubtraction(){
+		// Will need a NumberLeafNode with "0" as left.
+		NumberLeafNode zero = new NumberLeafNode("0");
+		// set current as a subtraction binary node
+		current = new SubtractionCompositeBinaryNode(
+				zero, // with the right parameters.
+				current.getRightChild());
+	}
+		
 }

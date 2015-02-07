@@ -6,9 +6,9 @@ public class PrefixInterpreter extends Interpreter {
 	public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
 		// List of accumulated symbols waiting to be put in parsed list.
-		List<Symbol> accumSymbols = new ArrayList<Symbol>();
 		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
 		List<String> inputList = getInputList(input);
+		// working in reverse
 		Collections.reverse(inputList);
 		for(String item: inputList){
 			//if the item is a number

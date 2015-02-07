@@ -143,7 +143,8 @@ public class TestIterators {
 		assertPrefixIteratorResultEquals("2","2");
 		assertPrefixIteratorResultEquals("-2","-02");
 		assertPrefixIteratorResultEquals("3+-2", "+3-02");
-
+		assertPrefixIteratorResultEquals("-5+-6","+-05-06");
+		
 	}
 	
 	@Test
@@ -155,7 +156,6 @@ public class TestIterators {
 		// the user of the iterator is resposible for spacing symbols.
 		assertPostOrderIteratorResult("-2","2-");
 		assertPostOrderIteratorResult("5+-6","6-5+");
-		
 		
 		assertPostOrderIteratorResult("4+1", "14+");
 		assertPostOrderIteratorResult("4+5*2", "25*4+");
@@ -226,8 +226,11 @@ public class TestIterators {
 		assertPostFixIteratorResult("(5+7 *( 8 *( 12 + 4)))", 
 			             	      "578124+**+");
 		assertPostFixIteratorResult("2","2");
+		
+		
 		assertPostFixIteratorResult("-2","02-");
 		assertPostFixIteratorResult("5+-6","506-+");
+		assertPostFixIteratorResult("-5+-6","05-06-+");
 		
 
 	}	
