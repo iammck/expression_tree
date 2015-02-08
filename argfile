@@ -52,6 +52,8 @@
 
 .\src\main\java\Visitor\ComponentNodeVisitor.java
 .\src\main\java\Visitor\PrintVisitor.java
+.\src\main\java\ExpressionBuilder\ExpressionBuilder.java
+
 
 .\src\main\java\Context\ExpressionTreeContext.java
 

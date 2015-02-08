@@ -6,6 +6,7 @@
 .\src\test\java\Interpreter\TestInterpreterInputErrors.java
 .\src\test\java\Iterator\TestIterators.java
 .\src\test\java\Visitor\TestVisitor.java
+.\src\test\java\ExpressionBuilder\TestExpressionBuilder.java
 .\src\test\java\Command\TestCommand.java
 .\src\test\java\Command\TestCommandFactory.java
 .\src\test\java\State\TestState.java

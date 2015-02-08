@@ -39,8 +39,7 @@ public class ExpressionTreeContext {
 	
 	public void print(String arg){
 		currentState.print(this,arg);
-	}
-	
+	}	
 	
 	public void setTreeOrder(String arg){
 		currentState.setTreeOrder(this, arg);

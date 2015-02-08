@@ -13,6 +13,7 @@ public class MyTestRunner{
 		runClassTests(TestInterpreterInputErrors.class);
 		runClassTests(TestIterators.class);
 		runClassTests(TestVisitor.class);
+		runClassTests(TestExpressionBuilder.class);
 		runClassTests(TestCommand.class);
 		runClassTests(TestCommandFactory.class);
 		runClassTests(TestState.class);
