@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class PrefixEvaluator extends Evaluator {
-	protected double evaluate(){
+	protected Double evaluate(){
 		List<Evaluatable> evaluatedList;
 		evaluatedList = new ArrayList<Evaluatable>();
 		List<Evaluatable> pendingList;

@@ -7,12 +7,13 @@ public abstract class UnaryOperator extends Operator {
 	 * as the right child item. It will then be placed in the interpretedList
 	 * array. if the interpretedList does not have any symbols then will return false.
 	 */	
-	public boolean interpret(List<Symbol> interpretedList){
+	public boolean interpret(List<Interpretable> interpretedList){
 		// if not enough symbols in list, need to wait.
 		if ( interpretedList.size() < 1){
 			return false;
 		} else { // else grab last interpretedList item then add this to the list.
-			rightSymbol = interpretedList.remove(interpretedList.size() - 1);
+			rightSymbol 
+				= (Symbol) interpretedList.remove(interpretedList.size() - 1);
 			interpretedList.add(this);
 			// returning true
 			return true;
@@ -41,8 +42,8 @@ public abstract class UnaryOperator extends Operator {
 	/*
 	 * Adds this operator instance to the pendingList.
 	 */
-	public void addToInterpreter(List<Symbol> interpretedList, 
-					      List<Symbol> pendingList){		
+	public void addToInterpreter(List<Interpretable> interpretedList, 
+					      List<Interpretable> pendingList){		
 		pendingList.add(this);
 	}
 	
@@ -55,7 +56,7 @@ public abstract class UnaryOperator extends Operator {
 	}
 	
 	// used for testing.
-	public Symbol getRightSymbol(){
+	public Interpretable getRightSymbol(){
 		return rightSymbol;
 	}
 }

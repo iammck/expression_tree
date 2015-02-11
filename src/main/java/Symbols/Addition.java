@@ -5,7 +5,7 @@ public class Addition extends BinaryOperator {
 			leftSymbol.build(), rightSymbol.build());
 	}
 	
-	public int precedenceComparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedTo(Symbol otherSymbol){
 		if ((otherSymbol instanceof Number)){
 				return +1;
 		} else if (( otherSymbol instanceof Addition)

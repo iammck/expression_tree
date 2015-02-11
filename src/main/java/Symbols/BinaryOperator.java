@@ -9,15 +9,15 @@ public abstract class BinaryOperator extends Operator {
 	 * them as the right and left child nodes. It will then be placed in the list
 	 * If the interpretedList does not have two symbols then will return false.
 	 */	
-	public boolean interpret(List<Symbol> interpretedList){
+	public boolean interpret(List<Interpretable> interpretedList){
 		// if not enough symbols in parse array, need to wait.
 		if ( interpretedList.size() < 2){
 			return false;
 		} else { // else grab last two digits, add this to parse array
 			// order matters.
-			rightSymbol = interpretedList
+			rightSymbol = (Symbol) interpretedList
 				.remove(interpretedList.size() - 1);
-			leftSymbol = interpretedList
+			leftSymbol = (Symbol) interpretedList
 				.remove(interpretedList.size() - 1);
 			interpretedList.add(this);
 			return true;
@@ -50,18 +50,18 @@ public abstract class BinaryOperator extends Operator {
 	 * interprete preveous symbols of equal or less precedence. 
 	 *
 	 */
-	public void addToInterpreter(List<Symbol> interpretedList, List<Symbol> pendingList){		
+	public void addToInterpreter(List<Interpretable> interpretedList, List<Interpretable> pendingList){		
 		// while there are pendingList items
 		while ( pendingList.size() > 0){
 			// get last symbol using an index.
 			int index = pendingList.size() - 1;
-			Symbol lastSymbol = pendingList.get(index);
+			Interpretable lastInterpretable = pendingList.get(index);
 			// if this has less or equal 
 			// precedence over last symbol, interprete.
-			if (precedenceComparedToSymbol(lastSymbol) < 1){
-				if (lastSymbol.interpret(interpretedList)){
+			if (precedenceComparedTo(lastInterpretable) < 1){
+				if (lastInterpretable.interpret(interpretedList)){
 					// remove it from pendingList.
-					pendingList.remove(lastSymbol);
+					pendingList.remove(lastInterpretable);
 				
 				} else { // else can not interprete. break for loop.
 					break;

@@ -2,6 +2,7 @@
 
 .\src\test\java\Structure\TestComponentNodes.java
 .\src\test\java\Symbols\TestSymbols.java
+.\src\test\java\Interpreter\TestInterpretable.java
 .\src\test\java\Interpreter\TestInterpreter.java
 .\src\test\java\Interpreter\TestInterpreterInputErrors.java
 .\src\test\java\Iterator\TestIterators.java

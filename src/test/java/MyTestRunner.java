@@ -9,6 +9,7 @@ public class MyTestRunner{
 	public static void main(String[] args){
 		runClassTests(TestComponentNodes.class);
 		runClassTests(TestSymbols.class);
+		runClassTests(TestInterpretable.class);
 		runClassTests(TestInterpreter.class);
 		runClassTests(TestInterpreterInputErrors.class);
 		runClassTests(TestIterators.class);

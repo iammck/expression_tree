@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class InfixEvaluator extends Evaluator {
 
-	protected double evaluate(){
+	protected Double evaluate(){
 		ArrayList<Evaluatable> evaluatedList = new ArrayList<Evaluatable>();
 		ArrayList<Evaluatable> pendingList = new ArrayList<Evaluatable>();
 		

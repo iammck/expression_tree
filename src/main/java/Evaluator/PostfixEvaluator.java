@@ -1,6 +1,6 @@
 import java.util.*;
 public class PostfixEvaluator extends Evaluator {
-	protected double evaluate(){
+	protected Double evaluate(){
 		List<Evaluatable> evaluatedList;
 		evaluatedList = new ArrayList<Evaluatable>();
 		

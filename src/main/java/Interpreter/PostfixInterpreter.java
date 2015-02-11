@@ -5,14 +5,14 @@ public class PostfixInterpreter extends Interpreter {
 
 	public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
-		List<Symbol> interpretedSymbols = new ArrayList<Symbol>();
+		List<Interpretable> interpretedInterpretables = new ArrayList<Interpretable>();
 		List<String> inputList = getInputList(input);
 		for(String item: inputList){
 			//if the item is a number
 			if (isNumber(item)){
 				Number number;
 				number = new Number(item);
-				number.interpret(interpretedSymbols);
+				number.interpret(interpretedInterpretables);
 			// else if the item is a binary operator
 			} else if (isBinaryOperator(item)){
 				// create the right operator
@@ -29,7 +29,7 @@ public class PostfixInterpreter extends Interpreter {
 					throw new InvalidInputException(
 						item + " is invalid input.");
 				}
-				if (!operator.interpret(interpretedSymbols)){
+				if (!operator.interpret(interpretedInterpretables)){
 					throw new InvalidInputException(
 						item + " was not interpreted.");
 				}
@@ -40,16 +40,16 @@ public class PostfixInterpreter extends Interpreter {
 		}
 		
 		ComponentNode rootNode = null;
-		if (interpretedSymbols.size() == 0 ){
+		if (interpretedInterpretables.size() == 0 ){
 			throw new InvalidInputException("Empty input String.");
-		} else if (interpretedSymbols.size() == 1) {
-		// build the expression tree from interpred symbols and return it.
-			rootNode = interpretedSymbols.get(
-				interpretedSymbols.size()-1).build();
+		} else if (interpretedInterpretables.size() == 1) {
+		// build the expression tree from interpred interpretables and return it.
+			rootNode = interpretedInterpretables.get(
+				interpretedInterpretables.size()-1).build();
 				return new ExpressionTree( context, rootNode);
 		} else {
 			throw new InvalidInputException(
-				"InpterpretSymbols has unhandled terms.");
+				"InpterpretInterpretables has unhandled terms.");
 		}
 	}
 }

@@ -4,7 +4,7 @@ public class Negation extends UnaryOperator {
 		return new NegationCompositeUnaryNode( rightSymbol.build());
 	}
 	
-	public int precedenceComparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedTo(Symbol otherSymbol){
 		if (otherSymbol instanceof Parenthesis){
 				return -1;
 		} else if (otherSymbol instanceof Negation){

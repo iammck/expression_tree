@@ -5,7 +5,7 @@ public class Multiplication extends BinaryOperator {
 			leftSymbol.build(), rightSymbol.build());
 	}
 	
-	public int precedenceComparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedTo(Symbol otherSymbol){
 		if ((otherSymbol instanceof Multiplication)
 			|| (otherSymbol instanceof Division)){
 			return 0;

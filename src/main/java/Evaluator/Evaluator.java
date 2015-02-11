@@ -2,7 +2,7 @@ public abstract class Evaluator {
 	ExpressionTree expressionTree;
 	
 	// get the expression tree from the context.
-	public double evaluate(ExpressionTree expressionTree){
+	public Double evaluate(ExpressionTree expressionTree){
 		if (expressionTree == null)
 			throw new NullPointerException(
 				"An ExpressionTree is required.");
@@ -10,5 +10,5 @@ public abstract class Evaluator {
 		return evaluate();
 	}
 	
-	protected abstract double evaluate();
+	protected abstract Double evaluate();
 }

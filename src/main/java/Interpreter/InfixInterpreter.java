@@ -5,24 +5,24 @@ public class InfixInterpreter extends Interpreter {
 public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
 					
-		// List of accumulated symbols waiting to be put in parsed list.
-		List<Symbol> pendingList = new ArrayList<Symbol>();
-		List<Symbol> interpretedList = new ArrayList<Symbol>();
+		// List of accumulated interpretables waiting to be put in parsed list.
+		List<Interpretable> pendingList = new ArrayList<Interpretable>();
+		List<Interpretable> interpretedList = new ArrayList<Interpretable>();
 		List<String> inputList = getInputList(input);
-		// Keep track of last symbol for uniary operators.
+		// Keep track of last interpretable for uniary operators.
 		// and the parenthesis cound
 		int parenthesisCount = 0;
 		String prevItem = null;
 		for(String item: inputList){
-			Symbol result = null;
-			//if the symbol is a number
+			Interpretable result = null;
+			//if the interpretable is a number
 			if (isNumber(item)){
 				result = new Number(item);
 			// else if item is a unary operator
 			} else if (isUnaryOperator(item, prevItem)){
 				// only unary is negation.
 				result = new Negation();
-			// else if symbol is a binary operator
+			// else if interpretable is a binary operator
 			} else if (isBinaryOperator(item)){
 				// create the right operator
 				if (item.equals("+")){
@@ -54,13 +54,13 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 		}
 		// If pendingList greater than 0, attempt interpret.
 		while (pendingList.size() > 0){
-			Symbol lastSymbol = pendingList.get(pendingList.size()-1);
-			if(lastSymbol.interpret(interpretedList)){
-				pendingList.remove(lastSymbol);
+			Interpretable lastInterpretable = pendingList.get(pendingList.size()-1);
+			if(lastInterpretable.interpret(interpretedList)){
+				pendingList.remove(lastInterpretable);
 			} else {
 				throw new InvalidInputException(
-					"Unable to interpret symbol "
-					+ lastSymbol.toString());
+					"Unable to interpret interpretable "
+					+ lastInterpretable.toString());
 			}
 		}
 		ComponentNode rootNode = null;
@@ -68,13 +68,13 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throw new InvalidInputException(
 				"Empty input String.");
 		} else if (interpretedList.size() == 1) {
-		// build the expression tree from interpred symbols and return it.
+		// build the expression tree from interpred interpretables and return it.
 			rootNode = interpretedList.get(
 				interpretedList.size()-1).build();
 				return new ExpressionTree( context, rootNode);
 		} else {
 			throw new InvalidInputException(
-				"InpterpretSymbols has unhandled terms." );
+				"Inpterprets has unhandled terms." );
 		}
 	}
 }

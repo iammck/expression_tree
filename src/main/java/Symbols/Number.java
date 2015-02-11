@@ -10,7 +10,7 @@ public class Number extends Symbol {
 		return new NumberLeafNode(number);
 	}
 	
-	public boolean interpret(List<Symbol> interpretedList){
+	public boolean interpret(List<Interpretable> interpretedList){
 		interpretedList.add(this);
 		return true;
 	}
@@ -20,7 +20,7 @@ public class Number extends Symbol {
 		return true;
 	}
 	
-	public int precedenceComparedToSymbol(Symbol otherSymbol){
+	public int precedenceComparedTo(Symbol otherSymbol){
 		if (otherSymbol instanceof Number){
 			return 0;
 		} else {
@@ -28,8 +28,8 @@ public class Number extends Symbol {
 		}
 	}
 	
-	public void addToInterpreter(List<Symbol> interpretedList, 
-						List<Symbol> pendingList){
+	public void addToInterpreter(List<Interpretable> interpretedList, 
+						List<Interpretable> pendingList){
 		this.interpret(interpretedList);
 	}
 	
@@ -39,7 +39,7 @@ public class Number extends Symbol {
 		this.evaluate(evaluatedList);	
 	}
 	
-	public double toDouble(){
-		return Double.valueOf(number);
+	public Double toDouble(){
+		return new Double(Double.valueOf(number));
 	}
 }

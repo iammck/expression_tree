@@ -10,13 +10,13 @@ public abstract class Interpreter {
 		int inputLength = input.length();
 		int index = 0; 
 		while (index < inputLength){
-			// Get next symbol
-			index = getNextSymbol(index, input, result);
+			// Get next interpretable
+			index = getNextInterpretable(index, input, result);
 		}		
 		return result;
 	}
 	
-	private int getNextSymbol(int index, String input, List<String> output){
+	private int getNextInterpretable(int index, String input, List<String> output){
 		// The length of the input
 		int inputLength = input.length();
 		// char for the current character
@@ -34,12 +34,12 @@ public abstract class Interpreter {
 		if ( ((int) current >=48 && (int) current <= 57) 
 						|| (int) current == 46){
 			return getNextNumber(index, input, output);
-		} // Otherwise use a while loop to build up to a symbol
+		} // Otherwise use a while loop to build up to a interpretable
 		StringBuilder result = new StringBuilder();
 		while (index < inputLength){
 			result.append(input.charAt(index));
-			// is the result a valid symbol
-			if (isValidSymbol(result.toString())){
+			// is the result a valid interpretable
+			if (isValidInterpretable(result.toString())){
 				output.add(result.toString());
 				return index + 1;
 			}
@@ -54,8 +54,8 @@ public abstract class Interpreter {
 		return false;
 	}
 	
-	private boolean isValidSymbol(String symbol){
-		// Atm, all symbols are a single char.
+	private boolean isValidInterpretable(String Interpretable){
+		// Atm, all interpretables are a single char.
 		return true;
 	}
 	
