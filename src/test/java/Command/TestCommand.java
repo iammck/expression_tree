@@ -17,24 +17,27 @@ public class TestCommand{
 	Command setInputFormat;
 	Command setExpression;
 	Command evaluate;
-	Command setTreeOrder;
+	Command setTreeOrderToInOrder;
+	Command setTreeOrderToInfix;
 	Command macro;
 	Command print;
 	Command  quit;
+	Command  reset;
 	
 	List<Command> commands;
 	
 	@Before
 	public void instantiateCommands(){
 		// commands take a context
-		ExpressionTreeContext context = new ExpressionTreeContext();
-		System.out.println("instantiateCommands()");
+		context = new ExpressionTreeContext();
 		setInputFormat = new SetInputFormatCommand(context, "infix");
 		setExpression = new SetExpressionCommand(context, "3*4");
 		evaluate = new EvaluateCommand(context, "");
-		setTreeOrder = new SetTreeOrderCommand(context, "inorder");
+		setTreeOrderToInOrder = new SetTreeOrderCommand(context, "inorder");
+		setTreeOrderToInfix = new SetTreeOrderCommand(context, "infix");
 		print = new PrintCommand(context, "");
 		quit = new QuitCommand(context, "");
+		reset = new ResetCommand(context,"");
 		// a macro takes a list of commands.
 		commands = new ArrayList<Command>();
 		commands.add(setInputFormat);
@@ -48,14 +51,18 @@ public class TestCommand{
 	
 	@Test
 	public void testExecuteCommands(){
-		// note that context state is at work here. so order of execution counds.
+		// note that context state is at work here. so order of execution counts.
 		setInputFormat.execute();
 		assertEvaluateThrowsInvalidStateException();
 		setExpression.execute();
 		evaluate.execute();
-		setTreeOrder.execute();
+		setTreeOrderToInOrder.execute();
 		print.execute();
+		assertEvaluateThrowsInvalidStateException();
+		setTreeOrderToInfix.execute();
+		evaluate.execute();
 		quit.execute();
+		reset.execute();
 		macro.execute();
 	}
 	

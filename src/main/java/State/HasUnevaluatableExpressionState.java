@@ -1,13 +1,13 @@
-public class HasExpressionState implements State {
-	
+public class HasUnevaluatableExpressionState extends HasExpressionState{
+
+	public void evaluate(ExpressionTreeContext context, String arg){
+		throw new InvalidStateException("The expression is not evaluatable!");		
+	}
+
 	public void printExpressionTree(ExpressionTreeContext context, String arg){
 		context.printCurrentExpressionTree();
 	}
 	
-	public void evaluate(ExpressionTreeContext context, String arg){
-		context.evaluateCurrentExpressionTree();		
-	}
-		
 	public void quit(ExpressionTreeContext context, String arg){
 		System.out.println("Quit!");
 	}
@@ -22,6 +22,7 @@ public class HasExpressionState implements State {
 	}
 	
 	public void setTreeOrder(ExpressionTreeContext context, String arg){
+		// if the expression state is evaluatable
 		ExpressionTreeContext.TreeOrder treeOrder = Enum.valueOf(
 				ExpressionTreeContext.TreeOrder.class, arg);
 		switch (treeOrder) {
@@ -51,5 +52,5 @@ public class HasExpressionState implements State {
 		default: // else one that is not evaluatable
 			context.setCurrentState(new HasUnevaluatableExpressionState());
 		}
-	}	
+	}
 }

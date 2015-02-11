@@ -4,7 +4,7 @@ public class PrintCommand extends Command{
 	}
 	
 	public void execute(){
-		context.print(arg);
+		context.printExpressionTree(arg);
 	}
 	
 	public void unexecute(){

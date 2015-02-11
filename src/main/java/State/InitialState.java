@@ -1,10 +1,15 @@
 public class InitialState implements State {
-	public void print(ExpressionTreeContext context, String arg){
+	public void printExpressionTree(ExpressionTreeContext context, String arg){
 		throw new InvalidStateException("There is no expression to print!");
 	}
 	
 	public void quit(ExpressionTreeContext context, String arg){
-		context.pleaseQuit();
+		System.out.println("Quit!");
+	}
+	
+	public void reset(ExpressionTreeContext context, String arg){
+		System.out.println("Reset!");
+		context.setCurrentState(new InitialState());
 	}
 	
 	public void evaluate(ExpressionTreeContext context, String arg){
@@ -12,7 +17,7 @@ public class InitialState implements State {
 	}
 	
 	public void setExpression(ExpressionTreeContext context, String arg){
-		throw new InvalidStateException("You must specify an input format!");
+		throw new InvalidStateException("You must specify an input format first!");
 	}
 	
 	public void setInputFormat(ExpressionTreeContext context, String arg){

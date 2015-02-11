@@ -61,6 +61,7 @@
 .\src\main\java\State\InitialState.java
 .\src\main\java\State\FormatedState.java
 .\src\main\java\State\HasExpressionState.java
+.\src\main\java\State\HasUnevaluatableExpressionState.java
 
 .\src\main\java\Command\Command.java
 .\src\main\java\Command\PrintCommand.java
@@ -68,6 +69,7 @@
 .\src\main\java\Command\SetTreeOrderCommand.java
 .\src\main\java\Command\MacroCommand.java
 .\src\main\java\Command\QuitCommand.java
+.\src\main\java\Command\ResetCommand.java
 .\src\main\java\Command\SetExpressionCommand.java
 .\src\main\java\Command\SetInputFormatCommand.java
 
@@ -76,6 +78,7 @@
 .\src\main\java\Command\CommandFactory\CommandMaker.java
 .\src\main\java\Command\CommandFactory\PrintCommandMaker.java
 .\src\main\java\Command\CommandFactory\QuitCommandMaker.java
+.\src\main\java\Command\CommandFactory\ResetCommandMaker.java
 .\src\main\java\Command\CommandFactory\MacroCommandMaker.java
 .\src\main\java\Command\CommandFactory\EvaluateCommandMaker.java
 .\src\main\java\Command\CommandFactory\SetExpressionCommandMaker.java

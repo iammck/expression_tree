@@ -8,7 +8,7 @@ public class TestState{
 	
 	@Before
 	public void beforeEachTest(){
-		// create the context.
+		// create the context.	
 		context = new ExpressionTreeContext();
 	}
 
@@ -81,9 +81,9 @@ public class TestState{
 	
 	private void assertPrintThrowsInvalidStateException(State state, String arg){
 		try{
-			state.print(context, arg);
+			state.printExpressionTree(context, arg);
 			fail("State should have thrown InvalidState exception "
-				+ "from print method call.");
+				+ "from printExpressionTree method call.");
 		} catch (InvalidStateException e) {
 			return;
 		}
@@ -150,8 +150,8 @@ public class TestState{
 		// assert that the state is an instance of HasExpressionState
 		assertTrue("State should be HasExpressionState state.", 
 			hasExpressionState instanceof HasExpressionState);
-		// should be able to print.
-		hasExpressionState.print(context, "");		
+		// should be able to printExpressionTree.
+		hasExpressionState.printExpressionTree(context, "");		
 		// should be able to quit.
 		hasExpressionState.quit(context, "");
 		// should be able to evaluate while in HasExpressionState
@@ -162,7 +162,7 @@ public class TestState{
 		hasExpressionState.setTreeOrder(context, "infix");
 		hasExpressionState.setInputFormat(context, "infix");
 		// the resulting state should now be the HasExpressionState
-		assertTrue("State should be hasExpressionState state.", 
+		assertTrue("Context current state should be instanceof HasExpressionState.", 
 			context.getCurrentState() instanceof HasExpressionState);
 		
 		// formated state should still throw invalid input

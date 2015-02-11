@@ -11,6 +11,7 @@ public class ConcreteCommandFactory implements CommandFactory{
 		commandTable.put("evaluate", new EvaluateCommandMaker());
 		commandTable.put("macro", new MacroCommandMaker());
 		commandTable.put("quit", new QuitCommandMaker());
+		commandTable.put("reset", new ResetCommandMaker());
 		commandTable.put("setexpression", new SetExpressionCommandMaker());
 		commandTable.put("settreeorder", new SetTreeOrderCommandMaker());
 		commandTable.put("setinputformat", new SetInputFormatCommandMaker());
@@ -21,5 +22,5 @@ public class ConcreteCommandFactory implements CommandFactory{
 		if (maker != null)
 			return maker.makeCommand(context, arg);
 		return null;
-	}	
+	}
 }

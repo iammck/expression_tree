@@ -37,8 +37,8 @@ public class ExpressionTreeContext {
 	}
 	
 	
-	public void print(String arg){
-		currentState.print(this,arg);
+	public void printExpressionTree(String arg){
+		currentState.printExpressionTree(this,arg);
 	}	
 	
 	public void setTreeOrder(String arg){
@@ -47,6 +47,10 @@ public class ExpressionTreeContext {
 
 	public void quit(String arg){
 		currentState.quit(this,arg);		
+	}
+	
+	public void reset(String arg){
+		currentState.reset(this,arg);		
 	}
 	
 	///////
@@ -98,4 +102,5 @@ public class ExpressionTreeContext {
 	public void pleaseQuit(){
 		System.out.println("Quit.");
 	}
+	
 }

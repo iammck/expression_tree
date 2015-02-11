@@ -65,6 +65,12 @@ public class TestCommandFactory{
 		assertCanMakeCommand("settreeorder", "bad arg");
 		assertCanMakeCommand("settreeorder", "infix");
 	}
+	
+	@Test
+	public void testMakeCommandReset(){
+		assertCanMakeCommand("reset", null);
+	}
+
 
 	
 	private void assertCanMakeCommand(String name, String arg){
