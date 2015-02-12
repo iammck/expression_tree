@@ -20,6 +20,8 @@ public class MyTestRunner{
 		runClassTests(TestState.class);
 		runClassTests(TestEvaluatable.class);
 		runClassTests(TestEvaluator.class);
+		runClassTests(TestReactor.class);
+		runClassTests(TestReactorEventHandlers.class);
 		
 		if (totalFailedTests == 0){
 			System.out.println("All test classes have passed!\n");
