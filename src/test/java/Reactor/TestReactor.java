@@ -21,9 +21,11 @@ public class TestReactor {
 		ConsoleOutputEventHandler consoleHandler = new ConsoleOutputEventHandler();
 		Reactor.getInstance().registerEventHandler("output" , consoleHandler);
 		
-		assertEquals("",
+		assertEquals("There should be 1 registered handler.",
 			1,Reactor.getInstance().handlerCount());
 		Reactor.getInstance().unregisterEventHandler(consoleHandler);
+		assertEquals("There should be 0 registered handler.",
+			0,Reactor.getInstance().handlerCount());
 	}
 	
 	@Test

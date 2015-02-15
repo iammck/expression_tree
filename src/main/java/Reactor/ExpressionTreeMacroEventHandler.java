@@ -4,4 +4,8 @@ public class ExpressionTreeMacroEventHandler
 	public void handleEvent(String event, Object data){
 		
 	}
+	
+	public void quit(){
+		
+	}
 }
