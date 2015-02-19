@@ -1,5 +1,5 @@
-public class ExpressionTreeVerboseEventHandler 
-				implements ExpressionTreeEventHandler {
+public class MacroCommandEventHandler 
+				extends CommandEventHandler {
 	
 	public void handleEvent(String event, Object data){
 		

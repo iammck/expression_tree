@@ -1,5 +1,6 @@
 public class PrintCommand extends Command{
-	public PrintCommand(ExpressionTreeContext context, String arg){
+	public PrintCommand(ExpressionTreeContext context, String arg)
+					throws InvalidCommandException {
 		super(context, arg);
 	}
 	

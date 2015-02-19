@@ -290,9 +290,15 @@ public class TestIterators {
 		ExpressionTreeContext context = new ExpressionTreeContext();
 		context.setInputFormat("infix");
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(context, input);
-		assertNotNull("Unable to get expression tree from input "
-			+ input + ".", expTree);		
+		ExpressionTree expTree = null;
+		try {
+			expTree = interpreter.interpret(context, input);
+			assertNotNull("Unable to get expression tree from input "
+				+ input + ".", expTree);		
+			
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
 		return expTree;
 	}
 	

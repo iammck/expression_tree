@@ -36,21 +36,34 @@ public class TestEvaluator {
 		context.setTreeOrder(treeOrder);
 		// This evaluator should throw a null pointer exception with null tree.
 		ExpressionTree expressionTree = null;
-		assertCatchNullPointerExceptionFromEvaluate(evaluator, expressionTree); 
+		assertCatchExpressionTreeExceptionFromEvaluate(evaluator, expressionTree); 
 		// Assert that the answer is obtained.
 		expressionTree = getExpressionTree(context, "2+3");
 		assertNotNull("expressionTree should not be null!", expressionTree);
-		double result = evaluator.evaluate(expressionTree);
+		double result = -42;
+		try{
+			result = evaluator.evaluate(expressionTree);
+		} catch (Exception e ){
+			e.toString();
+		}
 		assertEquals("The answer should be 5, but is "
 				+ result + ".", 5, result, 0.01 );
 		// Assert that the answer is obtained.
 		expressionTree = getExpressionTree(context, "(2+3)");
-		result = evaluator.evaluate(expressionTree);
+		try{
+			result = evaluator.evaluate(expressionTree);
+		} catch (Exception e ){
+			e.toString();
+		}
 		assertEquals("The answer should be 5, but is "
 				+ result + ".", 5, result, 0.01 );
 		// Assert that the answer is obtained.
 		expressionTree = getExpressionTree(context, "(2+3)*(4-5)*(-1)");
-		result = evaluator.evaluate(expressionTree);
+		try{
+			result = evaluator.evaluate(expressionTree);
+		} catch (Exception e ){
+			e.toString();
+		}
 		assertEquals("The second answer should be 5, but is "
 				+ result + ".", 5, result, 0.01 );
 	
@@ -83,19 +96,27 @@ public class TestEvaluator {
 	private ExpressionTree getExpressionTree(ExpressionTreeContext context, String input){
 		ExpressionTree result = null;
 		Interpreter interp = new InfixInterpreter();
-		return interp.interpret(context, input);		
+		try {
+			return interp.interpret(context, input);		
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
+		return null;
 	}
 	
 	
-	private void assertCatchNullPointerExceptionFromEvaluate(
+	private void assertCatchExpressionTreeExceptionFromEvaluate(
 			Evaluator evaluator, ExpressionTree expressionTree){
 	
 		try {
 			evaluator.evaluate(expressionTree);
 			fail("Should have caught exception.");
-		} catch (NullPointerException e){
+		} catch (ExpressionTreeException e){
 			return;
+		} catch (Exception e){
+			fail("Caught some other exception.");
 		}
+		
 	}
 
 }

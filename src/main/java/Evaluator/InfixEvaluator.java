@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class InfixEvaluator extends Evaluator {
 
-	protected Double evaluate(){
+	protected Double evaluate()throws InvalidInputException{
 		ArrayList<Evaluatable> evaluatedList = new ArrayList<Evaluatable>();
 		ArrayList<Evaluatable> pendingList = new ArrayList<Evaluatable>();
 		

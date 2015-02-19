@@ -1,48 +1,75 @@
-public class ExpressionTreeContext {
-	
+public class ExpressionTreeContext {	
+	// TreeOrder and InputFormat
 	public enum TreeOrder {
 		preorder, inorder, postorder,
 		prefix, infix, postfix 		};
-	
 	public enum InputFormat {
 		prefix, infix, postfix 		};
-		
+	
+	//CONTEXT DATA		
 	TreeOrder currentTreeOrder;
 	InputFormat currentInputFormat;
 	State currentState;
 	ExpressionTree currentExpTree;
+	CommandFactory commandFactory;
 	
+	
+	//CONSTRUCTOR
 	public ExpressionTreeContext(){
 		currentState = new InitialState();
+		commandFactory = new ConcreteCommandFactory(this);
 	}
-	
-	public void setCurrentState(State state){
-		this.currentState = state;
-	}
+
+	///////////
+	// STATE //
+	///////////
 	
 	public State getCurrentState(){
 		return this.currentState;
 	}
 	
+	public void setCurrentState(State state){
+		currentState = state;
+	}
+	
 	public void setExpression(String arg){
-		currentState.setExpression(this, arg);
+		try{
+			currentState.setExpression(this, arg);
+		} catch (ExpressionTreeException e){
+			raiseOutputEvent(e.getMessage());
+		}
 	}
 	
 	public void setInputFormat(String arg){
-		currentState.setInputFormat(this, arg);	
+		try{
+			currentState.setInputFormat(this, arg);
+		} catch (ExpressionTreeException e){
+			raiseOutputEvent(e.getMessage());
+		}
 	}
 	
 	public void evaluate(String arg){
-		currentState.evaluate(this, arg);
-	}
-	
+		try{
+			currentState.evaluate(this, arg);
+		} catch (ExpressionTreeException e){
+			raiseOutputEvent(e.getMessage());
+		}
+	}	
 	
 	public void printExpressionTree(String arg){
-		currentState.printExpressionTree(this,arg);
+		try{
+			currentState.printExpressionTree(this,arg);
+		} catch (ExpressionTreeException e){
+			raiseOutputEvent(e.getMessage());
+		}
 	}	
 	
 	public void setTreeOrder(String arg){
-		currentState.setTreeOrder(this, arg);
+		try {
+			currentState.setTreeOrder(this, arg);
+		} catch (ExpressionTreeException e){
+			raiseOutputEvent(e.getMessage());
+		}
 	}
 
 	public void quit(String arg){
@@ -52,26 +79,37 @@ public class ExpressionTreeContext {
 	public void reset(String arg){
 		currentState.reset(this,arg);		
 	}
-	
-	///////
-	///////
-	///////
-	
-	public void setCurrentInputFormat(String arg){
-		currentInputFormat =
-			Enum.valueOf(InputFormat.class, arg);
+			
+	// METHODS USED BY STATE
+		
+	public void setCurrentInputFormat(String arg) 
+				throws InvalidInputException{
+		try {
+			currentInputFormat =
+				Enum.valueOf(InputFormat.class, arg);
+		} catch (Exception e){
+			throw new InvalidInputException("The input format "
+				+ arg + " is not valid.");
+		}
 	}
 	
-	public void setCurrentTreeOrder(String arg){
-		currentTreeOrder = Enum
-			.valueOf(TreeOrder.class, arg);
+	public void setCurrentTreeOrder(String arg) 
+				throws InvalidInputException{
+		try {
+			currentTreeOrder = Enum
+				.valueOf(TreeOrder.class, arg);
+		} catch (Exception e){
+			throw new InvalidInputException("The tree order "
+				+ arg + " is not valid.");
+		}		
 	}
 	
 	public TreeOrder getCurrentTreeOrder(){
 		return currentTreeOrder;
 	}	
 	
-	public void setCurrentExpression(String expr){
+	public void setCurrentExpression(String expr)
+				throws InvalidInputException{
 		Interpreter interpreter = getInterpreter();
 		currentExpTree = interpreter.interpret(this, expr);
 	}
@@ -90,6 +128,10 @@ public class ExpressionTreeContext {
 			return new InfixInterpreter();
 		}
 	}
+	
+	public CommandFactory getCommandFactory(){
+		return commandFactory;
+	}
 
 	public void evaluateCurrentExpressionTree(){
 		System.out.println("evaluated expression");	
@@ -99,8 +141,16 @@ public class ExpressionTreeContext {
 		System.out.println("printed expression");
 	}
 	
-	public void pleaseQuit(){
-		System.out.println("Quit.");
+	public void handleQuit(){
+		Reactor.getInstance().handleEvent("quit", null);
+	}
+	
+	public void handleReset(){
+		Reactor.getInstance().handleEvent("reset", null);
+	}
+	
+	private void raiseOutputEvent(String output){
+		Reactor.getInstance().handleEvent("output", output);
 	}
 	
 }

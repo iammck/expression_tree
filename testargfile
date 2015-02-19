@@ -15,6 +15,7 @@
 .\src\test\java\Evaluator\TestEvaluatable.java
 .\src\test\java\Reactor\TestReactor.java
 .\src\test\java\Reactor\TestReactorEventHandlers.java
+.\src\test\java\Context\TestExpressionTreeContext.java
 
 
 .\src\test\java\MyTestRunner.java

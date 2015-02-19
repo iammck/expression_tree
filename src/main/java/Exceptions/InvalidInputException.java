@@ -1,6 +1,4 @@
-import java.util.List;
-
-public class InvalidInputException extends RuntimeException{
+public class InvalidInputException extends ExpressionTreeException{
 	public InvalidInputException(String messege){
 		super(messege);
 	}

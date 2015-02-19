@@ -25,9 +25,7 @@ public class TestCommandFactory{
 	
 	@Test
 	public void testMakeCommandMacro(){
-		// a command may be made with any arg. Bad args are
-		// exposed when the command is executed.
-		assertCanMakeCommand("macro", null);
+		assertCanNotMakeCommand("macro", null);
 		assertCanMakeCommand("macro", "");
 		assertCanMakeCommand("macro", "bad expr");
 		assertCanMakeCommand("macro", "4*5");
@@ -46,7 +44,7 @@ public class TestCommandFactory{
 
 	@Test
 	public void testMakeCommandSetExpression(){
-		assertCanMakeCommand("setexpression", null);
+		assertCanNotMakeCommand("setexpression", null);
 		assertCanMakeCommand("setexpression", "bad expr");
 		assertCanMakeCommand("setexpression", "3+1");
 
@@ -54,15 +52,15 @@ public class TestCommandFactory{
 	
 	@Test
 	public void testMakeCommandSetInputFormat(){
-		assertCanMakeCommand("setinputformat", null);
-		assertCanMakeCommand("setinputformat", "bad arg");
+		assertCanNotMakeCommand("setinputformat", null);
+		assertCanNotMakeCommand("setinputformat", "bad arg");
 		assertCanMakeCommand("setinputformat", "infix");
 	}
 	
 	@Test
 	public void testMakeCommandSetTreeOrder(){
-		assertCanMakeCommand("settreeorder", null);
-		assertCanMakeCommand("settreeorder", "bad arg");
+		assertCanNotMakeCommand("settreeorder", null);
+		assertCanNotMakeCommand("settreeorder", "bad arg");
 		assertCanMakeCommand("settreeorder", "infix");
 	}
 	
@@ -74,8 +72,23 @@ public class TestCommandFactory{
 
 	
 	private void assertCanMakeCommand(String name, String arg){
-		Command command = factory.makeCommand(name, arg);
-		assertNotNull("makeCommand returned null for \""
-			+ name + "\" command name." , command);
+		try {
+			Command command = factory.makeCommand(name, arg);
+			assertNotNull("makeCommand returned null for \""
+				+ name + "\" command name." , command);
+		} catch (InvalidCommandException e){
+			fail("Failed to make command, " + e.toString());
+		}
+	}
+	
+	
+	private void assertCanNotMakeCommand(String name, String arg){
+		try {
+			Command command = factory.makeCommand(name, arg);
+			fail("Failed, should not be able to make command "
+				+ name + " with arg " + arg);
+		} catch (InvalidCommandException e){
+			return;
+		}
 	}
 }

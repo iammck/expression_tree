@@ -5,6 +5,13 @@ public class PrefixInterpreter extends Interpreter {
 	
 	public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
+		
+		
+		
+		// must check for null input here.
+		if (input == null)
+			throw new InvalidInputException("The input expression must not be non-existent.");
+		
 		// List of accumulated interpretables waiting to be put in parsed list.
 		List<Interpretable> interpretedInterpretables = new ArrayList<Interpretable>();
 		List<String> inputList = getInputList(input);

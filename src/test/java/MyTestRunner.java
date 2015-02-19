@@ -21,7 +21,8 @@ public class MyTestRunner{
 		runClassTests(TestEvaluatable.class);
 		runClassTests(TestEvaluator.class);
 		runClassTests(TestReactor.class);
-		runClassTests(TestReactorEventHandlers.class);
+		runClassTests(TestExpressionTreeContext.class);
+		//runClassTests(TestReactorEventHandlers.class);
 		
 		if (totalFailedTests == 0){
 			System.out.println("All test classes have passed!\n");
@@ -62,4 +63,23 @@ public class MyTestRunner{
 
 	}
 	
+	public static void runQuickClassTests(Class testClass){
+		System.out.println("Testing class: " + testClass.toString());		
+		Result result = JUnitCore.runClasses(testClass);
+		if( result.wasSuccessful()){
+			System.out.println(result.getRunCount()
+				+ " tests have completed succesfully.");
+		} else if (result != null && System.out != null) {
+			totalFailedTests++;
+			System.out.println("Testing completed with " 
+				+ result.getFailureCount() + " failures.");
+			for(Failure failure: result.getFailures()){
+				System.out.println(failure.toString());	
+			}
+		} else {
+			totalFailedTests++;
+			System.out.println("Testing completed with no result or a "
+				+ "null System.out PrintStream.");
+		}
+	}	
 }

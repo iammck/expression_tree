@@ -5,6 +5,10 @@ public class PostfixInterpreter extends Interpreter {
 
 	public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
+		
+		// must check for null input here
+		if (input == null)
+			throw new InvalidInputException("The input expression must not be non-existent.");
 		List<Interpretable> interpretedInterpretables = new ArrayList<Interpretable>();
 		List<String> inputList = getInputList(input);
 		for(String item: inputList){

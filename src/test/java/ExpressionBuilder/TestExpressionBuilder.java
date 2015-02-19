@@ -30,6 +30,11 @@ public class TestExpressionBuilder {
 		context.setTreeOrder("infix");
 		// create the interpreter and inpterprete the input
 		Interpreter interpreter = new InfixInterpreter();
-		return interpreter.interpret(context, input);
+		try{
+			return interpreter.interpret(context, input);
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
+		return null;		
 	}
 }

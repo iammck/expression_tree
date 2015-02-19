@@ -79,7 +79,9 @@ public abstract class BinaryOperator extends Operator {
 	 * interprete preveous symbols of equal or less precedence. 
 	 *
 	 */
-	public void addToEvaluator(List<Evaluatable> evaluatedList, List<Evaluatable> pendingList){		
+	public void addToEvaluator(List<Evaluatable> evaluatedList, 
+		List<Evaluatable> pendingList) throws InvalidInputException{		
+		
 		// while there are pendingList items
 		while ( pendingList.size() > 0){
 			// get last Evaluatable using an index.

@@ -1,6 +1,7 @@
 public class EvaluateCommand extends Command{
 	
-	public EvaluateCommand(ExpressionTreeContext context, String arg){
+	public EvaluateCommand(ExpressionTreeContext context, String arg)
+						throws InvalidCommandException {
 		super(context, arg);
 	}	
 	

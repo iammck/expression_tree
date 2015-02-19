@@ -1,3 +1,4 @@
 public interface CommandMaker {
-	Command makeCommand(ExpressionTreeContext context, String arg);
+	Command makeCommand(ExpressionTreeContext context, String arg)
+					throws InvalidCommandException;
 }

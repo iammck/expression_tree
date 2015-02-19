@@ -17,10 +17,12 @@ public class ConcreteCommandFactory implements CommandFactory{
 		commandTable.put("setinputformat", new SetInputFormatCommandMaker());
 	}
 	
-	public Command makeCommand(String commandName, String arg){
+	public Command makeCommand(String commandName, String arg) 
+			throws InvalidCommandException{
 		CommandMaker maker = commandTable.get(commandName);
 		if (maker != null)
 			return maker.makeCommand(context, arg);
-		return null;
+		throw new InvalidCommandException("The command name " 
+				+ commandName + " does not exist.");
 	}
 }

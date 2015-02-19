@@ -397,7 +397,7 @@ public class TestInterpretable {
 	
 	
 	@Test
-	public void testAddToInterpretListsNumber(){
+	public void testAddToInterpretListsNumber() throws Exception{
 		// a number gets added to interpretedList right away
 		number.addToInterpreter(interpretedList, parsedList);
 		int iSize = interpretedList.size();
@@ -411,7 +411,7 @@ public class TestInterpretable {
 	}
 	
 	@Test
-	public void testAddToInterpretListsUnaryOperator(){
+	public void testAddToInterpretListsUnaryOperator()throws Exception{
 		negation.addToInterpreter(interpretedList, parsedList);
 		assertEquals("There should be one interpretable, negation, in parsedList",
 				1, parsedList.size());
@@ -419,7 +419,7 @@ public class TestInterpretable {
 	}
 	
 	@Test
-	public void testAddToInterpretListsBinaryOperatorWithEmptyParsedList(){
+	public void testAddToInterpretListsBinaryOperatorWithEmptyParsedList()throws Exception{
 		// if there is nothing in the parsedList list the interpretable should just add itself.
 		addition.addToInterpreter(interpretedList, parsedList);
 		assertEquals("There should be one interpretable in parsedList",
@@ -427,7 +427,7 @@ public class TestInterpretable {
 	}
 	
 	@Test
-	public void testAddToInterpretListsBinaryOperatorWithEqPrecParsedList(){
+	public void testAddToInterpretListsBinaryOperatorWithEqPrecParsedList()throws Exception{
 		// add the first
 		addition.addToInterpreter(interpretedList, parsedList);
 		assertEquals("There should be one interpretable, addition, in parsedList",
@@ -456,7 +456,7 @@ public class TestInterpretable {
 	}
 	
 	@Test
-	public void testAddToInterpretListsBinaryOperatorWithLessPrecThanLastParsedList(){
+	public void testAddToInterpretListsBinaryOperatorWithLessPrecThanLastParsedList()throws Exception{
 		// add the first
 		multiplication.addToInterpreter(interpretedList, parsedList);
 		assertEquals("There should be one interpretable, multiplication, in parsedList",
@@ -485,7 +485,7 @@ public class TestInterpretable {
 	}
 	
 	@Test
-	public void testAddToInterpretListsBinaryOperatorWithGreaterPrecParsedList(){
+	public void testAddToInterpretListsBinaryOperatorWithGreaterPrecParsedList()throws Exception{
 		// add the first
 		addition.addToInterpreter(interpretedList, parsedList);
 		assertEquals("There should be one interpretable, addition, in parsedList",
@@ -515,7 +515,7 @@ public class TestInterpretable {
 	
 		
 	@Test
-	public void testAddToInterpretListsParenthesis(){
+	public void testAddToInterpretListsParenthesis()throws Exception{
 		// left parethesis will be put it on the parsedList list.
 		leftParenthesis.addToInterpreter(interpretedList, parsedList);
 		assertEquals("There should be one interpretable in parsedList list.",

@@ -24,7 +24,10 @@ public class Parenthesis extends Symbol{
 	 * If a '(', will add itself to pendingList. Otherwise, it is a ')' so iterate through
 	 * pendingList calling interpret() then remove matching '(' from pendingList.
 	 */	 
-	public void addToInterpreter(List<Interpretable> interpretedList, List<Interpretable> pendingList){		
+	public void addToInterpreter(
+		List<Interpretable> interpretedList, 
+		List<Interpretable> pendingList)
+		throws InvalidInputException{		
 		// if symbol is (, put into pendingList
 		if (symbol.equals("(")){
 			pendingList.add(this);
@@ -62,7 +65,10 @@ public class Parenthesis extends Symbol{
 	 * If a '(', will add itself to pendingList. Otherwise, it is a ')' so iterate through
 	 * pendingList calling evaluate() then remove matching '(' from pendingList.
 	 */	 
-	public void addToEvaluator(List<Evaluatable> evaluatedList, List<Evaluatable> pendingList){		
+	public void addToEvaluator(
+		List<Evaluatable> evaluatedList, 
+		List<Evaluatable> pendingList)
+		throws InvalidInputException{		
 		// if symbol is (, put into pendingList
 		if (symbol.equals("(")){
 			pendingList.add(this);

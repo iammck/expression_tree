@@ -1,4 +1,4 @@
-public class InvalidStateException extends RuntimeException {
+public class InvalidStateException extends ExpressionTreeException {
 
 		public InvalidStateException(String message){
 			super(message);

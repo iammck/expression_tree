@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class PrefixEvaluator extends Evaluator {
-	protected Double evaluate(){
+	protected Double evaluate()throws InvalidInputException{
 		List<Evaluatable> evaluatedList;
 		evaluatedList = new ArrayList<Evaluatable>();
 		List<Evaluatable> pendingList;

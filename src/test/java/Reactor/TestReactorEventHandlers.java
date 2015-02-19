@@ -5,7 +5,7 @@ import java.io.*;
 
 public class TestReactorEventHandlers {
 	
-	private class TestCommandEventHandler implements EventHandler{
+	private class TestCommandEventHandler extends CommandEventHandler{
 		boolean hasHandled = false;
 		boolean hasQuit = false;
 		int eventCount = 0;
@@ -20,6 +20,31 @@ public class TestReactorEventHandlers {
 		}
 		
 		void reset(){
+			hasHandled = false;
+			hasQuit = false;
+			eventCount = 0;
+		}
+	}
+	
+	private class TestOutputEventHandler implements OutputEventHandler{
+		boolean hasHandled = false;
+		boolean hasQuit = false;
+		String data;
+		int eventCount = 0;
+		int resetCount = 0;
+		
+		public void handleEvent(String event, Object data){
+			this.data = (String) data;
+			hasHandled = true;
+			eventCount += 1;
+		}	
+		
+		public void quit(){
+			hasQuit = true;
+		}
+		
+		void reset(){
+			resetCount++;
 			hasHandled = false;
 			hasQuit = false;
 			eventCount = 0;
@@ -150,18 +175,141 @@ public class TestReactorEventHandlers {
 	}
 	
 	@Test
-	public void testExpressionTreeMacroEventHandler(){
+	public void testVerboseCommandEventHandlerWithNonsenseCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
 		EventHandler eventHandler;
-		eventHandler = new ExpressionTreeMacroEventHandler();
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a jiberish command.
+		eventHandler.handleEvent("command", "nonsense.");
+		// output should now have a result.
+		assertNotNull("The output event Handler did not generate output as exprected.",
+			((TestOutputEventHandler)output).data);
+	}
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithQuitCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a quit command.
+		eventHandler.handleEvent("command", "quit");
+		// output should now have quit.
+		assertTrue("The output event Handler did not quit as expected.",
+			((TestOutputEventHandler)output).hasQuit);
+	}
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithResetCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a reset command.
+		eventHandler.handleEvent("command", "reset");
+		// output should now have quit.
+		assertEquals("The output event Handler did not reset as expected.",
+			1, ((TestOutputEventHandler)output).resetCount);
+	}
+	
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithPrintCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a print command.
+		eventHandler.handleEvent("command", "print");
+		// output should now have quit.
+		assertTrue("The  output event Handler did not print as expected.",
+			((TestOutputEventHandler)output).hasHandled);
+	}
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithEvaluateCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a print command.
+		eventHandler.handleEvent("command", "evaluate");
+		// output should now have quit.
+		assertTrue("The output event Handler did not print as expected.",
+			((TestOutputEventHandler)output).hasHandled);
+	}
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithSetExpressionCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a print command.
+		eventHandler.handleEvent("command", "setexpression 3*4");
+		// output should now have quit.
+		assertTrue("The output event Handler did not behave as expected.",
+			((TestOutputEventHandler)output).hasHandled);
+	}
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithSetInputFormatCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a print command.
+		eventHandler.handleEvent("command", "setinputformat infix");
+		// output should now have quit.
+		assertTrue("The output event Handler did not behave as expected.",
+			((TestOutputEventHandler)output).hasHandled);
+	}
+	
+	@Test
+	public void testVerboseCommandEventHandlerWithSetTreeOrderCommand(){
+		// create an output event handler to pick up the exprected results.
+		OutputEventHandler output = new TestOutputEventHandler();
+		Reactor.getInstance().registerEventHandler("output", output);
+		
+		EventHandler eventHandler;
+		eventHandler = new VerboseCommandEventHandler();
+		
+		// send the handler a print command.
+		eventHandler.handleEvent("command", "settreeorder infix");
+		// output should now have quit.
+		assertTrue("The output event Handler did not behave as expected.",
+			((TestOutputEventHandler)output).hasHandled);
+	}
+	
+	@Test
+	public void testMacroCommandEventHandler(){
+		EventHandler eventHandler;
+		eventHandler = new MacroCommandEventHandler();
 		
 		fail("Must implement");
 	}
 	
-	@Test
-	public void testExpressionTreeVerboseEventHandler(){
-		EventHandler eventHandler;
-		eventHandler = new ExpressionTreeMacroEventHandler();
-		
-		fail("Must implement");
-	}
+	
 }

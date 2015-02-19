@@ -13,7 +13,7 @@ public class TestState{
 	}
 
 	@Test
-	public void testInitialState(){
+	public void testInitialState() throws Exception{
 		// create the state instance as a State interface
 		State initialState = new InitialState();
 		
@@ -41,7 +41,7 @@ public class TestState{
 	
 	
 	@Test
-	public void testFormatedStated(){
+	public void testFormatedStated()  throws Exception{
 		// create the state instance as a State interface
 		// setting the input format will return a formated state
 		context.setInputFormat("infix");
@@ -84,7 +84,7 @@ public class TestState{
 			state.printExpressionTree(context, arg);
 			fail("State should have thrown InvalidState exception "
 				+ "from printExpressionTree method call.");
-		} catch (InvalidStateException e) {
+		} catch (ExpressionTreeException e) {
 			return;
 		}
 	}
@@ -94,7 +94,7 @@ public class TestState{
 			state.evaluate(context, arg);
 			fail("State should have thrown InvalidState exception "
 				+ "from evaluate method call.");
-		} catch (InvalidStateException e) {
+		} catch (ExpressionTreeException e) {
 			return;
 		}
 	}
@@ -104,7 +104,7 @@ public class TestState{
 			state.setExpression(context, arg);
 			fail("State should have thrown exception "
 				+ "from set Expression method call.");
-		} catch (InvalidStateException e) {
+		} catch (ExpressionTreeException e) {
 			return;
 		}
 	}
@@ -114,9 +114,10 @@ public class TestState{
 			state.setInputFormat(context, arg);
 			fail("State should have thrown illegal arg exception "
 				+ "from set Input format method call.");
-		} catch (IllegalArgumentException e) {
+		} catch (ExpressionTreeException e) {
 			return;
 		}
+		
 	}
 	
 	private void assertSetTreeOrderThrowsIllegalArgumentException(State state, String arg){
@@ -124,7 +125,7 @@ public class TestState{
 			state.setTreeOrder(context, arg);
 			fail("State should have thrown ill arg eception "
 				+ "from set tree order method call.");
-		} catch (IllegalArgumentException e) {
+		} catch (ExpressionTreeException e) {
 			return;
 		}
 	}
@@ -134,13 +135,13 @@ public class TestState{
 			state.setExpression(context, arg);
 			fail("State should have thrown ill arg eception "
 				+ "from set tree order method call.");
-		} catch (InvalidInputException e) {
+		} catch (ExpressionTreeException e) {
 			return;
 		}
 	}
 	
 	@Test
-	public void testHasExpressionState(){
+	public void testHasExpressionState() throws Exception{
 		// create the state instance as a State interface
 		// setting the input format will return a formated state
 		context.setInputFormat("infix");
@@ -164,7 +165,6 @@ public class TestState{
 		// the resulting state should now be the HasExpressionState
 		assertTrue("Context current state should be instanceof HasExpressionState.", 
 			context.getCurrentState() instanceof HasExpressionState);
-		
 		// formated state should still throw invalid input
 		assertSetInputFormatThrowsIllegalArgumentException(hasExpressionState, "");
 		assertSetInputFormatThrowsIllegalArgumentException(hasExpressionState, "not an input format");

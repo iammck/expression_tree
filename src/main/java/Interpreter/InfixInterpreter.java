@@ -4,7 +4,11 @@ import java.util.Collections;
 public class InfixInterpreter extends Interpreter {
 public ExpressionTree interpret(ExpressionTreeContext context, String input)
 			throws InvalidInputException{
-					
+		
+		// must check for null input here, but maybe make call to super to do it?
+		// bcause having to do it for each interpreter subclass.
+		if (input == null)
+			throw new InvalidInputException("The input expression must not be non-existent.");					
 		// List of accumulated interpretables waiting to be put in parsed list.
 		List<Interpretable> pendingList = new ArrayList<Interpretable>();
 		List<Interpretable> interpretedList = new ArrayList<Interpretable>();

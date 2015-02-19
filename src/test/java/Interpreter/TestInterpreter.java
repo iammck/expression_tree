@@ -86,14 +86,14 @@ public class TestInterpreter {
 					"08", result.get(8));		
 	}
 	
-	private ComponentNode getExpressionTreeRoot(String testString){
+	private ComponentNode getExpressionTreeRoot(String testString) throws Exception{
 		ExpressionTree et = interpreter.interpret(context,testString);
 		ComponentNode result = et.getRoot();
 		return result;
 	}
 	
 	@Test
-	public void testInterperterWithInfix(){
+	public void testInterperterWithInfix()throws Exception{
 		// set the interpreter
 		interpreter = new InfixInterpreter();
 		// 3
@@ -216,7 +216,7 @@ public class TestInterpreter {
 	}
 	
 	@Test
-	public void testInterperterWithPrefix(){
+	public void testInterperterWithPrefix()throws Exception{
 		// create the interpreter
 		interpreter = new PrefixInterpreter();
 		// 3
@@ -271,7 +271,7 @@ public class TestInterpreter {
 	}
 
 	@Test
-	public void testInterperterWithPostfix(){
+	public void testInterperterWithPostfix()throws Exception{
 		// create the interpreter
 		interpreter = new PostfixInterpreter();
 		// 3

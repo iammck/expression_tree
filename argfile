@@ -40,8 +40,10 @@
 .\src\main\java\Evaluator\PostfixEvaluator.java
 
 
+.\src\main\java\Exceptions\ExpressionTreeException.java
 .\src\main\java\Exceptions\InvalidInputException.java
 .\src\main\java\Exceptions\InvalidStateException.java
+.\src\main\java\Exceptions\InvalidCommandException.java
 
 .\src\main\java\Iteration\InOrderIterator.java
 .\src\main\java\Iteration\InFixIterator.java
@@ -92,8 +94,8 @@
 .\src\main\java\Reactor\ConsoleInputVerboseEventHandler.java
 .\src\main\java\Reactor\OutputEventHandler.java
 .\src\main\java\Reactor\ConsoleOutputEventHandler.java
-.\src\main\java\Reactor\ExpressionTreeEventHandler.java
-.\src\main\java\Reactor\ExpressionTreeMacroEventHandler.java
-.\src\main\java\Reactor\ExpressionTreeVerboseEventHandler.java
+.\src\main\java\Reactor\CommandEventHandler.java
+.\src\main\java\Reactor\MacroCommandEventHandler.java
+.\src\main\java\Reactor\VerboseCommandEventHandler.java
 
 

@@ -93,7 +93,7 @@ public class TestEvaluatable {
 	}
 	
 	@Test
-	public void testEvaluatableEvaluate(){
+	public void testEvaluatableEvaluate() throws Exception{
 		// need the evaluated list.
 		ArrayList<Evaluatable> evaluatedList; 
 		evaluatedList = getInitialList();
@@ -143,7 +143,7 @@ public class TestEvaluatable {
 		
 	
 	@Test
-	public void testEvaluatableAddToEvaluator(){
+	public void testEvaluatableAddToEvaluator()  throws Exception{
 		// need the evaluated and pending lists.
 		ArrayList<Evaluatable> evaluatedList = new ArrayList<Evaluatable>();
 		ArrayList<Evaluatable> pendingList = new ArrayList<Evaluatable>();

@@ -174,7 +174,12 @@ public class TestVisitor{
 		ec.setInputFormat("infix");
 		ec.setTreeOrder("inorder");
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(ec, input);
+		ExpressionTree expTree = null;
+		try{
+			expTree = interpreter.interpret(ec, input);
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
 		return expTree;
 	}
 	
@@ -185,7 +190,12 @@ public class TestVisitor{
 		ec.setInputFormat("infix");
 		ec.setTreeOrder("preorder");
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(ec, input);
+		ExpressionTree expTree = null;
+		try{
+			expTree = interpreter.interpret(ec, input);
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
 		return expTree;
 	}
 	
@@ -197,7 +207,12 @@ public class TestVisitor{
 		ec.setInputFormat("infix");
 		ec.setTreeOrder("postorder");
 		Interpreter interpreter = new InfixInterpreter();
-		ExpressionTree expTree = interpreter.interpret(ec, input);
+		ExpressionTree expTree = null;
+		try{
+			expTree = interpreter.interpret(ec, input);
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
 		return expTree;
 	}
 }

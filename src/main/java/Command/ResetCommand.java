@@ -1,6 +1,7 @@
 public class ResetCommand extends Command{
 	
-	public ResetCommand(ExpressionTreeContext context, String arg){
+	public ResetCommand(ExpressionTreeContext context, String arg)
+					throws InvalidCommandException {
 		super(context, arg);
 	}
 	
