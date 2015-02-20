@@ -4,7 +4,7 @@ public class EvaluatedState implements State {
 		context.printCurrentExpressionTree();
 	}
 	
-	public void evaluate(ExpressionTreeContext context, String arg){
+	public void evaluate(ExpressionTreeContext context, String arg) throws InvalidInputException{
 		context.evaluateCurrentExpressionTree();		
 	}
 		

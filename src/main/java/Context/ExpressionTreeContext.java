@@ -129,20 +129,39 @@ public class ExpressionTreeContext {
 		}
 	}
 	
+	private Evaluator getEvaluator(){
+		switch (currentInputFormat){
+		case prefix:
+			return new PrefixEvaluator();
+		case postfix:
+			return new PostfixEvaluator();
+		case infix:
+			return new InfixEvaluator();
+		default:
+			return null;
+		}
+	}
+	
 	public CommandFactory getCommandFactory(){
 		return commandFactory;
 	}
 
-	public void evaluateCurrentExpressionTree(){
+	public void evaluateCurrentExpressionTree()throws InvalidInputException{
 		// Evaluate the expression tree to get an ExpressionTree object.
+		Evaluator evaluator = getEvaluator();
+		ExpressionTree resultTree;
+		resultTree = evaluator.evaluate(this, currentExpTree);
 		// Use an expressionBuilder to build up an expression as a String.
-		// send and output event to the reactor.
-		
-		System.out.println("evaluated expression");	
+		ExpressionBuilder expBuilder;
+		expBuilder = new ExpressionBuilder(resultTree);
+		Reactor.getInstance().handleEvent("output", expBuilder.build());
 	}
 	
 	public void printCurrentExpressionTree(){
-		System.out.println("printed expression");
+		ExpressionBuilder builder = null;
+		builder = new ExpressionBuilder(currentExpTree);
+		String result = builder.build();	
+		Reactor.getInstance().handleEvent("output", result);				
 	}
 	
 	public void handleQuit(){

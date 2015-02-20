@@ -197,7 +197,7 @@ public class TestExpressionTreeContext {
 		// setInputFormat
 		context.setTreeOrder(null);		
 		// setTreeOrder does not generate output
-		context.setTreeOrder("infix");		
+		context.setTreeOrder("postfix");		
 		// setTreeOrder
 		context.setTreeOrder("unknown");
 		
@@ -208,40 +208,167 @@ public class TestExpressionTreeContext {
 	
 	@Test
 	public void testTestCommandsWithHasExpressionState(){	
-		
-		
+		// create the context
+		ExpressionTreeContext context;
+		context = new ExpressionTreeContext();
+		// set the state by setting the format and expr
+		context.setInputFormat("infix");
+		context.setExpression("4.5+22.4");
 		
 		// print, evaluate should do just that and send result
 		// to the reactor.
+		context.printExpressionTree(null);
+		// the result should be exactly 26.9 as a String
+		assertEquals("The result should have been 4.5 + 22.4 .",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		// a treeOrder
+		context.printExpressionTree("infix");
+		// the result should be exactly 26.9 as a String
+		assertEquals("The result should have been 4.5 + 22.4",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		// this is ok for now.
+		context.printExpressionTree("preorder");
+		assertEquals("The result should have been 4.5 + 22.4",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		context.printExpressionTree("unknown");
+		// the result should be exactly 26.9 as a String
+		assertEquals("The result should have been 4.5 + 22.4",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
 		
-		// setExpression should set the expression and update state
+		// a null.
+		context.evaluate(null);
+		assertEquals("The result should have been 26.9",
+			String.valueOf("26.9"), outputHandler.data);
+		context.setExpression("4.5+22.4");
+		// this is ok still.
+		context.evaluate("postorder");
+		assertEquals("The result should have been 26.9",
+			String.valueOf("26.9"), outputHandler.data);
+		context.setExpression("4.5+22.4");
+		// something unknown.
+		context.evaluate("unknown");
+		assertEquals("The result should have been 26.9",
+			String.valueOf("26.9"), outputHandler.data);
+		context.setExpression("4.5+22.4");
+		
+		// the output handler should have reveived the seven eventstotal.
+		assertEquals("The outputHandler did not receive 7 events.",
+			7, outputHandler.eventCount);
+		
+		// setExpression is ok
 		
 		// quit, should send a message to the reactor
 		// to quit.
-
-		// reset should reset the context to starting vals.
-		// setInputFormat should set the input format
-		// setTreeOrder should set the tree order.
-		fail("Method needs implementation.");
+		context.quit("strin");
+		context.reset("g");
 	}
 	
 	@Test
 	public void testTestCommandsWithHasUnevaluatableExpressionState(){	
-		// evaluate should throw exception, should
-		// be caught and a message should be sent to the
-		// recator.
+		// create the context
+		ExpressionTreeContext context;
+		context = new ExpressionTreeContext();
+		// set the state by setting the format and expr
+		context.setInputFormat("infix");
+		context.setExpression("4.5+22.4");
+		context.setTreeOrder("preorder");
 		
-		// print should send the expression to the reactor.
+		// print, evaluate
+		context.printExpressionTree(null);
+		// a treeOrder
+		context.printExpressionTree("infix");
+		// something unknown.
+		context.printExpressionTree("unknown");
+		// a null.
+		context.evaluate(null);
+		// a treeOrder
+		context.evaluate("infix");
+		// something unknown.
+		context.evaluate("unknown");
+		assertTrue("the context should still be set to "
+			+ "HasUnevaluatableExpressionState state.",
+			(context.getCurrentState() instanceof 
+				HasUnevaluatableExpressionState));
+
+		// the output handler should have reveived the six events total.
+		assertEquals("The outputHandler did not receive 6 events.",
+			6, outputHandler.eventCount);
 		
-		// setExpression should set the expression and update state
+		
+		// setExpression should set the expression and retain state
+		context.setExpression("4.5+22.4");
+		assertTrue("the context should still be set to FormatedState state.",
+			(context.getCurrentState() instanceof HasUnevaluatableExpressionState));
 		
 		// quit, should send a message to the reactor
 		// to quit.
+		context.quit("rz");
+		context.reset("'n");
+		assertTrue("the context should still be set to InitialState state.",
+			(context.getCurrentState() instanceof InitialState));
+	}
+	
+	@Test
+	public void testTestCommandsWithEvaluatedState(){	
+				// create the context
+		ExpressionTreeContext context;
+		context = new ExpressionTreeContext();
+		// set the state by setting the format and expr
+		context.setInputFormat("infix");
+		context.setExpression("4.5+22.4");
+		context.evaluate(null);
+		
+		// print, evaluate should do just that and send result
+		// to the reactor.
+		context.printExpressionTree(null);
+		// the result should be exactly 26.9 as a String
+		assertEquals("The result should have been 4.5 + 22.4 .",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		// a treeOrder
+		context.printExpressionTree("infix");
+		// the result should be exactly 26.9 as a String
+		assertEquals("The result should have been 4.5 + 22.4",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		// this is ok for now.
+		context.printExpressionTree("preorder");
+		assertEquals("The result should have been 4.5 + 22.4",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		context.printExpressionTree("unknown");
+		// the result should be exactly 26.9 as a String
+		assertEquals("The result should have been 4.5 + 22.4",
+			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		
+		// a null.
+		context.evaluate(null);
+		assertEquals("The result should have been 26.9",
+			String.valueOf("26.9"), outputHandler.data);
+		// this is ok still.
+		context.evaluate("postorder");
+		assertEquals("The result should have been 26.9",
+			String.valueOf("26.9"), outputHandler.data);
+		// something unknown.
+		context.evaluate("unknown");
+		assertEquals("The result should have been 26.9",
+			String.valueOf("26.9"), outputHandler.data);
+		
+		// the output handler should have reveived the eight eventstotal.
+		assertEquals("The outputHandler did not receive 8 events.",
+			8, outputHandler.eventCount); 
+		assertTrue("the context should still be set to "
+			+ "EvaluatedState state.",
+			(context.getCurrentState() instanceof 
+				EvaluatedState));
 
-		// reset should reset the context to starting vals.
-		// setInputFormat should set the input format
-		// setTreeOrder should set the tree order.
-		fail("Method needs implementation.");
+		// setExpression is ok
+		
+		// quit, should send a message to the reactor
+		// to quit.
+		context.quit("strin");
+		context.reset("g");
+		
+		assertTrue("the context should still be set to InitialState state.",
+			(context.getCurrentState() instanceof InitialState));
+		
 	}
 }
 	

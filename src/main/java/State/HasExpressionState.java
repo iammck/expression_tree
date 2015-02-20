@@ -1,10 +1,10 @@
 public class HasExpressionState implements State {
 	
-	public void printExpressionTree(ExpressionTreeContext context, String arg){
+	public void printExpressionTree(ExpressionTreeContext context, String treeOrder){
 		context.printCurrentExpressionTree();
 	}
 	
-	public void evaluate(ExpressionTreeContext context, String arg){
+	public void evaluate(ExpressionTreeContext context, String order) throws InvalidInputException{
 		context.evaluateCurrentExpressionTree();
 		context.setCurrentState(new EvaluatedState());
 	}

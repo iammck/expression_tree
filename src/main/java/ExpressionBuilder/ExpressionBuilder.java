@@ -9,7 +9,7 @@ public class ExpressionBuilder implements ComponentNodeVisitor {
 	}
 	
 	public String build(){
-		return result.toString().trim();
+		return result.toString().trim();			
 	}
 	
 	public void visit(ComponentNode responder){

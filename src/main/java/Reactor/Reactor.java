@@ -63,7 +63,10 @@ public class Reactor {
 	}
 	
 	public void handleEvent(String event, Object data){
-		handlerTable.get(event).handleEvent(event, data);	
+		EventHandler handler;
+		handler = handlerTable.get(event);
+		if (handler != null)
+			handler.handleEvent(event, data);	
 	}
 	
 	

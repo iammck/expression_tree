@@ -155,7 +155,6 @@ public class TestState{
 		context.printExpressionTree("");		
 		// should be able to quit.
 		context.quit("");
-		
 		// should be able to evaluate while in HasExpressionState
 		context.evaluate("");
 		// assert that the state is an instance of HasEvaluatedState
