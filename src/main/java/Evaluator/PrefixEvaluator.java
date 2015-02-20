@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class PrefixEvaluator extends Evaluator {
-	protected Double evaluate()throws InvalidInputException{
+	protected ExpressionTree evaluate()throws InvalidInputException{
 		List<Evaluatable> evaluatedList;
 		evaluatedList = new ArrayList<Evaluatable>();
 		List<Evaluatable> pendingList;
@@ -36,7 +36,9 @@ public class PrefixEvaluator extends Evaluator {
 		for(Evaluatable evaluatable: pendingList){
 			evaluatable.evaluate(evaluatedList);
 		}
-
-		return ((Number)evaluatedList.get(0)).toDouble();
+		
+		ComponentNode root = ((Symbol)evaluatedList.get(0)).build();
+		ExpressionTree result = new ExpressionTree(context, root);
+		return result;
 	}
 }

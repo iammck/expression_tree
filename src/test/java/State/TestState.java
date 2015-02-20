@@ -147,31 +147,117 @@ public class TestState{
 		context.setInputFormat("infix");
 		// setting the expression will return a has expression state
 		context.setExpression("3*4");
-		State hasExpressionState = context.getCurrentState();
 		// assert that the state is an instance of HasExpressionState
+		State curState = context.getCurrentState();
 		assertTrue("State should be HasExpressionState state.", 
-			hasExpressionState instanceof HasExpressionState);
+			curState instanceof HasExpressionState);
 		// should be able to printExpressionTree.
-		hasExpressionState.printExpressionTree(context, "");		
+		context.printExpressionTree("");		
 		// should be able to quit.
-		hasExpressionState.quit(context, "");
+		context.quit("");
+		
 		// should be able to evaluate while in HasExpressionState
-		hasExpressionState.evaluate(context,"");
+		context.evaluate("");
+		// assert that the state is an instance of HasEvaluatedState
+		curState = context.getCurrentState();
+		assertTrue("State should be HasEvaluatedState state.", 
+			curState instanceof EvaluatedState);
+		
 		// should be able to set the expression 
-		hasExpressionState.setExpression(context, "3+4");
+		context.setExpression("3*4");
+		// assert that the state is an instance of HasExpressionState
+		curState = context.getCurrentState();
+		assertTrue("State should be HasExpressionState state.", 
+			curState instanceof HasExpressionState);
+		
+		
 		// Should still have access to setting the Tree order and input format
-		hasExpressionState.setTreeOrder(context, "infix");
-		hasExpressionState.setInputFormat(context, "infix");
+		curState.setTreeOrder(context, "infix");
+		curState.setInputFormat(context, "infix");
 		// the resulting state should now be the HasExpressionState
 		assertTrue("Context current state should be instanceof HasExpressionState.", 
 			context.getCurrentState() instanceof HasExpressionState);
+		
+		// Setting the treeOrder to something unevaluatable should change state
+		curState.setTreeOrder(context, "inorder");
+		// the resulting state should now be the HasUnevaluatableExpressionState
+		assertTrue("Context current state should be instanceof "
+					+ "HasUnevaluatableExpressionState.", 
+			context.getCurrentState() instanceof HasUnevaluatableExpressionState);
+		
+		curState.setTreeOrder(context, "infix");
+		
 		// formated state should still throw invalid input
-		assertSetInputFormatThrowsIllegalArgumentException(hasExpressionState, "");
-		assertSetInputFormatThrowsIllegalArgumentException(hasExpressionState, "not an input format");
-		assertSetTreeOrderThrowsIllegalArgumentException(hasExpressionState, "");
-		assertSetTreeOrderThrowsIllegalArgumentException(hasExpressionState, "not a tree order");
-		assertSetExpressionThrowsInvalidInputException(hasExpressionState, "3--+6");
-		assertSetExpressionThrowsInvalidInputException(hasExpressionState, "");
+		assertSetInputFormatThrowsIllegalArgumentException(curState, "");
+		assertSetInputFormatThrowsIllegalArgumentException(curState, "not an input format");
+		assertSetTreeOrderThrowsIllegalArgumentException(curState, "");
+		assertSetTreeOrderThrowsIllegalArgumentException(curState, "not a tree order");
+		assertSetExpressionThrowsInvalidInputException(curState, "3--+6");
+		assertSetExpressionThrowsInvalidInputException(curState, "");
 	}
+	
+	@Test
+	public void testEvaluatedState() throws Exception{
+		// create the state instance as a State interface
+		// setting the input format will return a formated state
+		context.setInputFormat("infix");
+		// setting the expression will return a has expression state
+		context.setExpression("3*4");
+		// should be able to evaluate while in HasExpressionState
+		context.evaluate("");
+		// assert that the state is an instance of HasEvaluatedState
+		State curState = context.getCurrentState();
+		assertTrue("State should be EvaluatedState state.", 
+			curState instanceof EvaluatedState);
+		
+		// should be able to quit.
+		context.quit("");
+		
+		// should be able to set the expression 
+		context.setExpression("3*4");
+		// assert that the state is an instance of HasExpressionState
+		curState = context.getCurrentState();
+		assertTrue("State should be HasExpressionState state.", 
+			curState instanceof HasExpressionState);
+		
+		// should be able to evaluate while in HasExpressionState
+		context.evaluate("");
+		// assert that the state is an instance of HasEvaluatedState
+		curState = context.getCurrentState();
+		assertTrue("State should be EvaluatedState state.", 
+			curState instanceof EvaluatedState);
+		
+		
+		// Should still have access to setting the Tree order and input format
+		curState.setTreeOrder(context, "infix");
+		curState.setInputFormat(context, "infix");
+		// the resulting state should now be the EvaluatedState
+		assertTrue("Context current state should be instanceof EvaluatedState.", 
+			context.getCurrentState() instanceof EvaluatedState);
+		
+		// Setting the treeOrder to something unevaluatable should change state
+		curState.setTreeOrder(context, "inorder");
+		// the resulting state should now be the HasUnevaluatableExpressionState
+		assertTrue("Context current state should be instanceof "
+					+ "HasUnevaluatableExpressionState.", 
+			context.getCurrentState() instanceof HasUnevaluatableExpressionState);
+		
+		curState.setTreeOrder(context, "infix");
+		context.evaluate("");
+		// the resulting state should now be the EvaluatedState
+		assertTrue("Context current state should be instanceof EvaluatedState!", 
+			context.getCurrentState() instanceof EvaluatedState);
+		
+		
+		
+		// formated state should still throw invalid input
+		assertSetInputFormatThrowsIllegalArgumentException(curState, "");
+		assertSetInputFormatThrowsIllegalArgumentException(curState, "not an input format");
+		assertSetTreeOrderThrowsIllegalArgumentException(curState, "");
+		assertSetTreeOrderThrowsIllegalArgumentException(curState, "not a tree order");
+		assertSetExpressionThrowsInvalidInputException(curState, "3--+6");
+		assertSetExpressionThrowsInvalidInputException(curState, "");
+	}
+	
 
 }

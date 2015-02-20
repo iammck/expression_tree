@@ -134,6 +134,10 @@ public class ExpressionTreeContext {
 	}
 
 	public void evaluateCurrentExpressionTree(){
+		// Evaluate the expression tree to get an ExpressionTree object.
+		// Use an expressionBuilder to build up an expression as a String.
+		// send and output event to the reactor.
+		
 		System.out.println("evaluated expression");	
 	}
 	

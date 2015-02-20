@@ -1,15 +1,18 @@
 public abstract class Evaluator {
 	ExpressionTree expressionTree;
+	ExpressionTreeContext context;
 	
 	// get the expression tree from the context.
-	public Double evaluate(ExpressionTree expressionTree)
+	public ExpressionTree evaluate(ExpressionTreeContext context, 
+					ExpressionTree expressionTree)
 					throws InvalidInputException{
-		if (expressionTree == null)
+		if (context == null || expressionTree == null)
 			throw new InvalidInputException(
 				"An ExpressionTree is required.");
 		this.expressionTree = expressionTree;
+		this.context = context;
 		return evaluate();
 	}
 	
-	protected abstract Double evaluate()throws InvalidInputException;
+	protected abstract ExpressionTree evaluate()throws InvalidInputException;
 }

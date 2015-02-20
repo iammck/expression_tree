@@ -1,6 +1,6 @@
 import java.util.*;
 public class PostfixEvaluator extends Evaluator {
-	protected Double evaluate() throws InvalidInputException{
+	protected ExpressionTree evaluate() throws InvalidInputException{
 		List<Evaluatable> evaluatedList;
 		evaluatedList = new ArrayList<Evaluatable>();
 		
@@ -29,6 +29,8 @@ public class PostfixEvaluator extends Evaluator {
 			result.evaluate(evaluatedList);
 		}
 
-		return ((Number)evaluatedList.get(0)).toDouble();
+		ComponentNode root = ((Symbol)evaluatedList.get(0)).build();
+		ExpressionTree result = new ExpressionTree(context, root);
+		return result;
 	}
 }

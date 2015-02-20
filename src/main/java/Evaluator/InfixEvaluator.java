@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class InfixEvaluator extends Evaluator {
 
-	protected Double evaluate()throws InvalidInputException{
+	protected ExpressionTree evaluate()throws InvalidInputException{
 		ArrayList<Evaluatable> evaluatedList = new ArrayList<Evaluatable>();
 		ArrayList<Evaluatable> pendingList = new ArrayList<Evaluatable>();
 		
@@ -47,8 +47,11 @@ public class InfixEvaluator extends Evaluator {
 					"Unable to evaluate " + lastEvaluatable);
 			}	
 		}
-		if ( evaluatedList.size() == 1)
-			return ((Number)evaluatedList.get(0)).toDouble();
+		if ( evaluatedList.size() == 1){
+			ComponentNode root = ((Symbol)evaluatedList.get(0)).build();
+			ExpressionTree result = new ExpressionTree(context, root);
+			return result;	
+		}
 		throw new InvalidInputException("evaluated list did not turn out right.");
 	}
 }

@@ -63,6 +63,7 @@
 .\src\main\java\State\InitialState.java
 .\src\main\java\State\FormatedState.java
 .\src\main\java\State\HasExpressionState.java
+.\src\main\java\State\EvaluatedState.java
 .\src\main\java\State\HasUnevaluatableExpressionState.java
 
 .\src\main\java\Command\Command.java

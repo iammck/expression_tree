@@ -1,12 +1,11 @@
-public class HasExpressionState implements State {
+public class EvaluatedState implements State {
 	
 	public void printExpressionTree(ExpressionTreeContext context, String arg){
 		context.printCurrentExpressionTree();
 	}
 	
 	public void evaluate(ExpressionTreeContext context, String arg){
-		context.evaluateCurrentExpressionTree();
-		context.setCurrentState(new EvaluatedState());
+		context.evaluateCurrentExpressionTree();		
 	}
 		
 	public void quit(ExpressionTreeContext context, String arg){
@@ -34,7 +33,7 @@ public class HasExpressionState implements State {
 		case infix:
 		case prefix:
 		case postfix:
-			context.setCurrentState(new HasExpressionState());
+			context.setCurrentState(new EvaluatedState());
 			break;
 		default: // else one that is not evaluatable
 			context.setCurrentState(new HasUnevaluatableExpressionState());
