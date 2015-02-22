@@ -1,9 +1,6 @@
 public class VerboseCommandEventHandler 
 				extends CommandEventHandler {
-	
-					
 	ExpressionTreeContext context;
-	
 	
 	public VerboseCommandEventHandler(){
 		if ( context == null){
@@ -18,13 +15,15 @@ public class VerboseCommandEventHandler
 		// turn the object into  the command name and argumet
 		String commandName = getCommandName(input);
 		String commandArgs = getCommandArgs(input);
+		
 		// try to get a command
 		try {
 			Command command = 
 				factory.makeCommand(commandName, commandArgs);
 				command.execute();
 		} catch (InvalidCommandException e){
-			Reactor.getInstance().handleEvent("output ", e.toString());
+			String message = e.getMessage();
+			Reactor.getInstance().handleEvent("output", message);
 		}
 	}
 	
@@ -45,12 +44,16 @@ public class VerboseCommandEventHandler
 		int index = input.indexOf(' ');
 		if (index == -1)
 			return null;
-		return input.substring( index , input.length() - 1);
+		return input.substring( index + 1, input.length());
 
 		
 	}
 	
 	public void quit(){
 		
+	}
+	
+	public ExpressionTreeContext getContext(){
+		return context;
 	}
 }

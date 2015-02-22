@@ -4,10 +4,11 @@ public class MacroCommand extends Command{
 	List<Command> commands;
 	
 	public MacroCommand(	ExpressionTreeContext context, 
-				List<Command> commands)
+				List<Command> commands,
+				String arg)
 					throws InvalidCommandException {
 		
-		super(context, null);
+		super(context, arg);
 		if (commands == null)
 			throw new InvalidCommandException(
 				"MacroCommand constructor params must not be null.");

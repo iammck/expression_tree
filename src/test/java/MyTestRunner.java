@@ -22,7 +22,9 @@ public class MyTestRunner{
 		runClassTests(TestEvaluator.class);
 		runClassTests(TestReactor.class);
 		runClassTests(TestExpressionTreeContext.class);
-		runClassTests(TestReactorEventHandlers.class);
+		runClassTests(TestConsoleEventHandlers.class);
+		runClassTests(TestVerboseCommandEventHandlers.class);
+		//runClassTests(TestMacroCommandEventHandlers.class);
 		
 		if (totalFailedTests == 0){
 			System.out.println("All test classes have passed!\n");
@@ -49,7 +51,7 @@ public class MyTestRunner{
 				+ result.getFailureCount() + " failures out of "
 				+ result.getRunCount()	+ " total tests run.");
 			for(Failure failure: result.getFailures()){
-				System.out.println(failure.toString());	
+				System.out.println(failure.toString());
 			}
 		} else {
 			totalFailedTests++;

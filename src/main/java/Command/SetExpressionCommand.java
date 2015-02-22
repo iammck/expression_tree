@@ -5,7 +5,8 @@ public class SetExpressionCommand extends Command{
 					throws InvalidCommandException {
 		super(context, arg);
 		if (arg == null){
-			throw new InvalidCommandException("SetExpressionCommand has invalid expression.");
+			throw new InvalidCommandException(
+				"The expression is invalid.");
 		}
 	}
 	

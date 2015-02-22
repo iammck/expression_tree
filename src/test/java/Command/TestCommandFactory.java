@@ -70,12 +70,38 @@ public class TestCommandFactory{
 	}
 
 
+	private class CommandChecker extends Command{	
+		private CommandChecker() throws InvalidCommandException{
+			super(null,null);
+		}
+		
+		public  void execute(){}
+		public void unexecute(){}
+	
+		
+		public String getArg(Command command){
+			return command.arg;
+		}
+	}
+	
+	private void assertCommandArgEquals(Command command, String otherArg){
+		CommandChecker cc = null;
+		try {
+			cc = new CommandChecker();
+		} catch (Exception e){
+			System.out.println("Error making CommandChecker! " 
+				+ e.toString());
+		}
+		assertEquals("\nmade command, but args have changed.", 
+				otherArg, cc.getArg(command));		
+	}
 	
 	private void assertCanMakeCommand(String name, String arg){
 		try {
 			Command command = factory.makeCommand(name, arg);
 			assertNotNull("makeCommand returned null for \""
 				+ name + "\" command name." , command);
+			assertCommandArgEquals(command, arg);
 		} catch (InvalidCommandException e){
 			fail("Failed to make command, " + e.toString());
 		}

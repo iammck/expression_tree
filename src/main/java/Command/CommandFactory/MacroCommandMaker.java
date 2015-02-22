@@ -9,6 +9,6 @@ public class MacroCommandMaker implements CommandMaker {
 		commands.add(new SetExpressionCommand(context, arg));
 		commands.add(new EvaluateCommand(context, "infix"));
 		commands.add(new QuitCommand(context, null));
-		return new MacroCommand(context, commands);
+		return new MacroCommand(context, commands, arg);
 	}
 }

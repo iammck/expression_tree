@@ -47,7 +47,7 @@ public class TestCommand{
 			// commands.add(SetTreeOrder); // should be set already. with input
 			commands.add(quit);
 			
-			macro = new MacroCommand(context, commands);
+			macro = new MacroCommand(context, commands, "67+11" );
 		} catch (InvalidCommandException e){
 			fail("Unable to instaniate commands. " + e.toString());
 		}
@@ -151,7 +151,7 @@ public class TestCommand{
 	
 	public void assertInstantiateMacroCommandFails(){
 		try{
-			new MacroCommand(context, null);
+			new MacroCommand(context, null, null);
 			fail("Instantiating MacroCommand" 
 				+ " should have thrown error from null command List: ");
 		} catch (InvalidCommandException e){

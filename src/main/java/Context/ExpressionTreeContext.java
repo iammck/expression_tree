@@ -36,7 +36,8 @@ public class ExpressionTreeContext {
 		try{
 			currentState.setExpression(this, arg);
 		} catch (ExpressionTreeException e){
-			raiseOutputEvent(e.getMessage());
+			raiseOutputEvent(
+				"Unable to set expression to " + arg);
 		}
 	}
 	
