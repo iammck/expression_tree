@@ -1,7 +1,7 @@
 public class HasExpressionState implements State {
 	
-	public void printExpressionTree(ExpressionTreeContext context, String treeOrder){
-		context.printCurrentExpressionTree();
+	public void printExpressionTree(ExpressionTreeContext context, String traversalOrder)throws InvalidInputException{
+		context.printCurrentExpressionTree(traversalOrder);
 	}
 	
 	public void evaluate(ExpressionTreeContext context, String traversalOrder) throws InvalidInputException{

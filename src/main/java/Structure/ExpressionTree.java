@@ -34,6 +34,16 @@ public class ExpressionTree implements Iterable<ComponentNode> {
 		return traversalOrder;
 	}
 	
+	public void setTraversalOrder(String traversalOrder) throws InvalidInputException{
+		try {	
+			setTraversalOrder(Enum.valueOf(
+				TraversalOrder.class, traversalOrder));
+		} catch (Exception e) {
+			throw new InvalidInputException(traversalOrder
+				+ " is not a valid expression tree traversal order.");
+		}	
+	}
+	
 	public void setTraversalOrder(TraversalOrder traversalOrder){
 		this.traversalOrder = traversalOrder;
 	}

@@ -148,7 +148,10 @@ public class ExpressionTreeContext {
 
 	}
 	
-	public void printCurrentExpressionTree(){
+	public void printCurrentExpressionTree(String traversalOrder) throws InvalidInputException{
+		if (traversalOrder == null || traversalOrder.equals(""))
+				traversalOrder = currentFormat.toString();
+		currentExpTree.setTraversalOrder(traversalOrder);
 		ExpressionBuilder builder = null;
 		builder = new ExpressionBuilder(currentExpTree);
 		String result = builder.build();	

@@ -193,11 +193,12 @@ public class TestExpressionTreeContext {
 		// this is ok for now.
 		context.printExpressionTree("preorder");
 		assertEquals("The result should have been 4.5 + 22.4",
-			String.valueOf("4.5 + 22.4"), outputHandler.data);
+			String.valueOf("+ 4.5 22.4"), outputHandler.data);
 		context.printExpressionTree("unknown");
-		// the result should be exactly 26.9 as a String
-		assertEquals("The result should have been 4.5 + 22.4",
-			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		// the result should be a failure as a String
+		String result = "unknown is not a valid expression tree traversal order.";
+		assertEquals("The result should have been " + result,
+			result, outputHandler.data);
 		
 		// a null.
 		context.evaluate(null);
@@ -207,7 +208,7 @@ public class TestExpressionTreeContext {
 		
 		// this is not ok .
 		context.evaluate("postorder");
-		String result = "postorder is not a valid tree evaluation traversal order.";
+		result = "postorder is not a valid tree evaluation traversal order.";
 		assertEquals("The result should have been 26.9",
 			result, outputHandler.data);
 		context.setExpression("4.5+22.4");		
@@ -256,11 +257,11 @@ public class TestExpressionTreeContext {
 		// this is ok for now.
 		context.printExpressionTree("preorder");
 		assertEquals("The result should have been 4.5 + 22.4",
-			String.valueOf("4.5 + 22.4"), outputHandler.data);
+			String.valueOf("+ 4.5 22.4"), outputHandler.data);
 		context.printExpressionTree("unknown");
-		// the result should be exactly 26.9 as a String
-		assertEquals("The result should have been 4.5 + 22.4",
-			String.valueOf("4.5 + 22.4"), outputHandler.data);
+		String result = "unknown is not a valid expression tree traversal order.";
+		assertEquals("The result should have been " + result,
+			result, outputHandler.data);
 		
 		// a null.
 		context.evaluate(null);
@@ -269,8 +270,7 @@ public class TestExpressionTreeContext {
 		
 		// this is not ok .
 		context.evaluate("postorder");
-		String result =
-			"postorder is not a valid tree evaluation traversal order.";
+		result ="postorder is not a valid tree evaluation traversal order.";
 		assertEquals("The result should have been " + result,
 			result, outputHandler.data);
 
