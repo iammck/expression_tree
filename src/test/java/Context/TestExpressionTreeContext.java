@@ -56,19 +56,19 @@ public class TestExpressionTreeContext {
 		// for three values each. Any result is fine.
 		// a null.
 		context.printExpressionTree(null);
-		// a treeOrder
+		// a traversal order
 		context.printExpressionTree("infix");
 		// something unknown.
 		context.printExpressionTree("unknown");
 		// a null.
 		context.evaluate(null);
-		// a treeOrder
+		// a traversal order
 		context.evaluate("infix");
 		// something unknown.
 		context.evaluate("unknown");
 		// a null.
 		context.setExpression(null);
-		// a treeOrder
+		// a valid expression
 		context.setExpression("55+1");
 		// something unknown.
 		context.setExpression("unknown");
@@ -108,28 +108,6 @@ public class TestExpressionTreeContext {
 		// the output handler should have reveived the three events, 11 total.
 		assertEquals("The outputHandler did not receive 11 events.",
 			11, outputHandler.eventCount);
-		
-		// setTreeOrder should set the tree order.
-		// setInputFormat
-		context.setTreeOrder(null);
-		assertTrue("the context should not be set to FormatedState state.",
-			!(context.getCurrentState() instanceof FormatedState));
-		context.reset("arr");
-		// setTreeOrder does not generate output
-		context.setTreeOrder("infix");
-		assertTrue("the context should not be set to FormatedState state.",
-			!(context.getCurrentState() instanceof FormatedState));
-		context.reset("arr");
-		// setTreeOrder
-		context.setTreeOrder("unknown");
-		assertTrue("the context should not be set to FormatedState state.",
-			!(context.getCurrentState() instanceof FormatedState));
-		context.reset("arr");
-		
-		// the output handler should have reveived the three events, 13 total.
-		assertEquals("The outputHandler did not receive 13 events.",
-			13, outputHandler.eventCount);
-		
 	}
 	
 	@Test
@@ -145,13 +123,13 @@ public class TestExpressionTreeContext {
 		// recator.
 		// print, evaluate
 		context.printExpressionTree(null);
-		// a treeOrder
+		// a traversal order
 		context.printExpressionTree("infix");
 		// something unknown.
 		context.printExpressionTree("unknown");
 		// a null.
 		context.evaluate(null);
-		// a treeOrder
+		// a traversal order
 		context.evaluate("infix");
 		// something unknown.
 		context.evaluate("unknown");
@@ -191,19 +169,6 @@ public class TestExpressionTreeContext {
 		
 		// set the state by setting the format
 		context.setInputFormat("infix");
-		
-		
-		// setTreeOrder should set the tree order.
-		// setInputFormat
-		context.setTreeOrder(null);		
-		// setTreeOrder does not generate output
-		context.setTreeOrder("postfix");		
-		// setTreeOrder
-		context.setTreeOrder("unknown");
-		
-		// the output handler should have reveived the two events, 10 total.
-		assertEquals("The outputHandler did not receive 10 events.",
-			10, outputHandler.eventCount);
 	}
 	
 	@Test
@@ -221,7 +186,7 @@ public class TestExpressionTreeContext {
 		// the result should be exactly 26.9 as a String
 		assertEquals("The result should have been 4.5 + 22.4 .",
 			String.valueOf("4.5 + 22.4"), outputHandler.data);
-		// a treeOrder
+		// a traversal order
 		context.printExpressionTree("infix");
 		// the result should be exactly 26.9 as a String
 		assertEquals("The result should have been 4.5 + 22.4",
@@ -271,24 +236,22 @@ public class TestExpressionTreeContext {
 		// set the state by setting the format and expr
 		context.setInputFormat("infix");
 		context.setExpression("4.5+22.4");
-		context.setTreeOrder("preorder");
 		
 		// print, evaluate
 		context.printExpressionTree(null);
-		// a treeOrder
+		// a traversal order
 		context.printExpressionTree("infix");
 		// something unknown.
 		context.printExpressionTree("unknown");
 		// a null.
 		context.evaluate(null);
-		// a treeOrder
+		// a traversal order
 		context.evaluate("infix");
 		// something unknown.
 		context.evaluate("unknown");
 		assertTrue("the context should still be set to "
 			+ "HasUnevaluatableExpressionState state.",
-			(context.getCurrentState() instanceof 
-				HasUnevaluatableExpressionState));
+			(context.getCurrentState() instanceof EvaluatedState));
 
 		// the output handler should have reveived the six events total.
 		assertEquals("The outputHandler did not receive 6 events.",
@@ -298,7 +261,7 @@ public class TestExpressionTreeContext {
 		// setExpression should set the expression and retain state
 		context.setExpression("4.5+22.4");
 		assertTrue("the context should still be set to FormatedState state.",
-			(context.getCurrentState() instanceof HasUnevaluatableExpressionState));
+			(context.getCurrentState() instanceof HasExpressionState));
 		
 		// quit, should send a message to the reactor
 		// to quit.
@@ -324,7 +287,7 @@ public class TestExpressionTreeContext {
 		// the result should be exactly 26.9 as a String
 		assertEquals("The result should have been 4.5 + 22.4 .",
 			String.valueOf("4.5 + 22.4"), outputHandler.data);
-		// a treeOrder
+		// a traversal order
 		context.printExpressionTree("infix");
 		// the result should be exactly 26.9 as a String
 		assertEquals("The result should have been 4.5 + 22.4",

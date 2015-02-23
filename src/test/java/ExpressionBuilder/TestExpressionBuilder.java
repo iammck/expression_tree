@@ -27,7 +27,6 @@ public class TestExpressionBuilder {
 		// get a context and set the tree order
 		ExpressionTreeContext context;
 		context = new ExpressionTreeContext();
-		context.setTreeOrder("infix");
 		// create the interpreter and inpterprete the input
 		Interpreter interpreter = new InfixInterpreter();
 		try{

@@ -351,8 +351,10 @@ public class TestComponentNodes {
 	@Test
 	public void testExpressionTree(){
 		// an expression tree with just a number.
-		
-		ExpressionTree expTree =  new ExpressionTree(new ExpressionTreeContext(), two);
+		ExpressionTree.TraversalOrder order = 
+					ExpressionTree.TraversalOrder.prefix;
+			
+		ExpressionTree expTree =  new ExpressionTree(order, two);
 		ComponentNode result = expTree.getRoot();
 		assertEquals("ExpressionTree result root should contain 2",
 			"2", result.getItem());

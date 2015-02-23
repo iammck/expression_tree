@@ -7,14 +7,13 @@ public class ConcreteCommandFactory implements CommandFactory{
 	public ConcreteCommandFactory(ExpressionTreeContext context){
 		this.context = context;
 		commandTable = new Hashtable<String, CommandMaker>();
-		commandTable.put("print", new PrintCommandMaker());
-		commandTable.put("evaluate", new EvaluateCommandMaker());
-		commandTable.put("macro", new MacroCommandMaker());
-		commandTable.put("quit", new QuitCommandMaker());
-		commandTable.put("reset", new ResetCommandMaker());
-		commandTable.put("setexpression", new SetExpressionCommandMaker());
-		commandTable.put("settreeorder", new SetTreeOrderCommandMaker());
-		commandTable.put("setinputformat", new SetInputFormatCommandMaker());
+		commandTable.put(CommandContract.Print, new PrintCommandMaker());
+		commandTable.put(CommandContract.Evaluate, new EvaluateCommandMaker());
+		commandTable.put(CommandContract.Macro, new MacroCommandMaker());
+		commandTable.put(CommandContract.Quit, new QuitCommandMaker());
+		commandTable.put(CommandContract.Reset, new ResetCommandMaker());
+		commandTable.put(CommandContract.Expression, new ExpressionCommandMaker());
+		commandTable.put(CommandContract.Format, new FormatCommandMaker());
 	}
 	
 	public Command makeCommand(String commandName, String arg) 

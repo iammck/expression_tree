@@ -43,26 +43,21 @@ public class TestCommandFactory{
 	}	
 
 	@Test
-	public void testMakeCommandSetExpression(){
-		assertCanNotMakeCommand("setexpression", null);
-		assertCanMakeCommand("setexpression", "bad expr");
-		assertCanMakeCommand("setexpression", "3+1");
+	public void testMakeCommandExpression(){
+		assertCanNotMakeCommand("expression", null);
+		assertCanMakeCommand("expression", "bad expr");
+		assertCanMakeCommand("expression", "3+1");
 
 	}
 	
 	@Test
-	public void testMakeCommandSetInputFormat(){
-		assertCanNotMakeCommand("setinputformat", null);
-		assertCanNotMakeCommand("setinputformat", "bad arg");
-		assertCanMakeCommand("setinputformat", "infix");
+	public void testMakeCommandFormat(){
+		assertCanNotMakeCommand("format", null);
+		assertCanNotMakeCommand("format", "bad arg");
+		assertCanMakeCommand("format", "infix");
 	}
 	
-	@Test
-	public void testMakeCommandSetTreeOrder(){
-		assertCanNotMakeCommand("settreeorder", null);
-		assertCanNotMakeCommand("settreeorder", "bad arg");
-		assertCanMakeCommand("settreeorder", "infix");
-	}
+	
 	
 	@Test
 	public void testMakeCommandReset(){

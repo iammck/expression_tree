@@ -5,6 +5,9 @@ public class InfixEvaluator extends Evaluator {
 	protected ExpressionTree evaluate()throws InvalidInputException{
 		ArrayList<Evaluatable> evaluatedList = new ArrayList<Evaluatable>();
 		ArrayList<Evaluatable> pendingList = new ArrayList<Evaluatable>();
+
+		// set the ExpressionTree traversal order
+		expressionTree.setTraversalOrder(ExpressionTree.TraversalOrder.infix);
 		
 		for( ComponentNode node: expressionTree ){
 			Evaluatable result = null;
@@ -49,8 +52,9 @@ public class InfixEvaluator extends Evaluator {
 		}
 		if ( evaluatedList.size() == 1){
 			ComponentNode root = ((Symbol)evaluatedList.get(0)).build();
-			ExpressionTree result = new ExpressionTree(context, root);
-			return result;	
+			ExpressionTree.TraversalOrder order = 
+						ExpressionTree.TraversalOrder.infix;
+			return new ExpressionTree( order, root);	
 		}
 		throw new InvalidInputException("evaluated list did not turn out right.");
 	}

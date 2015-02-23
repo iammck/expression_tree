@@ -1,13 +1,9 @@
 public class ExpressionTreeContext {	
-	// TreeOrder and InputFormat
-	public enum TreeOrder {
-		preorder, inorder, postorder,
-		prefix, infix, postfix 		};
+	
 	public enum InputFormat {
 		prefix, infix, postfix 		};
 	
 	//CONTEXT DATA		
-	TreeOrder currentTreeOrder;
 	InputFormat currentInputFormat;
 	State currentState;
 	ExpressionTree currentExpTree;
@@ -65,14 +61,6 @@ public class ExpressionTreeContext {
 		}
 	}	
 	
-	public void setTreeOrder(String arg){
-		try {
-			currentState.setTreeOrder(this, arg);
-		} catch (ExpressionTreeException e){
-			raiseOutputEvent(e.getMessage());
-		}
-	}
-
 	public void quit(String arg){
 		currentState.quit(this,arg);		
 	}
@@ -94,20 +82,6 @@ public class ExpressionTreeContext {
 		}
 	}
 	
-	public void setCurrentTreeOrder(String arg) 
-				throws InvalidInputException{
-		try {
-			currentTreeOrder = Enum
-				.valueOf(TreeOrder.class, arg);
-		} catch (Exception e){
-			throw new InvalidInputException("The tree order "
-				+ arg + " is not valid.");
-		}		
-	}
-	
-	public TreeOrder getCurrentTreeOrder(){
-		return currentTreeOrder;
-	}	
 	
 	public void setCurrentExpression(String expr)
 				throws InvalidInputException{

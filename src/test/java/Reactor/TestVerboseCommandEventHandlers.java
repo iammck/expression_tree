@@ -101,7 +101,7 @@ public class TestVerboseCommandEventHandlers {
 	@Test
 	public void testWithSetInputFormatCommand(){
 		// send the handler a setInputFormat command.
-		commandEventHandler.handleEvent("command", "setinputformat infix");
+		commandEventHandler.handleEvent("command", "format infix");
 		ExpressionTreeContext context;
 		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
 		assertTrue("The state was not updated after setting input.",
@@ -112,10 +112,10 @@ public class TestVerboseCommandEventHandlers {
 	public void testWithSetExpressionCommand(){
 		// first set the inputformat
 		// send the handler a setInputFormat command.
-		commandEventHandler.handleEvent("command", "setinputformat infix");
+		commandEventHandler.handleEvent("command", "format infix");
 		
-		// send the handler a setexpression command with no expression.
-		commandEventHandler.handleEvent("command", "setexpression");
+		// send the handler a expression command with no expression.
+		commandEventHandler.handleEvent("command", "expression");
 		// outputEventHandler should now have the error as a result.
 		String result = ((TestOutputEventHandler)outputEventHandler).data;
 		String expected = "The expression is invalid."; 
@@ -123,25 +123,25 @@ public class TestVerboseCommandEventHandlers {
 			+ "right output.\n", expected, result);
 		ExpressionTreeContext context;
 		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
-		assertTrue("The state should not updated after setexpression with no expression.",
+		assertTrue("The state should not updated after expression with no expression.",
 			context.getCurrentState() instanceof FormatedState);
 		
 		
 		
-		// send the handler a setexpression command with erroneous expression.
-		commandEventHandler.handleEvent("command", "setexpression 4++5");
+		// send the handler a expression command with erroneous expression.
+		commandEventHandler.handleEvent("command", "expression 4++5");
 		// outputEventHandler should now have the error as a result.
 		result = ((TestOutputEventHandler)outputEventHandler).data;
 		expected = "Unable to set expression to 4++5"; 
 		assertEquals("\nThe resulting outputEventHandler event did not generate the "
 			+ "right output.\n", expected, result);
 		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
-		assertTrue("The state should not updated after setexpression with no expression.",
+		assertTrue("The state should not updated after expression with no expression.",
 			context.getCurrentState() instanceof FormatedState);
 		
 		
-		// send the handler a setexpression command with correct input.
-		commandEventHandler.handleEvent("command", "setexpression 3*4+5");
+		// send the handler a expression command with correct input.
+		commandEventHandler.handleEvent("command", "expression 3*4+5");
 		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
 		assertTrue("The state was not updated after setting expression.",
 			context.getCurrentState() instanceof HasExpressionState);
@@ -161,8 +161,8 @@ public class TestVerboseCommandEventHandlers {
 			+ "right output.", expected, result);
 		// correct state
 		// send the handler a print command while in the right state.
-		commandEventHandler.handleEvent("command","setinputformat infix");
-		commandEventHandler.handleEvent("command","setexpression 3 + 77-4");
+		commandEventHandler.handleEvent("command","format infix");
+		commandEventHandler.handleEvent("command","expression 3 + 77-4");
 		commandEventHandler.handleEvent("command", "print");
 		// outputEventHandler should now have a result.
 		result = ((TestOutputEventHandler)outputEventHandler).data;
@@ -185,8 +185,8 @@ public class TestVerboseCommandEventHandlers {
 			+ "right output.", expected, result);
 		// correct state
 		// send the handler a print command while in the right state.
-		commandEventHandler.handleEvent("command","setinputformat infix");
-		commandEventHandler.handleEvent("command","setexpression 3 + 77-4");
+		commandEventHandler.handleEvent("command","format infix");
+		commandEventHandler.handleEvent("command","expression 3 + 77-4");
 		// send the handler an evaluate command while context is in wrong state.
 		commandEventHandler.handleEvent("command", "evaluate");
 		// outputEventHandler should now have a result.

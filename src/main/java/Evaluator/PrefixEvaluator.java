@@ -8,6 +8,10 @@ public class PrefixEvaluator extends Evaluator {
 		pendingList = new ArrayList<Evaluatable>();
 		
 		
+		// set the ExpressionTree traversal order
+		expressionTree.setTraversalOrder(ExpressionTree.TraversalOrder.prefix);
+
+		
 		for( ComponentNode node: expressionTree ){
 			Evaluatable result = null;
 			if ( node instanceof NumberLeafNode){
@@ -29,7 +33,8 @@ public class PrefixEvaluator extends Evaluator {
 				}
 			}
 			if( result == null)
-				throw new InvalidInputException(node + " has no evaluatable symbol.");
+				throw new InvalidInputException(node 
+						+ " has no evaluatable symbol.");
 			pendingList.add(result);
 		}
 		Collections.reverse(pendingList);
@@ -38,7 +43,8 @@ public class PrefixEvaluator extends Evaluator {
 		}
 		
 		ComponentNode root = ((Symbol)evaluatedList.get(0)).build();
-		ExpressionTree result = new ExpressionTree(context, root);
-		return result;
+		ExpressionTree.TraversalOrder order = 
+						ExpressionTree.TraversalOrder.infix;
+		return new ExpressionTree( order, root);
 	}
 }

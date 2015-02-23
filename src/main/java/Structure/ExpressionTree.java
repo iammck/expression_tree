@@ -2,34 +2,45 @@ import java.util.*;
 
 public class ExpressionTree implements Iterable<ComponentNode> {
 	
+	
+	// TreeOrder and InputFormat
+	public enum TraversalOrder {
+		preorder, inorder, postorder,
+		prefix, infix, postfix 		};
+	
+	
 	ComponentNode root;
 	ExpressionTreeContext context;
+	TraversalOrder traversalOrder;
 	
 	private ExpressionTree(){
 	}
 	
-	public ExpressionTree(ExpressionTreeContext context, ComponentNode root){
-		if (context == null || root == null){
+	public ExpressionTree(TraversalOrder traversalOrder, ComponentNode root){
+		if (traversalOrder == null || root == null){
 			throw new IllegalArgumentException(
 				"ExpressionTree constructor requires "
 				+ "valid ExressionTreeContext and ComponentNode.");
 		}
 		this.root = root;
-		this.context = context;
+		this.traversalOrder = traversalOrder;
 	}
 	
 	public ComponentNode getRoot(){
 		return root;
 	}
 	
+	public TraversalOrder getTraversalOrder(){
+		return traversalOrder;
+	}
+	
+	public void setTraversalOrder(TraversalOrder traversalOrder){
+		this.traversalOrder = traversalOrder;
+	}
+	
 	public Iterator<ComponentNode> iterator(){
 		// want an iterator to match the current traversal order
-		ExpressionTreeContext.TreeOrder order = context.getCurrentTreeOrder();
-		if (order == null){
-			throw new NullPointerException(
-				"Context must have a valid tree order.");
-		}			
-		switch (order){
+		switch (traversalOrder){
 		case preorder:
 			return new PreOrderIterator(this);
 		case postorder:
@@ -44,7 +55,7 @@ public class ExpressionTree implements Iterable<ComponentNode> {
 			return new InFixIterator(this);			
 		default:
 			throw new IllegalArgumentException( "Can not make an iterator "
-				+ "using current tree order " + order + ".");
+				+ "using current tree order " + traversalOrder + ".");
 		}
 	}
 	

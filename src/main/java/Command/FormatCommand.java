@@ -1,6 +1,6 @@
-public class SetInputFormatCommand extends Command{
+public class FormatCommand extends Command{
 	
-	public SetInputFormatCommand(ExpressionTreeContext context, String arg)
+	public FormatCommand(ExpressionTreeContext context, String arg)
 						throws InvalidCommandException {
 		super(context, arg);
 		try { // Try to get the enum value for the arg.

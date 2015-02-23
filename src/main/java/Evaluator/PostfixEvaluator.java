@@ -4,6 +4,9 @@ public class PostfixEvaluator extends Evaluator {
 		List<Evaluatable> evaluatedList;
 		evaluatedList = new ArrayList<Evaluatable>();
 		
+		// set the ExpressionTree traversal order
+		expressionTree.setTraversalOrder(ExpressionTree.TraversalOrder.postfix);
+
 		for( ComponentNode node: expressionTree ){
 			Evaluatable result = null;
 			if ( node instanceof NumberLeafNode){
@@ -25,12 +28,14 @@ public class PostfixEvaluator extends Evaluator {
 				}
 			}
 			if( result == null)
-				throw new InvalidInputException(node + " has no evaluatable symbol.");
+				throw new InvalidInputException(node 
+						+ " has no evaluatable symbol.");
 			result.evaluate(evaluatedList);
 		}
 
 		ComponentNode root = ((Symbol)evaluatedList.get(0)).build();
-		ExpressionTree result = new ExpressionTree(context, root);
-		return result;
+		ExpressionTree.TraversalOrder order = 
+						ExpressionTree.TraversalOrder.postfix;
+		return new ExpressionTree( order, root);
 	}
 }

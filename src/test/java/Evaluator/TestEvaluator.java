@@ -14,26 +14,24 @@ public class TestEvaluator {
 	@Test
 	public void testInfixEvaluatorEvaluate(){
 		Evaluator evaluator = new InfixEvaluator();
-		testEvaluatorEvaluate(evaluator, "infix");
+		testEvaluatorEvaluate(evaluator);
 	}
 	
 	@Test
 	public void testPrefixEvaluatorEvaluate(){
 		Evaluator evaluator = new PrefixEvaluator();
-		testEvaluatorEvaluate(evaluator, "prefix");
+		testEvaluatorEvaluate(evaluator);
 	}
 	
 	@Test
 	public void testPostfixEvaluatorEvaluate(){
 		Evaluator evaluator = new PostfixEvaluator();
-		testEvaluatorEvaluate(evaluator, "postfix");
+		testEvaluatorEvaluate(evaluator);
 	}
 	
-	private void testEvaluatorEvaluate(Evaluator evaluator, String treeOrder){
+	private void testEvaluatorEvaluate(Evaluator evaluator){
 		// get a new context. 
 		ExpressionTreeContext context = new ExpressionTreeContext();
-		// the context must have a tree order for the iterator.
-		context.setTreeOrder(treeOrder);
 		// This evaluator should throw a null pointer exception with null tree.
 		ExpressionTree expressionTree = null;
 		assertCatchExpressionTreeExceptionFromEvaluate(context, evaluator, expressionTree); 
@@ -76,11 +74,9 @@ public class TestEvaluator {
 	
 	}
 	
-	private void testEvaluatorFail(Evaluator evaluator, String treeOrder){
+	private void testEvaluatorFail(Evaluator evaluator){
 		// get a new context. 
 		ExpressionTreeContext context = new ExpressionTreeContext();
-		// the context must have a tree order for the iterator.
-		context.setTreeOrder(treeOrder);
 		// This evaluator should throw a null pointer exception with null tree.
 		ExpressionTree expressionTree = null;
 		// Assert that an expcetion is thrown.

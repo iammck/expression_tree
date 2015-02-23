@@ -75,7 +75,9 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 		// build the expression tree from interpred interpretables and return it.
 			rootNode = interpretedList.get(
 				interpretedList.size()-1).build();
-				return new ExpressionTree( context, rootNode);
+				ExpressionTree.TraversalOrder order = 
+						ExpressionTree.TraversalOrder.infix;
+				return new ExpressionTree( order, rootNode);
 		} else {
 			throw new InvalidInputException(
 				"Inpterprets has unhandled terms." );

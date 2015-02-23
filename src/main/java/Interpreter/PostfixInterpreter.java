@@ -50,7 +50,9 @@ public class PostfixInterpreter extends Interpreter {
 		// build the expression tree from interpred interpretables and return it.
 			rootNode = interpretedInterpretables.get(
 				interpretedInterpretables.size()-1).build();
-				return new ExpressionTree( context, rootNode);
+				ExpressionTree.TraversalOrder order = 
+						ExpressionTree.TraversalOrder.postfix;
+				return new ExpressionTree( order, rootNode);
 		} else {
 			throw new InvalidInputException(
 				"InpterpretInterpretables has unhandled terms.");

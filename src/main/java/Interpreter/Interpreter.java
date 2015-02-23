@@ -3,8 +3,7 @@ import java.util.*;
 public abstract class Interpreter {
 	
 	public abstract ExpressionTree interpret(
-		ExpressionTreeContext context, 
-		String input) 
+		ExpressionTreeContext context, String input) 
 		throws InvalidInputException;
 	
 	public List<String> getInputList(String input){

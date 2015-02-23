@@ -55,10 +55,11 @@ public class PrefixInterpreter extends Interpreter {
 			throw new InvalidInputException("Empty input String.");
 		} else if (interpretedInterpretables.size() == 1) {
 		// build the expression tree from interpred interpretables and return it.
-			rootNode = interpretedInterpretables.get(
-				interpretedInterpretables.size()-1).build();
-				return new ExpressionTree(
-					context, rootNode);
+			rootNode = interpretedInterpretables
+					.get(interpretedInterpretables.size()-1).build();
+			ExpressionTree.TraversalOrder order = 
+					ExpressionTree.TraversalOrder.prefix;
+			return new ExpressionTree( order, rootNode);
 		} else {
 			throw new InvalidInputException(
 				"InpterpretInterpretables has unhandled terms.");

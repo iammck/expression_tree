@@ -65,6 +65,7 @@ public class TestVisitor{
 			ComponentNodeVisitor printVisitor = new PrintVisitor();
 			// get an expression tree for the input
 			ExpressionTree expTree = getInfixInOrderExpressionTree(input);
+			expTree.setTraversalOrder(ExpressionTree.TraversalOrder.inorder);
 			// iterater through
 			for(ComponentNode node: expTree){
 				node.accept(printVisitor);
@@ -111,6 +112,7 @@ public class TestVisitor{
 			ComponentNodeVisitor printVisitor = new PrintVisitor();
 			// get an expression tree for the input
 			ExpressionTree expTree = getInfixPreOrderExpressionTree(input);
+			expTree.setTraversalOrder(ExpressionTree.TraversalOrder.preorder);
 			// iterater through
 			for(ComponentNode node: expTree){
 				node.accept(printVisitor);
@@ -143,6 +145,7 @@ public class TestVisitor{
 			ComponentNodeVisitor printVisitor = new PrintVisitor();
 			// get an expression tree for the input
 			ExpressionTree expTree = getInfixPreOrderExpressionTree(input);
+			expTree.setTraversalOrder(ExpressionTree.TraversalOrder.postorder);
 			// iterater through
 			for(ComponentNode node: expTree){
 				node.accept(printVisitor);
@@ -172,7 +175,6 @@ public class TestVisitor{
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
 		ec.setInputFormat("infix");
-		ec.setTreeOrder("inorder");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = null;
 		try{
@@ -188,7 +190,6 @@ public class TestVisitor{
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
 		ec.setInputFormat("infix");
-		ec.setTreeOrder("preorder");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = null;
 		try{
@@ -205,7 +206,6 @@ public class TestVisitor{
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
 		ec.setInputFormat("infix");
-		ec.setTreeOrder("postorder");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = null;
 		try{

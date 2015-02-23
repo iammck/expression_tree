@@ -14,11 +14,9 @@ public class TestCommand{
 	// commands can take a context and "".
 	ExpressionTreeContext context;
 	
-	Command setInputFormat;
-	Command setExpression;
+	Command format;
+	Command expression;
 	Command evaluate;
-	Command setTreeOrderToInOrder;
-	Command setTreeOrderToInfix;
 	Command macro;
 	Command print;
 	Command  quit;
@@ -31,20 +29,17 @@ public class TestCommand{
 		// commands take a context
 		try {
 			context = new ExpressionTreeContext();
-			setInputFormat = new SetInputFormatCommand(context, "infix");
-			setExpression = new SetExpressionCommand(context, "3*4");
+			format = new FormatCommand(context, "infix");
+			expression = new ExpressionCommand(context, "3*4");
 			evaluate = new EvaluateCommand(context, "");
-			setTreeOrderToInOrder = new SetTreeOrderCommand(context, "inorder");
-			setTreeOrderToInfix = new SetTreeOrderCommand(context, "infix");
 			print = new PrintCommand(context, "");
 			quit = new QuitCommand(context, "");
 			reset = new ResetCommand(context,"");
 			// a macro takes a list of commands.
 			commands = new ArrayList<Command>();
-			commands.add(setInputFormat);
-			commands.add(setExpression);
+			commands.add(format);
+			commands.add(expression);
 			commands.add(evaluate);
-			// commands.add(SetTreeOrder); // should be set already. with input
 			commands.add(quit);
 			
 			macro = new MacroCommand(context, commands, "67+11" );
@@ -56,10 +51,9 @@ public class TestCommand{
 	@Test
 	public void testInstantiateCommandsWithNullArguments(){
 		String erroneousArgs = null;
-		assertInstantiateSetInputFormatCommandFails(erroneousArgs);
-		assertInstantiateSetExpressionCommandFails(erroneousArgs);
+		assertInstantiateFormatCommandFails(erroneousArgs);
+		assertInstantiateExpressionCommandFails(erroneousArgs);
 		assertInstantiateEvaluateCommand(erroneousArgs);
-		assertInstantiateSetTreeOrderCommandFails(erroneousArgs);
 		assertInstantiatePrintCommand(erroneousArgs);
 		assertInstantiateQuitCommand(erroneousArgs);
 		assertInstantiateResetCommand(erroneousArgs);	
@@ -71,11 +65,10 @@ public class TestCommand{
 	@Test
 	public void testInstantiateCommandsWithErroneousArguments(){
 		String erroneousArgs = "chuckles";
-		assertInstantiateSetInputFormatCommandFails(erroneousArgs);
+		assertInstantiateFormatCommandFails(erroneousArgs);
 		// should not fail here at this point
-		// assertInstantiateSetExpressionCommandFails(erroneousArgs);
+		// assertInstantiateExpressionCommandFails(erroneousArgs);
 		assertInstantiateEvaluateCommand(erroneousArgs);
-		assertInstantiateSetTreeOrderCommandFails(erroneousArgs);
 		assertInstantiatePrintCommand(erroneousArgs);
 		assertInstantiateQuitCommand(erroneousArgs);
 		assertInstantiateResetCommand(erroneousArgs);	
@@ -83,20 +76,20 @@ public class TestCommand{
 		
 	}
 		
-	public void assertInstantiateSetInputFormatCommandFails(String erroneousArgs){
+	public void assertInstantiateFormatCommandFails(String erroneousArgs){
 		try{
-			new SetInputFormatCommand(context, erroneousArgs);
-			fail("Instantiating SetInputFormatCommand" 
+			new FormatCommand(context, erroneousArgs);
+			fail("Instantiating FormatCommand" 
 				+ " should have thrown error from args: " + erroneousArgs);
 		} catch (InvalidCommandException e){
 			return;
 		}		
 	}
 	
-	public void assertInstantiateSetExpressionCommandFails(String erroneousArgs){
+	public void assertInstantiateExpressionCommandFails(String erroneousArgs){
 		try{
-			new SetExpressionCommand(context, erroneousArgs);
-			fail("Instantiating SetExpressionCommand" 
+			new ExpressionCommand(context, erroneousArgs);
+			fail("Instantiating ExpressionCommand" 
 				+ " should have thrown error from args: " + erroneousArgs);
 		} catch (InvalidCommandException e){
 			return;
@@ -109,16 +102,6 @@ public class TestCommand{
 		} catch (InvalidCommandException e){
 			fail("Instantiating EvaluateCommand" 
 				+ " should not have thrown error with args: " + erroneousArgs);
-		}
-	}
-	
-	public void assertInstantiateSetTreeOrderCommandFails(String erroneousArgs){
-		try{
-			new SetTreeOrderCommand(context, erroneousArgs);
-			fail("Instantiating SetTreeOrder" 
-				+ " should have thrown error from args: " + erroneousArgs);
-		} catch (InvalidCommandException e){
-			return;
 		}
 	}
 	
@@ -163,12 +146,10 @@ public class TestCommand{
 	@Test
 	public void testExecuteCommands(){
 		// note that context state is at work here. so order of execution counts.
-		setInputFormat.execute();
-		setExpression.execute();
+		format.execute();
+		expression.execute();
 		evaluate.execute();
-		setTreeOrderToInOrder.execute();
 		print.execute();
-		setTreeOrderToInfix.execute();
 		evaluate.execute();
 		quit.execute();
 		reset.execute();

@@ -25,18 +25,12 @@ public class TestState{
 		assertSetExpressionThrowsInvalidStateException(initialState, "");		
 		
 		
-		initialState.setTreeOrder(context, "infix");
-		assertTrue("State should be initial state.", 
-			context.getCurrentState() instanceof InitialState);
 		initialState.setInputFormat(context, "infix");
 		assertTrue("State should be initial state.", 
 			context.getCurrentState() instanceof FormatedState);
-		initialState.setTreeOrder(context, "infix");
 		
 		assertSetInputFormatThrowsIllegalArgumentException(initialState, "");
 		assertSetInputFormatThrowsIllegalArgumentException(initialState, "not an input format");
-		assertSetTreeOrderThrowsIllegalArgumentException(initialState, "");
-		assertSetTreeOrderThrowsIllegalArgumentException(initialState, "not a tree order");
 	}
 	
 	
@@ -65,7 +59,6 @@ public class TestState{
 		assertSame("The context state does not match the formated state.",
 			formatedState, context.getCurrentState());
 		// Should still have access to setting the Tree order and input format
-		formatedState.setTreeOrder(context, "infix");
 		formatedState.setInputFormat(context, "infix");
 		// the state should still be FormateState
 		assertTrue("State should be formated state.", 
@@ -73,8 +66,6 @@ public class TestState{
 		// formated state should still throw
 		assertSetInputFormatThrowsIllegalArgumentException(formatedState, "");
 		assertSetInputFormatThrowsIllegalArgumentException(formatedState, "not an input format");
-		assertSetTreeOrderThrowsIllegalArgumentException(formatedState, "");
-		assertSetTreeOrderThrowsIllegalArgumentException(formatedState, "not a tree order");
 		assertSetExpressionThrowsInvalidInputException(formatedState, "not an expression");
 
 	}	
@@ -120,16 +111,6 @@ public class TestState{
 		
 	}
 	
-	private void assertSetTreeOrderThrowsIllegalArgumentException(State state, String arg){
-		try{
-			state.setTreeOrder(context, arg);
-			fail("State should have thrown ill arg eception "
-				+ "from set tree order method call.");
-		} catch (ExpressionTreeException e) {
-			return;
-		}
-	}
-	
 	private void assertSetExpressionThrowsInvalidInputException(State state, String arg){
 		try{
 			state.setExpression(context, arg);
@@ -170,27 +151,15 @@ public class TestState{
 			curState instanceof HasExpressionState);
 		
 		
-		// Should still have access to setting the Tree order and input format
-		curState.setTreeOrder(context, "infix");
+		// Should still have access to setting the input format
 		curState.setInputFormat(context, "infix");
 		// the resulting state should now be the HasExpressionState
 		assertTrue("Context current state should be instanceof HasExpressionState.", 
 			context.getCurrentState() instanceof HasExpressionState);
 		
-		// Setting the treeOrder to something unevaluatable should change state
-		curState.setTreeOrder(context, "inorder");
-		// the resulting state should now be the HasUnevaluatableExpressionState
-		assertTrue("Context current state should be instanceof "
-					+ "HasUnevaluatableExpressionState.", 
-			context.getCurrentState() instanceof HasUnevaluatableExpressionState);
-		
-		curState.setTreeOrder(context, "infix");
-		
 		// formated state should still throw invalid input
 		assertSetInputFormatThrowsIllegalArgumentException(curState, "");
 		assertSetInputFormatThrowsIllegalArgumentException(curState, "not an input format");
-		assertSetTreeOrderThrowsIllegalArgumentException(curState, "");
-		assertSetTreeOrderThrowsIllegalArgumentException(curState, "not a tree order");
 		assertSetExpressionThrowsInvalidInputException(curState, "3--+6");
 		assertSetExpressionThrowsInvalidInputException(curState, "");
 	}
@@ -227,21 +196,12 @@ public class TestState{
 			curState instanceof EvaluatedState);
 		
 		
-		// Should still have access to setting the Tree order and input format
-		curState.setTreeOrder(context, "infix");
+		// Should still have access to setting the input format
 		curState.setInputFormat(context, "infix");
 		// the resulting state should now be the EvaluatedState
 		assertTrue("Context current state should be instanceof EvaluatedState.", 
 			context.getCurrentState() instanceof EvaluatedState);
 		
-		// Setting the treeOrder to something unevaluatable should change state
-		curState.setTreeOrder(context, "inorder");
-		// the resulting state should now be the HasUnevaluatableExpressionState
-		assertTrue("Context current state should be instanceof "
-					+ "HasUnevaluatableExpressionState.", 
-			context.getCurrentState() instanceof HasUnevaluatableExpressionState);
-		
-		curState.setTreeOrder(context, "infix");
 		context.evaluate("");
 		// the resulting state should now be the EvaluatedState
 		assertTrue("Context current state should be instanceof EvaluatedState!", 
@@ -252,8 +212,6 @@ public class TestState{
 		// formated state should still throw invalid input
 		assertSetInputFormatThrowsIllegalArgumentException(curState, "");
 		assertSetInputFormatThrowsIllegalArgumentException(curState, "not an input format");
-		assertSetTreeOrderThrowsIllegalArgumentException(curState, "");
-		assertSetTreeOrderThrowsIllegalArgumentException(curState, "not a tree order");
 		assertSetExpressionThrowsInvalidInputException(curState, "3--+6");
 		assertSetExpressionThrowsInvalidInputException(curState, "");
 	}

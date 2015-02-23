@@ -1,6 +1,6 @@
-public class SetExpressionCommand extends Command{
+public class ExpressionCommand extends Command{
 	
-	public SetExpressionCommand(	ExpressionTreeContext context, 
+	public ExpressionCommand(	ExpressionTreeContext context, 
 					String arg)
 					throws InvalidCommandException {
 		super(context, arg);

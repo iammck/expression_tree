@@ -23,11 +23,6 @@ public class InitialState implements State {
 	
 	public void setInputFormat(ExpressionTreeContext context, String arg) throws ExpressionTreeException{
 		context.setCurrentInputFormat(arg);
-		context.setCurrentTreeOrder(arg);
 		context.setCurrentState(new FormatedState());
-	}
-	
-	public void setTreeOrder(ExpressionTreeContext context, String arg) throws ExpressionTreeException{
-		context.setCurrentTreeOrder(arg);		
-	}
+	}	
 }
