@@ -174,7 +174,7 @@ public class TestVisitor{
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
-		ec.setInputFormat("infix");
+		ec.setFormat("infix");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = null;
 		try{
@@ -189,7 +189,7 @@ public class TestVisitor{
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
-		ec.setInputFormat("infix");
+		ec.setFormat("infix");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = null;
 		try{
@@ -205,7 +205,7 @@ public class TestVisitor{
 		// create the expression tree
 		ExpressionTreeContext ec = new ExpressionTreeContext();
 		//ec.setCurrentTraversalOrder(ExpressionTreeContext.TraversalOrder.preorder);
-		ec.setInputFormat("infix");
+		ec.setFormat("infix");
 		Interpreter interpreter = new InfixInterpreter();
 		ExpressionTree expTree = null;
 		try{

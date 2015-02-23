@@ -4,8 +4,8 @@ public class HasExpressionState implements State {
 		context.printCurrentExpressionTree();
 	}
 	
-	public void evaluate(ExpressionTreeContext context, String order) throws InvalidInputException{
-		context.evaluateCurrentExpressionTree();
+	public void evaluate(ExpressionTreeContext context, String traversalOrder) throws InvalidInputException{
+		context.evaluateCurrentExpressionTree(traversalOrder);
 		context.setCurrentState(new EvaluatedState());
 	}
 		
@@ -18,8 +18,8 @@ public class HasExpressionState implements State {
 		context.setCurrentState(new InitialState());
 	}
 		
-	public void setInputFormat(ExpressionTreeContext context, String arg)throws ExpressionTreeException{
-		context.setCurrentInputFormat(arg);
+	public void setFormat(ExpressionTreeContext context, String arg)throws ExpressionTreeException{
+		context.setCurrentFormat(arg);
 	}
 	
 	public void setExpression(ExpressionTreeContext context, String arg) throws ExpressionTreeException{

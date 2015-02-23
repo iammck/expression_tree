@@ -21,8 +21,8 @@ public class InitialState implements State {
 		context.setCurrentState(new InitialState());
 	}
 	
-	public void setInputFormat(ExpressionTreeContext context, String arg) throws ExpressionTreeException{
-		context.setCurrentInputFormat(arg);
+	public void setFormat(ExpressionTreeContext context, String arg) throws ExpressionTreeException{
+		context.setCurrentFormat(arg);
 		context.setCurrentState(new FormatedState());
 	}	
 }

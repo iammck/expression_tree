@@ -16,8 +16,8 @@ public class FormatedState implements State {
 		context.handleReset();
 	}
 	
-	public void setInputFormat(ExpressionTreeContext context, String arg) throws ExpressionTreeException{
-		context.setCurrentInputFormat(arg);
+	public void setFormat(ExpressionTreeContext context, String arg) throws ExpressionTreeException{
+		context.setCurrentFormat(arg);
 	}
 	
 	public void setExpression(ExpressionTreeContext context, String arg)throws ExpressionTreeException{

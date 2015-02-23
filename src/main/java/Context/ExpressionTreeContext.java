@@ -4,7 +4,7 @@ public class ExpressionTreeContext {
 		prefix, infix, postfix 		};
 	
 	//CONTEXT DATA		
-	InputFormat currentInputFormat;
+	InputFormat currentFormat;
 	State currentState;
 	ExpressionTree currentExpTree;
 	CommandFactory commandFactory;
@@ -37,9 +37,9 @@ public class ExpressionTreeContext {
 		}
 	}
 	
-	public void setInputFormat(String arg){
+	public void setFormat(String arg){
 		try{
-			currentState.setInputFormat(this, arg);
+			currentState.setFormat(this, arg);
 		} catch (ExpressionTreeException e){
 			raiseOutputEvent(e.getMessage());
 		}
@@ -71,10 +71,10 @@ public class ExpressionTreeContext {
 			
 	// METHODS USED BY STATE
 		
-	public void setCurrentInputFormat(String arg) 
+	public void setCurrentFormat(String arg) 
 				throws InvalidInputException{
 		try {
-			currentInputFormat =
+			currentFormat =
 				Enum.valueOf(InputFormat.class, arg);
 		} catch (Exception e){
 			throw new InvalidInputException("The input format "
@@ -94,7 +94,7 @@ public class ExpressionTreeContext {
 	}
 	
 	private Interpreter getInterpreter(){
-		switch (currentInputFormat){
+		switch (currentFormat){
 		case prefix:
 			return new PrefixInterpreter();
 		case postfix:
@@ -104,32 +104,48 @@ public class ExpressionTreeContext {
 		}
 	}
 	
-	private Evaluator getEvaluator(){
-		switch (currentInputFormat){
-		case prefix:
-			return new PrefixEvaluator();
-		case postfix:
-			return new PostfixEvaluator();
-		case infix:
-			return new InfixEvaluator();
-		default:
-			return null;
-		}
-	}
-	
 	public CommandFactory getCommandFactory(){
 		return commandFactory;
 	}
 
-	public void evaluateCurrentExpressionTree()throws InvalidInputException{
+	public void evaluateCurrentExpressionTree(String traversalOrder) throws InvalidInputException{
+		
 		// Evaluate the expression tree to get an ExpressionTree object.
-		Evaluator evaluator = getEvaluator();
+		Evaluator evaluator = getEvaluator(traversalOrder);
 		ExpressionTree resultTree;
 		resultTree = evaluator.evaluate(this, currentExpTree);
 		// Use an expressionBuilder to build up an expression as a String.
 		ExpressionBuilder expBuilder;
 		expBuilder = new ExpressionBuilder(resultTree);
 		Reactor.getInstance().handleEvent("output", expBuilder.build());
+	}
+	
+	private Evaluator getEvaluator(String traversalOrder) throws InvalidInputException{
+		// if no order specified, use the format order
+		if (traversalOrder == null || traversalOrder.equals("")){
+			traversalOrder = currentFormat.toString();
+		}// get the traversal order.
+		try {
+			ExpressionTree.TraversalOrder order = null;
+			order = Enum.valueOf(
+					ExpressionTree.TraversalOrder.class, 
+					traversalOrder);
+			switch (order) {
+			case prefix:
+				return new PrefixEvaluator();
+			case postfix:
+				return new PostfixEvaluator();
+			case infix:
+				return new InfixEvaluator();
+			default:
+				throw new InvalidInputException(traversalOrder + 
+					" is not a valid evaluation traversal order.");
+			}		
+		} catch (Exception e){
+			throw new InvalidInputException(traversalOrder + 
+					" is not a valid tree evaluation traversal order.");
+		}
+
 	}
 	
 	public void printCurrentExpressionTree(){

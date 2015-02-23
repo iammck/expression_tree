@@ -15,7 +15,7 @@ public class FormatCommand extends Command{
 	}
 	
 	public void execute(){
-		context.setInputFormat(arg);	
+		context.setFormat(arg);	
 	}
 	
 	public void unexecute(){

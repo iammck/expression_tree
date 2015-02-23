@@ -25,7 +25,7 @@ public class TestState{
 		assertSetExpressionThrowsInvalidStateException(initialState, "");		
 		
 		
-		initialState.setInputFormat(context, "infix");
+		initialState.setFormat(context, "infix");
 		assertTrue("State should be initial state.", 
 			context.getCurrentState() instanceof FormatedState);
 		
@@ -38,7 +38,7 @@ public class TestState{
 	public void testFormatedStated()  throws Exception{
 		// create the state instance as a State interface
 		// setting the input format will return a formated state
-		context.setInputFormat("infix");
+		context.setFormat("infix");
 		State formatedState = context.getCurrentState();
 		// assert that the state is an instance of FormatedState
 		assertTrue("State should be initial state.", 
@@ -59,7 +59,7 @@ public class TestState{
 		assertSame("The context state does not match the formated state.",
 			formatedState, context.getCurrentState());
 		// Should still have access to setting the Tree order and input format
-		formatedState.setInputFormat(context, "infix");
+		formatedState.setFormat(context, "infix");
 		// the state should still be FormateState
 		assertTrue("State should be formated state.", 
 			context.getCurrentState() instanceof FormatedState);
@@ -102,7 +102,7 @@ public class TestState{
 	
 	private void assertSetInputFormatThrowsIllegalArgumentException(State state, String arg){
 		try{
-			state.setInputFormat(context, arg);
+			state.setFormat(context, arg);
 			fail("State should have thrown illegal arg exception "
 				+ "from set Input format method call.");
 		} catch (ExpressionTreeException e) {
@@ -125,7 +125,7 @@ public class TestState{
 	public void testHasExpressionState() throws Exception{
 		// create the state instance as a State interface
 		// setting the input format will return a formated state
-		context.setInputFormat("infix");
+		context.setFormat("infix");
 		// setting the expression will return a has expression state
 		context.setExpression("3*4");
 		// assert that the state is an instance of HasExpressionState
@@ -152,7 +152,7 @@ public class TestState{
 		
 		
 		// Should still have access to setting the input format
-		curState.setInputFormat(context, "infix");
+		curState.setFormat(context, "infix");
 		// the resulting state should now be the HasExpressionState
 		assertTrue("Context current state should be instanceof HasExpressionState.", 
 			context.getCurrentState() instanceof HasExpressionState);
@@ -168,7 +168,7 @@ public class TestState{
 	public void testEvaluatedState() throws Exception{
 		// create the state instance as a State interface
 		// setting the input format will return a formated state
-		context.setInputFormat("infix");
+		context.setFormat("infix");
 		// setting the expression will return a has expression state
 		context.setExpression("3*4");
 		// should be able to evaluate while in HasExpressionState
@@ -197,7 +197,7 @@ public class TestState{
 		
 		
 		// Should still have access to setting the input format
-		curState.setInputFormat(context, "infix");
+		curState.setFormat(context, "infix");
 		// the resulting state should now be the EvaluatedState
 		assertTrue("Context current state should be instanceof EvaluatedState.", 
 			context.getCurrentState() instanceof EvaluatedState);
