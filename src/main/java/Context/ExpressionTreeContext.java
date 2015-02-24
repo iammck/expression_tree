@@ -8,12 +8,13 @@ public class ExpressionTreeContext {
 	State currentState;
 	ExpressionTree currentExpTree;
 	CommandFactory commandFactory;
-	
+	boolean hasMacroCommandError;
 	
 	//CONSTRUCTOR
 	public ExpressionTreeContext(){
 		currentState = new InitialState();
 		commandFactory = new ConcreteCommandFactory(this);
+		hasMacroCommandError = false;
 	}
 
 	///////////
@@ -28,19 +29,27 @@ public class ExpressionTreeContext {
 		currentState = state;
 	}
 	
-	public void setExpression(String arg){
+	public void setExpression(String expression){
 		try{
-			currentState.setExpression(this, arg);
+			currentState.setExpression(this, expression);
+			hasMacroCommandError = false;
 		} catch (ExpressionTreeException e){
-			raiseOutputEvent(
-				"Unable to set expression to " + arg);
+			hasMacroCommandError = true;
+			if (expression != null && expression == ""){
+				raiseOutputEvent("Unable to set expression.");
+			} else { // null expression ok here. 
+				raiseOutputEvent(
+					"Unable to set expression to " + expression + ".");
+			}
 		}
 	}
 	
 	public void setFormat(String arg){
 		try{
 			currentState.setFormat(this, arg);
+			hasMacroCommandError = false;
 		} catch (ExpressionTreeException e){
+			hasMacroCommandError = true;
 			raiseOutputEvent(e.getMessage());
 		}
 	}
@@ -48,7 +57,9 @@ public class ExpressionTreeContext {
 	public void evaluate(String arg){
 		try{
 			currentState.evaluate(this, arg);
+			hasMacroCommandError = false;
 		} catch (ExpressionTreeException e){
+			hasMacroCommandError = true;
 			raiseOutputEvent(e.getMessage());
 		}
 	}	
@@ -56,7 +67,9 @@ public class ExpressionTreeContext {
 	public void printExpressionTree(String arg){
 		try{
 			currentState.printExpressionTree(this,arg);
+			hasMacroCommandError = false;
 		} catch (ExpressionTreeException e){
+			hasMacroCommandError = true;
 			raiseOutputEvent(e.getMessage());
 		}
 	}	
@@ -117,7 +130,7 @@ public class ExpressionTreeContext {
 		// Use an expressionBuilder to build up an expression as a String.
 		ExpressionBuilder expBuilder;
 		expBuilder = new ExpressionBuilder(resultTree);
-		Reactor.getInstance().handleEvent("output", expBuilder.build());
+		forwardEvent("output", expBuilder.build());
 	}
 	
 	private Evaluator getEvaluator(String traversalOrder) throws InvalidInputException{
@@ -145,7 +158,6 @@ public class ExpressionTreeContext {
 			throw new InvalidInputException(traversalOrder + 
 					" is not a valid tree evaluation traversal order.");
 		}
-
 	}
 	
 	public void printCurrentExpressionTree(String traversalOrder) throws InvalidInputException{
@@ -155,19 +167,34 @@ public class ExpressionTreeContext {
 		ExpressionBuilder builder = null;
 		builder = new ExpressionBuilder(currentExpTree);
 		String result = builder.build();	
-		Reactor.getInstance().handleEvent("output", result);				
+		forwardEvent("output", result);				
 	}
 	
 	public void handleQuit(){
-		Reactor.getInstance().handleEvent("quit", null);
+		forwardEvent("quit", null);
 	}
 	
 	public void handleReset(){
-		Reactor.getInstance().handleEvent("reset", null);
+		forwardEvent("reset", null);
 	}
 	
-	private void raiseOutputEvent(String output){
-		Reactor.getInstance().handleEvent("output", output);
+	protected void raiseOutputEvent(String output){
+		forwardEvent("output", output);
+	}
+	
+	protected void forwardEvent(String event, Object data){
+		try {
+			Reactor.getInstance().handleEvent(event, data);
+		} catch (InvalidEventHandlerException e) {
+			throw new IllegalStateException(
+				"State exception forwarding event "
+				+ event + " by context."
+				+ e.toString());
+		}
+	}
+	
+	public boolean hasMacroCommandError(){
+		return this.hasMacroCommandError;
 	}
 	
 }

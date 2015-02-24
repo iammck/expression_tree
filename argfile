@@ -44,6 +44,7 @@
 .\src\main\java\Exceptions\InvalidInputException.java
 .\src\main\java\Exceptions\InvalidStateException.java
 .\src\main\java\Exceptions\InvalidCommandException.java
+.\src\main\java\Exceptions\InvalidEventHandlerException.java
 
 .\src\main\java\Iteration\InOrderIterator.java
 .\src\main\java\Iteration\InFixIterator.java
@@ -74,6 +75,7 @@
 .\src\main\java\Command\ResetCommand.java
 .\src\main\java\Command\ExpressionCommand.java
 .\src\main\java\Command\FormatCommand.java
+.\src\main\java\Command\HelpCommand.java
 
 .\src\main\java\Command\CommandFactory\CommandFactory.java
 .\src\main\java\Command\CommandFactory\ConcreteCommandFactory.java
@@ -85,6 +87,7 @@
 .\src\main\java\Command\CommandFactory\EvaluateCommandMaker.java
 .\src\main\java\Command\CommandFactory\ExpressionCommandMaker.java
 .\src\main\java\Command\CommandFactory\FormatCommandMaker.java
+.\src\main\java\Command\CommandFactory\HelpCommandMaker.java
 
 .\src\main\java\Reactor\Reactor.java
 .\src\main\java\Reactor\EventHandler.java
@@ -93,6 +96,8 @@
 .\src\main\java\Reactor\ConsoleInputVerboseEventHandler.java
 .\src\main\java\Reactor\OutputEventHandler.java
 .\src\main\java\Reactor\ConsoleOutputEventHandler.java
+.\src\main\java\Reactor\HelpEventHandler.java
+.\src\main\java\Reactor\ConsoleHelpEventHandler.java
 .\src\main\java\Reactor\CommandEventHandler.java
 .\src\main\java\Reactor\MacroCommandEventHandler.java
 .\src\main\java\Reactor\VerboseCommandEventHandler.java

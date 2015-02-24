@@ -13,6 +13,7 @@ public class ConcreteCommandFactory implements CommandFactory{
 		commandTable.put(CommandContract.Quit, new QuitCommandMaker());
 		commandTable.put(CommandContract.Reset, new ResetCommandMaker());
 		commandTable.put(CommandContract.Expression, new ExpressionCommandMaker());
+		commandTable.put(CommandContract.Help, new HelpCommandMaker());
 		commandTable.put(CommandContract.Format, new FormatCommandMaker());
 	}
 	

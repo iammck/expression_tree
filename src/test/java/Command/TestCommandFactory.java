@@ -63,6 +63,11 @@ public class TestCommandFactory{
 	public void testMakeCommandReset(){
 		assertCanMakeCommand("reset", null);
 	}
+	
+	@Test
+	public void testMakeCommandHelp(){
+		assertCanMakeCommand("help", null);
+	}
 
 
 	private class CommandChecker extends Command{	

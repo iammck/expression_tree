@@ -33,7 +33,14 @@ public class TestReactor {
 	public void testHandleEvent(){
 		ConsoleOutputEventHandler consoleHandler = new ConsoleOutputEventHandler();
 		Reactor.getInstance().registerEventHandler("output" , consoleHandler);
-		Reactor.getInstance().handleEvent("output","test text");
+		try {
+			Reactor.getInstance().handleEvent("output","test text");
+		} catch (InvalidEventHandlerException e) {
+			throw new IllegalStateException(
+				"State exception forwarding event "
+				+ " help by HelpCommand."
+				+ e.toString());
+		}
 	}
 	
 	private void shouldFailNullEventName(){

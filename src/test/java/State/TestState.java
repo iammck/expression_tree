@@ -4,12 +4,21 @@ import static org.junit.Assert.*;
 public class TestState{
 	
 	
-	ExpressionTreeContext context;
+	TestContext context;
+	
+	private class TestContext extends ExpressionTreeContext {
+		boolean hasForwardedEvent = false;
+		
+		protected void forwardEvent(String event, Object data){
+			hasForwardedEvent = true;
+		}
+	}
+	
 	
 	@Before
 	public void beforeEachTest(){
 		// create the context.	
-		context = new ExpressionTreeContext();
+		context = new TestContext();
 	}
 
 	@Test

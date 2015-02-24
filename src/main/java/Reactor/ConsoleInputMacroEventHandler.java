@@ -9,9 +9,17 @@ public class ConsoleInputMacroEventHandler implements InputEventHandler {
 		input = in.nextLine();
 		
 		String inputEvent = "command";
-		String inputEventData = getEventData(input);
-		Reactor.getInstance()
-			.handleEvent(inputEvent, inputEventData);		
+		String inputEventData = getEventData(input);	
+			
+		try {
+			Reactor.getInstance()
+				.handleEvent(inputEvent, inputEventData);
+		} catch (InvalidEventHandlerException e) {
+			throw new IllegalStateException(
+				"State exception forwarding event "
+				+ " help by HelpCommand."
+				+ e.toString());
+		}
 	}
 	
 	public void quit(){

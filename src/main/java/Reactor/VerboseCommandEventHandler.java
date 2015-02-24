@@ -23,7 +23,19 @@ public class VerboseCommandEventHandler
 				command.execute();
 		} catch (InvalidCommandException e){
 			String message = e.getMessage();
-			Reactor.getInstance().handleEvent("output", message);
+			handleInvalidCommandException(message);
+		}
+	}
+	
+	private void handleInvalidCommandException(String message){
+		try {
+			Reactor.getInstance()
+				.handleEvent("output", message);
+		} catch (InvalidEventHandlerException e) {
+			throw new IllegalStateException(
+				"State exception forwarding event "
+				+ " by VerboseCommandEventHandler."
+				+ e.toString());
 		}
 	}
 	

@@ -13,7 +13,8 @@ public class Reactor {
 	// can not be created, but by getInstance method.
 	private Reactor(){
 		handlerTable = new Hashtable<String, EventHandler>();
-		// create the default quit and reset handlers.
+		// create the default quit, reset, and help handlers.
+		
 		EventHandler quitHandler = new EventHandler(){
 			public void handleEvent(String event, Object data){
 				for(String key: handlerTable.keySet()){
@@ -21,14 +22,14 @@ public class Reactor {
 				}
 			}
 			public void quit(){}
-		};
+		};		
 		registerEventHandler("quit",quitHandler);
+		
 		EventHandler resetHandler = new EventHandler(){
 			public void handleEvent(String event, Object data){}
 			public void quit(){}
-		};
+		};		
 		registerEventHandler("reset",resetHandler);
-		
 	}
 
 	//		///
@@ -62,11 +63,15 @@ public class Reactor {
 		return handlerTable.size();
 	}
 	
-	public void handleEvent(String event, Object data){
+	public void handleEvent(String event, Object data) throws InvalidEventHandlerException{
 		EventHandler handler;
 		handler = handlerTable.get(event);
 		if (handler != null)
-			handler.handleEvent(event, data);	
+			handler.handleEvent(event, data);
+		else 
+			throw new InvalidEventHandlerException(
+				"There is no registered event handler for " 
+				+ event + " event.");
 	}
 	
 	

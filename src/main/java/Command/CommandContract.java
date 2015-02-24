@@ -7,5 +7,6 @@ public class CommandContract {
 	public static String Reset = "reset";
 	public static String Expression = "expression";
 	public static String Format = "format";
+	public static String Help = "help";
 	
 }

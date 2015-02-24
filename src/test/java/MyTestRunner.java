@@ -24,7 +24,7 @@ public class MyTestRunner{
 		runClassTests(TestExpressionTreeContext.class);
 		runClassTests(TestConsoleEventHandlers.class);
 		runClassTests(TestVerboseCommandEventHandlers.class);
-		//runClassTests(TestMacroCommandEventHandlers.class);
+		runClassTests(TestMacroCommandEventHandlers.class);
 		
 		if (totalFailedTests == 0){
 			System.out.println("All test classes have passed!\n");

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TestCommand{
 
 	// commands can take a context and "".
-	ExpressionTreeContext context;
+	TestContext context;
 	
 	Command format;
 	Command expression;
@@ -21,20 +21,69 @@ public class TestCommand{
 	Command print;
 	Command  quit;
 	Command  reset;
+	Command help;
+	
+	boolean reachedSetFormat = false;
+	boolean reachedSetExpression = false;
+	boolean reachedEvaluate = false;
+	boolean reachedMacro = false;
+	boolean reachedPrint = false;
+	boolean reachedQuit = false;
+	boolean reachedReset = false;
+	boolean rechedHelp = false;
+	
 	
 	List<Command> commands;
+	
+	private class TestContext extends ExpressionTreeContext {
+		public State getCurrentState(){
+			return super.getCurrentState();
+		}
+		
+		public void setCurrentState(State state){
+			super.setCurrentState(state);
+		}
+		
+		public void setExpression(String arg){
+			reachedSetExpression = true;
+		}
+		
+		
+		public void setFormat(String arg){
+			reachedSetFormat = true;
+		}
+		
+		public void evaluate(String arg){
+			reachedEvaluate = true;
+		}	
+		
+		public void printExpressionTree(String arg){
+			reachedPrint = true;
+		}	
+		
+		public void quit(String arg){
+			reachedQuit = true;		
+		}
+		
+		public void reset(String arg){
+			reachedReset = true;		
+		}
+		
+	}
 	
 	@Before
 	public void instantiateCommands(){
 		// commands take a context
 		try {
-			context = new ExpressionTreeContext();
+			context = new TestContext();
 			format = new FormatCommand(context, "infix");
 			expression = new ExpressionCommand(context, "3*4");
 			evaluate = new EvaluateCommand(context, "");
 			print = new PrintCommand(context, "");
 			quit = new QuitCommand(context, "");
 			reset = new ResetCommand(context,"");
+			help = new HelpCommand(context,"");
+			
 			// a macro takes a list of commands.
 			commands = new ArrayList<Command>();
 			commands.add(format);

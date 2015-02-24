@@ -53,9 +53,36 @@ public class TestVerboseCommandEventHandlers {
 		}
 	}
 	
+	private class TestHelpEventHandler implements HelpEventHandler{
+		boolean hasHandled = false;
+		boolean hasQuit = false;
+		String data;
+		int eventCount = 0;
+		int resetCount = 0;
+		
+		public void handleEvent(String event, Object data){
+			this.data = (String) data;
+			//System.out.println((String) data);
+			hasHandled = true;
+			eventCount += 1;
+		}	
+		
+		public void quit(){
+			hasQuit = true;
+		}
+		
+		void reset(){
+			resetCount++;
+			hasHandled = false;
+			hasQuit = false;
+			eventCount = 0;
+		}
+	}
+	
 	InputStream originalInputStream;
 	PrintStream originalPrintStream;
 	OutputEventHandler outputEventHandler;
+	
 	EventHandler commandEventHandler;
 		
 	@Before
@@ -99,7 +126,7 @@ public class TestVerboseCommandEventHandlers {
 	}
 	
 	@Test
-	public void testWithSetInputFormatCommand(){
+	public void testWithFormatCommand(){
 		// send the handler a setInputFormat command.
 		commandEventHandler.handleEvent("command", "format infix");
 		ExpressionTreeContext context;
@@ -109,7 +136,7 @@ public class TestVerboseCommandEventHandlers {
 	}
 	
 	@Test
-	public void testWithSetExpressionCommand(){
+	public void testWithExpressionCommand(){
 		// first set the inputformat
 		// send the handler a setInputFormat command.
 		commandEventHandler.handleEvent("command", "format infix");
@@ -132,7 +159,7 @@ public class TestVerboseCommandEventHandlers {
 		commandEventHandler.handleEvent("command", "expression 4++5");
 		// outputEventHandler should now have the error as a result.
 		result = ((TestOutputEventHandler)outputEventHandler).data;
-		expected = "Unable to set expression to 4++5"; 
+		expected = "Unable to set expression to 4++5."; 
 		assertEquals("\nThe resulting outputEventHandler event did not generate the "
 			+ "right output.\n", expected, result);
 		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
@@ -199,30 +226,32 @@ public class TestVerboseCommandEventHandlers {
 		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
 		assertTrue("The state was not updated after setting expression.",
 			context.getCurrentState() instanceof EvaluatedState);
-
 	}
 		
-	@Test
-	public void testWithSetTreeOrderCommand(){
-		// tree order can produce a few different results depending on state
-		// and command args.
-		// Tree order can always change, but changing the tree order may change
-		// the state
-		// erroneous command args should not change the state or the tree order.
-		// send the handler a print command.
-		commandEventHandler.handleEvent("command", "settreeorder prefix");
-
-		
-		
-		fail("\nNeeds implementation.");
-
-	}
-	
 	@Test
 	public void testWithResetCommand(){
-		fail("\nNeeds implementation.");
+		// set up to EvaluatedState
+		// send the handler a print command while in the right state.
+		commandEventHandler.handleEvent("command","format infix");
+		commandEventHandler.handleEvent("command","expression 3 + 77-4");
+		// send the handler an evaluate command while context is in wrong state.
+		commandEventHandler.handleEvent("command", "evaluate");
+		commandEventHandler.handleEvent("command", "reset");
+		ExpressionTreeContext context;
+		context = ((VerboseCommandEventHandler) commandEventHandler).getContext();
+		assertTrue("The state was not updated after setting expression.",
+			context.getCurrentState() instanceof InitialState);
 	}
-
-
 	
+	@Test
+	public void testWithHelpCommand(){
+		// will need to have a help event listener to pick up the command
+		HelpEventHandler helpHandler = new TestHelpEventHandler();
+		Reactor.getInstance().registerEventHandler("help", helpHandler);
+		commandEventHandler.handleEvent("command", "help");
+		// HelpEventHandler should now have a result.
+		boolean result = ((TestHelpEventHandler) helpHandler).hasHandled;
+		assertTrue("\nThe HelpEventHandler did not "
+			+ "revceive the help event.", result);	
+	}
 }
