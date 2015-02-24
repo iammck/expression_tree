@@ -173,4 +173,34 @@ public class TestConsoleEventHandlers {
 		assertEquals("msg did not equal eventHandler output!",
 			msg, out.toString().trim());
 	}
+	
+	@Test
+	public void testConsoleHelpEventHandler(){
+		// create the testPrintStream for System.out.
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		PrintStream testPrintStream = new PrintStream(out);
+		System.setOut(testPrintStream);
+		// create the Event handler
+		EventHandler eventHandler;
+		eventHandler = new ConsoleHelpEventHandler();
+		String msg = "format [infix | postfix | prefix]\n"
+				+ "\tsets the expected expression format\n"
+				+ "expression expr\n"
+				+ "\tset the expression tree to expr\n"
+				+ "print [infix | postfix | prefix\n"
+				+ "\t| inorder | postorder | preorder]\n"
+				+ "evaluate  [infix | postfix | prefix]\n"
+				+ "\tevaluate and print the expression tree\n"
+				+ "quit\n"
+				+ "\texit\n"
+				+ "reset\n"
+				+ "\treset the expression tree\n"
+				+ "help\n"
+				+ "\tprint this message.";
+		
+		eventHandler.handleEvent("help", msg);
+		
+		assertEquals("msg did not equal eventHandler output!",
+			msg, out.toString().trim());
+	}
 }

@@ -22,9 +22,9 @@ public class MyTestRunner{
 		runClassTests(TestEvaluator.class);
 		runClassTests(TestReactor.class);
 		runClassTests(TestExpressionTreeContext.class);
-		runClassTests(TestConsoleEventHandlers.class);
 		runClassTests(TestVerboseCommandEventHandlers.class);
 		runClassTests(TestMacroCommandEventHandlers.class);
+		runClassTests(TestConsoleEventHandlers.class);
 		
 		if (totalFailedTests == 0){
 			System.out.println("All test classes have passed!\n");
