@@ -8,7 +8,7 @@ public class TestComponentNodes {
 	ComponentNode two, three, four, leftParenthesis, rightParenthesis;
 	
 	// composite binary and unary nodes.
-	ComponentNode multiplication, division, 
+	ComponentNode multiplication, division, exponential,
 			addition, subtraction, negation;
 	
 	/**
@@ -32,6 +32,8 @@ public class TestComponentNodes {
 		addition  = new AdditionCompositeBinaryNode(three, four);
 		subtraction  = new SubtractionCompositeBinaryNode(three, four);
 		negation = new NegationCompositeUnaryNode(two);
+		
+		exponential = new ExponentialCompositeBinaryNode(three,four);
 		
 	}
 	
@@ -127,6 +129,10 @@ public class TestComponentNodes {
 		node =	new SubtractionCompositeBinaryNode(two, node3);
 		checkBinaryNodeForChildren(node, two.getItem(), node3.getItem());
 		
+		node = new ExponentialCompositeBinaryNode(three, four);
+		checkComponentNodeItem(node, "^");
+		checkBinaryNodeForChildren(node, three.getItem(), four.getItem());
+		// the other tests from above relate to the super class and are valid.
 	}
 
 	/**
@@ -256,7 +262,7 @@ public class TestComponentNodes {
 		
 		// check multiplication and division.
 		node = multiplication; // first multiplication
-		// they are less then negation and parenthesis
+		// only negation and parenthesis are greater
 		greaterList.remove(multiplication);
 		greaterList.remove(division);
 		// they are equal to themselves.
@@ -275,18 +281,34 @@ public class TestComponentNodes {
 		checkCompareToNodeResultIsNegativeOne(node, greaterList);
 		checkCompareToNodeResultIsZero(node, equalList);
 		checkCompareToNodeResultIsPositiveOne(node, lesserList);
+
+		// check exponential.
+		node = exponential; // first multiplication
+		// negation and parenthesis are greater
+		// they are equal to themselves.
+		equalList.remove(multiplication);
+		equalList.remove(division);
+		equalList.add(exponential);
+		// the are greater than numbers, addition, and subtraction.
+		// multiplication and division
+		lesserList.add(multiplication);		
+		lesserList.add(division);
+		lesserList.add(three);		
+		lesserList.add(addition);
+		lesserList.add(subtraction);
+		checkCompareToNodeResultIsNegativeOne(node, greaterList);
+		checkCompareToNodeResultIsZero(node, equalList);
+		checkCompareToNodeResultIsPositiveOne(node, lesserList);
 		
 		// check negation.
 		node = negation;
 		// it is less than and parenthesis
 		greaterList.remove(negation);
 		// they are equal to themselves.
-		equalList.remove(multiplication);
-		equalList.remove(division);
+		equalList.remove(exponential);
 		equalList.add(negation);
 		// the are greater than all but themself and parenthesis.
-		lesserList.add(multiplication);
-		lesserList.add(division);
+		lesserList.add(exponential);
 		checkCompareToNodeResultIsNegativeOne(node, greaterList);
 		checkCompareToNodeResultIsZero(node, equalList);
 		checkCompareToNodeResultIsPositiveOne(node, lesserList);
@@ -310,7 +332,8 @@ public class TestComponentNodes {
 		node = rightParenthesis;
 		checkCompareToNodeResultIsNegativeOne(node, greaterList);
 		checkCompareToNodeResultIsZero(node, equalList);
-		checkCompareToNodeResultIsPositiveOne(node, lesserList);		
+		checkCompareToNodeResultIsPositiveOne(node, lesserList);
+				
 	}
 	
 	private void checkCompareToNodeResultIsNegativeOne(

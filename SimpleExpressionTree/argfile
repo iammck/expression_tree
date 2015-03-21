@@ -11,6 +11,7 @@
 .\src\main\java\Structure\NegationCompositeUnaryNode.java
 .\src\main\java\Structure\DivisionCompositeBinaryNode.java
 .\src\main\java\Structure\MultiplicationCompositeBinaryNode.java
+.\src\main\java\Structure\ExponentialCompositeBinaryNode.java
 .\src\main\java\Structure\AdditionCompositeBinaryNode.java
 .\src\main\java\Structure\SubtractionCompositeBinaryNode.java
 .\src\main\java\Structure\ExpressionTree.java
@@ -90,16 +91,16 @@
 .\src\main\java\Command\CommandFactory\HelpCommandMaker.java
 
 .\src\main\java\Reactor\Reactor.java
-.\src\main\java\Reactor\EventHandler.java
-.\src\main\java\Reactor\InputEventHandler.java
-.\src\main\java\Reactor\ConsoleInputMacroEventHandler.java
-.\src\main\java\Reactor\ConsoleInputVerboseEventHandler.java
-.\src\main\java\Reactor\OutputEventHandler.java
-.\src\main\java\Reactor\ConsoleOutputEventHandler.java
-.\src\main\java\Reactor\HelpEventHandler.java
-.\src\main\java\Reactor\ConsoleHelpEventHandler.java
-.\src\main\java\Reactor\CommandEventHandler.java
-.\src\main\java\Reactor\MacroCommandEventHandler.java
-.\src\main\java\Reactor\VerboseCommandEventHandler.java
+.\src\main\java\Reactor\Handlers\EventHandler.java
+.\src\main\java\Reactor\Handlers\InputEventHandler.java
+.\src\main\java\Reactor\Handlers\Console\ConsoleInputMacroEventHandler.java
+.\src\main\java\Reactor\Handlers\Console\ConsoleInputVerboseEventHandler.java
+.\src\main\java\Reactor\Handlers\OutputEventHandler.java
+.\src\main\java\Reactor\Handlers\Console\ConsoleOutputEventHandler.java
+.\src\main\java\Reactor\Handlers\HelpEventHandler.java
+.\src\main\java\Reactor\Handlers\Console\ConsoleHelpEventHandler.java
+.\src\main\java\Reactor\Handlers\CommandEventHandler.java
+.\src\main\java\Reactor\Handlers\MacroCommandEventHandler.java
+.\src\main\java\Reactor\Handlers\VerboseCommandEventHandler.java
 
 
