@@ -4,4 +4,8 @@ public class ConsoleQuitEventHandler implements QuitEventHandler{
 		
 		
 	}
+	
+	public void quit(){
+		
+	}
 }

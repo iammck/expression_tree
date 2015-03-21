@@ -17,6 +17,7 @@ public class TestReactor {
 		shouldFailNullEventName();
 		shouldFailEmptyEventName();
 		shouldFailNullHandler();
+		shouldUnregisterAll();
 		
 		ConsoleOutputEventHandler consoleHandler = new ConsoleOutputEventHandler();
 		Reactor.getInstance().registerEventHandler("output" , consoleHandler);
@@ -73,5 +74,10 @@ public class TestReactor {
 		} catch (Exception e) {
 			 return ;
 		}
+	}
+	private void shouldUnregisterAll(){
+		Reactor.getInstance().unregisterHandlers();
+		assertEquals("There should be two handlers after unregisterHandlers()",
+			2, Reactor.getInstance().handlerCount());
 	}
 }
