@@ -9,6 +9,7 @@ public class TestExpressionBuilder {
 		testWithExpTree("(2+3)", "2 + 3");	
 		testWithExpTree("(2+3) * 5", "( 2 + 3 ) * 5");	
 		testWithExpTree("-2+-3", "- 2 + - 3");	
+		testWithExpTree("-2^-3", "- 2 ^ - 3");	
 	}
 	
 	private void testWithExpTree(String input, String output){
