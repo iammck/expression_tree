@@ -91,7 +91,7 @@ public abstract class Interpreter {
 	}
 	
 	protected boolean isBinaryOperator(String item){
-		if(item.equals("+") || item.equals("-") 
+		if(item.equals("+") || item.equals("-") || item.equals("^")
 			|| item.equals("*") || item.equals("/")){
 			return true;
 		}

@@ -37,6 +37,8 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 					result = new Multiplication();
 				} else if (item.equals("/")){
 					result = new Division();
+				} else if (item.equals("^")){
+					result = new Exponential();
 				}
 			// else if item is a parenthesis
 			} else if ( isParenthesis(item)){

@@ -83,7 +83,19 @@ public class TestInterpreter {
 		assertEquals("1.1 should be the first item in result.", 
 					"1.1", result.get(0));
 		assertEquals("08 should be the last item in result.", 
-					"08", result.get(8));		
+					"08", result.get(8));
+
+		// check for exponential 2^2
+		result = interpreter.getInputList("2^2");
+		assertEquals("There should be three items in result..",
+				3, result.size());
+		assertEquals("2 should be the first item in result.", 
+					"2", result.get(0));
+		assertEquals("^ should be the second item in result.", 
+					"^", result.get(1));
+		assertEquals("2 should be the last item in result.", 
+					"2", result.get(2));
+
 	}
 	
 	private ComponentNode getExpressionTreeRoot(String testString) throws Exception{
@@ -213,6 +225,17 @@ public class TestInterpreter {
 		// (8*....) is evaluated first in the second when the parenthesis
 		// are done with addToSymbols, perhaps, the prev operator can be
 		// interpreted? Testing showed no effect.
+		
+		// test for exponential
+		// 3 ^ 4
+		testString = "3   ^      4";
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain ^ as root",
+			"^", result.getItem());
+		assertEquals("ExpressionTree root node should have 3 as left child", 
+			"3", result.getLeftChild().getItem());
+		assertEquals("ExpressionTree root node should have 4 as right child", 
+			"4", result.getRightChild().getItem());		
 	}
 	
 	@Test
@@ -268,6 +291,17 @@ public class TestInterpreter {
 			"3", node.getLeftChild().getItem());
 		assertEquals("node should have 4 as right child", 
 			"4", node.getRightChild().getItem());
+		
+		// test for exponential
+		// "  ^ 3      4
+		testString = "   ^ 3      4";
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain ^ as root",
+			"^", result.getItem());
+		assertEquals("ExpressionTree root node should have 3 as left child", 
+			"3", result.getLeftChild().getItem());
+		assertEquals("ExpressionTree root node should have 4 as right child", 
+			"4", result.getRightChild().getItem());	
 	}
 
 	@Test
@@ -323,5 +357,16 @@ public class TestInterpreter {
 			"3", node.getLeftChild().getItem());
 		assertEquals("node should have 4 as right child", 
 			"4", node.getRightChild().getItem());
+		
+		// test for exponential
+		// "   3      4 ^"
+		testString = "    3      4  ^";
+		result = getExpressionTreeRoot(testString);
+		assertEquals("ExpressionTree root node should contain ^ as root",
+			"^", result.getItem());
+		assertEquals("ExpressionTree root node should have 3 as left child", 
+			"3", result.getLeftChild().getItem());
+		assertEquals("ExpressionTree root node should have 4 as right child", 
+			"4", result.getRightChild().getItem());	
 	}
 }

@@ -29,6 +29,8 @@ public class PostfixInterpreter extends Interpreter {
 					operator = new Multiplication();
 				} else if (item.equals("/")){
 					operator = new Division();
+				} else if (item.equals("^")){
+					operator = new Exponential();
 				} else {
 					throw new InvalidInputException(
 						item + " is invalid input.");
