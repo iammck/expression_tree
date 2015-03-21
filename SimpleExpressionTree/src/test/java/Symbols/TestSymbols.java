@@ -8,7 +8,7 @@ public class TestSymbols {
 	// some default symbols to be used in tests. setup before 
 	// Symbols implement Symbol and can be interpreted.
 	Symbol number, negation, addition, subtraction,
-		multiplication, division,
+		multiplication, division, exponential,
 		leftParenthesis, rightParenthesis;
 	
 	/*
@@ -23,6 +23,7 @@ public class TestSymbols {
 		addition = new Addition();
 		subtraction = new Subtraction();
 		multiplication = new Multiplication();
+		exponential = new Exponential();
 		division = new Division();
 		leftParenthesis  = new Parenthesis("(");
 		rightParenthesis = new Parenthesis(")");
@@ -48,7 +49,7 @@ public class TestSymbols {
 		// Parenthesis
 		symbol = new Parenthesis("(");
 		symbol = new Parenthesis(")");
-		
+		symbol = new Exponential();
 	}
 	
 	@Test
@@ -167,6 +168,46 @@ public class TestSymbols {
 				+ " should result in 1.", 1, result);
 		}
 	}
+	
+	
+	
+	
+	@Test
+	public void testExponentialHasLessOrEqualPrecedenceOver(){
+		// check that exponential compared to exponential is 0.
+		assertEquals("exponential.precedenceComparedTo(exponential) should result in 0 ",
+				0, exponential.precedenceComparedTo(exponential));
+		
+		// exponential should be less than these
+		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
+		symbolList.add(negation);
+		symbolList.add(leftParenthesis);
+		symbolList.add(rightParenthesis);
+		for(Symbol symbol: symbolList){
+			int result = exponential
+				.precedenceComparedTo(symbol);
+			assertEquals("exponential precedenceComparedTo " + symbol.toString()
+				+ " should result in -1.", -1, result);
+		}
+		
+		// exponential should be greater than these
+		symbolList = new ArrayList<Symbol>();
+		symbolList.add(number);
+		symbolList.add(addition);
+		symbolList.add(subtraction);
+		symbolList.add(multiplication);
+		symbolList.add(division);
+		for(Symbol symbol: symbolList){
+			int result = exponential
+				.precedenceComparedTo(symbol);
+			assertEquals("exponential precedenceComparedTo " + symbol.toString()
+				+ " should result in 1.", 1, result);
+		}
+	}
+	
+	
+	
+	
 	
 	@Test
 	public void testDivisionHasLessOrEqualPrecedenceOver(){

@@ -27,6 +27,7 @@
 .\src\main\java\Symbols\Subtraction.java
 .\src\main\java\Symbols\Multiplication.java
 .\src\main\java\Symbols\Division.java
+.\src\main\java\Symbols\Exponential.java
 
 .\src\main\java\Interpreter\Interpreter.java
 .\src\main\java\Interpreter\InfixInterpreter.java
