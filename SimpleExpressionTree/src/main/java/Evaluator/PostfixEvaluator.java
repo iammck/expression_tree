@@ -25,7 +25,10 @@ public class PostfixEvaluator extends Evaluator {
 				} else if (node instanceof
 					DivisionCompositeBinaryNode){
 					result = new Division();
-				}
+				} else if (node instanceof
+					ExponentialCompositeBinaryNode){
+					result = new Exponential();
+				} 
 			}
 			if( result == null)
 				throw new InvalidInputException(node 

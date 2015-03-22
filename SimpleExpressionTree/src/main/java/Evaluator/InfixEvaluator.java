@@ -30,10 +30,19 @@ public class InfixEvaluator extends Evaluator {
 				} else if (node instanceof
 					DivisionCompositeBinaryNode){
 					result = new Division();
+				} else if (node instanceof
+					ExponentialCompositeBinaryNode){
+					result = new Exponential();
+				} else {
+					throw new InvalidInputException(
+						"Unable to evaluate " + node);
 				}
 			} else if ( node instanceof LeftParenthesisLeafNode
 				|| node instanceof RightParenthesisLeafNode){
 				result = new Parenthesis(node.getItem());
+			} else {
+				throw new InvalidInputException(
+					"Unable to evaluate " + node);
 			}
 			if( result == null)
 				throw new InvalidInputException(node + " has no evaluatable symbol.");

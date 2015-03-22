@@ -51,6 +51,7 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 				result = new Parenthesis(item);
 				
 			}
+			// if obtained a result 
 			if (result != null)
 				result.addToInterpreter(interpretedList, pendingList);
 			else
@@ -82,7 +83,7 @@ public ExpressionTree interpret(ExpressionTreeContext context, String input)
 				return new ExpressionTree( order, rootNode);
 		} else {
 			throw new InvalidInputException(
-				"Inpterprets has unhandled terms." );
+				"InpterpretedList has unhandled terms: " +  interpretedList);
 		}
 	}
 }

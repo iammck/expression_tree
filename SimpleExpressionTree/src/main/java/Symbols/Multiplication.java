@@ -10,7 +10,8 @@ public class Multiplication extends BinaryOperator {
 			|| (otherSymbol instanceof Division)){
 			return 0;
 		} else if ( (otherSymbol instanceof Parenthesis)
-			|| (otherSymbol instanceof Negation)){
+			|| (otherSymbol instanceof Negation)
+			|| (otherSymbol instanceof Exponential)){
 			return -1;
 		} else {
 			return 1;

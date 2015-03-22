@@ -174,9 +174,9 @@ public class TestSymbols {
 	
 	@Test
 	public void testExponentialHasLessOrEqualPrecedenceOver(){
-		// check that exponential compared to exponential is 0.
-		assertEquals("exponential.precedenceComparedTo(exponential) should result in 0 ",
-				0, exponential.precedenceComparedTo(exponential));
+		// check that exponential compared to exponential is 1.
+		assertEquals("exponential.precedenceComparedTo(exponential) should result in 1 ",
+				1, exponential.precedenceComparedTo(exponential));
 		
 		// exponential should be less than these
 		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();

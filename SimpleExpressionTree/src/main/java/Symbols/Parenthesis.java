@@ -29,10 +29,10 @@ public class Parenthesis extends Symbol{
 		List<Interpretable> pendingList)
 		throws InvalidInputException{		
 		// if symbol is (, put into pendingList
-		if (symbol.equals("(")){
+		if (symbol.equals("(")){ // here!
 			pendingList.add(this);
 			return;
-		}
+		} // Else, this must be a ')'
 		// if pendingList is empty, this ) is missing a (
 		if (pendingList.size() == 0){
 			throw new InvalidInputException(
@@ -70,7 +70,7 @@ public class Parenthesis extends Symbol{
 		List<Evaluatable> pendingList)
 		throws InvalidInputException{		
 		// if symbol is (, put into pendingList
-		if (symbol.equals("(")){
+		if (symbol.equals("(")){ 
 			pendingList.add(this);
 			return;
 		}

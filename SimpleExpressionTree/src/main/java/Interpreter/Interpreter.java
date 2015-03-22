@@ -99,12 +99,18 @@ public abstract class Interpreter {
 	}
 	
 	protected boolean isUnaryOperator(String item, String prevItem){
-		if (item.equals("-") && 
-			(prevItem == null || (!isNumber(prevItem)) ) ){
-			return true;
-		} else {
-			return false;
+		
+		// and prev item not a number
+		if ( item.equals("-")
+			&& ( prevItem == null  || !isNumber(prevItem) ) ){
+				// if prev is a left parenth
+				if (prevItem != null  && prevItem.equals(")")){
+					return false;
+				}
+				return true;
 		}
+		return false;
+		
 	}
 	
 	protected boolean isParenthesis(String item){

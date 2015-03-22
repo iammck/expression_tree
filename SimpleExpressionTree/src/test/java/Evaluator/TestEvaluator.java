@@ -72,7 +72,114 @@ public class TestEvaluator {
 		assertEquals("The second answer should be 5, but is "
 				+ result + ".", 5, result, 0.01 );
 	
+		
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "2^3");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 8, but is "
+					+ result + ".", 8, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!1");
+			e.toString();
+		}
+		
+		
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "2 + 2 ^ 3");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 10, but is "
+					+ result + ".", 10, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!2");
+			e.toString();
+		}
+		
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "2 ^ 3 * 2");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 16, but is "
+					+ result + ".", 16, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!3");
+			e.toString();
+		}
+		
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "4 ^ 2 ^ 3");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 65536, but is "
+					+ result + ".", 65536, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!4");
+			e.toString();
+		}
+		
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "2^2-2+4 ^ 2 ^ 3 + 2-2^2");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 65536, but is "
+					+ result + ".", 65536, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!5");
+			e.toString();
+		}
+
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "(2^2)*3");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 12, but is "
+					+ result + ".", 12, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!6");
+			e.toString();
+		}
+	
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "(2^2)-(2^2)");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 0, but is "
+					+ result + ".", 0, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!6");
+			e.toString();
+		}
+		
+		// Assert that the answer is obtained.
+		expressionTree = getExpressionTree(context, "(2^2)-3");
+		try{
+			ExpressionTree expTree = 
+					evaluator.evaluate(context, expressionTree);
+			result = Double.valueOf(expTree.getRoot().getItem());
+			assertEquals("The exponential answer should be 1, but is "
+					+ result + ".", 1, result, 0.01 );
+		} catch (Exception e ){
+			fail("The exponential should be handled!6");
+			e.toString();
+		}
 	}
+	
+	
 	
 	private void testEvaluatorFail(Evaluator evaluator){
 		// get a new context. 

@@ -285,17 +285,16 @@ public class TestComponentNodes {
 		// check exponential.
 		node = exponential; // first multiplication
 		// negation and parenthesis are greater
-		// they are equal to themselves.
 		equalList.remove(multiplication);
 		equalList.remove(division);
-		equalList.add(exponential);
 		// the are greater than numbers, addition, and subtraction.
-		// multiplication and division
+		// multiplication and division and them selves.
 		lesserList.add(multiplication);		
 		lesserList.add(division);
 		lesserList.add(three);		
 		lesserList.add(addition);
 		lesserList.add(subtraction);
+		lesserList.add(exponential);
 		checkCompareToNodeResultIsNegativeOne(node, greaterList);
 		checkCompareToNodeResultIsZero(node, equalList);
 		checkCompareToNodeResultIsPositiveOne(node, lesserList);
@@ -308,7 +307,6 @@ public class TestComponentNodes {
 		equalList.remove(exponential);
 		equalList.add(negation);
 		// the are greater than all but themself and parenthesis.
-		lesserList.add(exponential);
 		checkCompareToNodeResultIsNegativeOne(node, greaterList);
 		checkCompareToNodeResultIsZero(node, equalList);
 		checkCompareToNodeResultIsPositiveOne(node, lesserList);

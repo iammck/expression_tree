@@ -8,11 +8,10 @@ public class Exponential extends BinaryOperator{
 	}
 	
 	public int precedenceComparedTo(Symbol otherSymbol){
-		if (otherSymbol instanceof Exponential){
-			return 0;
-		} else if ( (otherSymbol instanceof Parenthesis)
+		if ( (otherSymbol instanceof Parenthesis)
 			|| (otherSymbol instanceof Negation)){
 			return -1;
+		// this exponential has precedence over anything else.
 		} else {
 			return 1;
 		}

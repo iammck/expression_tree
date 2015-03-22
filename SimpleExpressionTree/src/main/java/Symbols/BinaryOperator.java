@@ -59,6 +59,7 @@ public abstract class BinaryOperator extends Operator {
 			// if this has less or equal 
 			// precedence over last symbol, interprete.
 			if (precedenceComparedTo(lastInterpretable) < 1){
+				// if we are able to interprete
 				if (lastInterpretable.interpret(interpretedList)){
 					// remove it from pendingList.
 					pendingList.remove(lastInterpretable);
@@ -87,8 +88,8 @@ public abstract class BinaryOperator extends Operator {
 			// get last Evaluatable using an index.
 			int index = pendingList.size() - 1;
 			Evaluatable lastEvaluatable = pendingList.get(index);
-			// if this has less or equal 
-			// precedence over last, evaluate.
+			// if this has less or equal
+			// precedence over last, evaluate the last.
 			if (precedenceComparedTo(lastEvaluatable) < 1){
 				if (lastEvaluatable.evaluate(evaluatedList)){
 					// remove it from pendingList.

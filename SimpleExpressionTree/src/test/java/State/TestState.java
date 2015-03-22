@@ -124,7 +124,7 @@ public class TestState{
 		try{
 			state.setExpression(context, arg);
 			fail("State should have thrown ill arg eception "
-				+ "from set tree order method call.");
+				+ "from set tree order method call. given arg: " + arg);
 		} catch (ExpressionTreeException e) {
 			return;
 		}

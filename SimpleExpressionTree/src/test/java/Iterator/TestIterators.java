@@ -32,7 +32,6 @@ public class TestIterators {
 			             "4+5*7*4*5+7*8*12+4");		
 		assertInOrderIteratorResult("2","2");
 		assertInOrderIteratorResult("-2","-2");
-
 	}
 	
 	@Test

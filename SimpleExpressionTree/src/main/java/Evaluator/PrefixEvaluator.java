@@ -30,6 +30,9 @@ public class PrefixEvaluator extends Evaluator {
 				} else if (node instanceof
 					DivisionCompositeBinaryNode){
 					result = new Division();
+				}else if (node instanceof
+					ExponentialCompositeBinaryNode){
+					result = new Exponential();
 				}
 			}
 			if( result == null)
@@ -39,6 +42,13 @@ public class PrefixEvaluator extends Evaluator {
 		}
 		Collections.reverse(pendingList);
 		for(Evaluatable evaluatable: pendingList){
+			// if the evaluatable is a BinaryOperator and two already evaluated.
+			if (evaluatable instanceof BinaryOperator 
+						&& evaluatedList.size() >= 2){
+			int secondToLast = evaluatedList.size() - 2;
+				Evaluatable temp = evaluatedList.remove(secondToLast);
+				evaluatedList.add(temp);
+			}
 			evaluatable.evaluate(evaluatedList);
 		}
 		

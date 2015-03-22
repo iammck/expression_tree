@@ -9,18 +9,15 @@ public class ExponentialCompositeBinaryNode extends CompositeBinaryNode {
 	}
 	
 	public int compareToNode(ComponentNode node){
-		// equal to other Multiplication or Division nodes.
-		if ((node instanceof ExponentialCompositeBinaryNode)){
-			return 0;
 		// less than negaition and parenthesis
-		} else if ((node instanceof NegationCompositeUnaryNode)){
+		if ((node instanceof NegationCompositeUnaryNode)){
 			return -1;
 		} else if ((node instanceof LeftParenthesisLeafNode)){
 			return -1;
 		} else if ((node instanceof RightParenthesisLeafNode)){
 			return -1;
 		}
-		// Is greater than all other nodes.
+		// Is greater than all other nodes including other expo.
 		return 1;
 	}
 
